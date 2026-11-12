@@ -2,7 +2,7 @@
   <a href="https://github.com/reachneoagent-commits">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="docs/brand/flowapps-logo-white.svg">
-      <img alt="FlowApps" src="docs/brand/flowapps-logo.svg" width="200">
+      <img alt="FlowApps" src="docs/brand/flowapps-logo.svg" width="32">
     </picture>
   </a>
 </p>
