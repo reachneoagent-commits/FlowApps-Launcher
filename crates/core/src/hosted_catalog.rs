@@ -257,7 +257,7 @@ pub fn valid_icon(bytes: &[u8], digest: &str) -> bool {
 fn valid_record(r: &Record) -> bool {
     if !identifier(&r.id)
         || r.id.as_bytes().first().is_none_or(|c| !c.is_ascii_lowercase())
-        || r.id == "artcraft-launcher"
+        || r.id == "flowapps-launcher"
         || r.name.is_empty()
         || r.name.len() > 128
         || r.name.chars().any(char::is_control)

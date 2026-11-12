@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89.34 62.63">
+  <defs>
+    <style>
+      .cls-1 {
+        font-family: Inter-Medium, Inter;
+        font-size: 22px;
+        font-variation-settings: 'opsz' 14, 'wght' 500;
+        font-weight: 500;
+      }
+
+      .cls-1, .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        letter-spacing: -.02em;
+      }
+
+      .cls-4 {
+        letter-spacing: 0em;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g id="logo_h" data-name="logo h">
+      <text class="cls-1" transform="translate(0 55.54)"><tspan x="0" y="0">Fl</tspan><tspan class="cls-3" x="18.51" y="0">o</tspan><tspan class="cls-4" x="31.43" y="0">w</tspan><tspan x="49.65" y="0">app</tspan></text>
+      <g>
+        <path class="cls-2" d="M61.12,25.34c-4.71-1.56-6.28-3.13-7.83-7.83-.13-.39-.68-.39-.8,0-1.56,4.71-3.13,6.28-7.83,7.83-.39.13-.39.68,0,.8,4.71,1.56,6.28,3.13,7.83,7.83.13.39.68.39.8,0,1.56-4.71,3.13-6.28,7.83-7.83.39-.13.39-.68,0-.8Z"/>
+        <path class="cls-2" d="M54.3,0c-2.71,0-5.31,1.1-7.2,3.05l-17.71,18.24c-1.11,1.14-1.74,2.67-1.74,4.27v8.62h10.42c1.12,0,2.03-.91,2.03-2.03v-14.04c0-3.65,2.97-6.6,6.61-6.58l18.66.08c.53,0,1.05-.2,1.43-.58L78.29,0h-23.99Z"/>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# Build and package ArtCraft Launcher for FreeBSD:
+# Build and package FlowApps for FreeBSD:
 #
-#   $DIST/artcraft-launcher-<version>-freebsd-x86_64.tar.gz   a /usr/local-style tree:
-#       artcraft-launcher-<version>-freebsd-x86_64/{bin, share/applications, share/icons,
-#       share/metainfo, share/doc/artcraft-launcher}
+#   $DIST/flowapps-launcher-<version>-freebsd-x86_64.tar.gz   a /usr/local-style tree:
+#       flowapps-launcher-<version>-freebsd-x86_64/{bin, share/applications, share/icons,
+#       share/metainfo, share/doc/flowapps-launcher}
 #
 # Install by copying the tree's contents into /usr/local:
-#   tar -xzf artcraft-launcher-<version>-freebsd-x86_64.tar.gz --strip-components 1 -C /usr/local
+#   tar -xzf flowapps-launcher-<version>-freebsd-x86_64.tar.gz --strip-components 1 -C /usr/local
 #
 # Usage: packaging/freebsd/package.sh [--skip-build] [--dry-run]
 #   --dry-run   stage the tree from a stub binary and list it, without building (works on any OS)
@@ -16,8 +16,8 @@ set -euo pipefail
 # shellcheck source=../env.sh
 . "$(dirname "${BASH_SOURCE[0]}")/../env.sh"
 LINUX="$ROOT/packaging/linux"
-APP_ID=ai.storyteller.artcraft-launcher
-PKG=artcraft-launcher
+APP_ID=ai.reachneo.flowapps
+PKG=flowapps-launcher
 
 SKIP_BUILD=0
 DRY_RUN=0
@@ -53,7 +53,7 @@ if [[ "$DRY_RUN" = 0 ]] && [[ "$(uname -s)" != FreeBSD ]]; then
 fi
 BASENAME="$PKG-$VERSION-freebsd-$ARCH"
 
-echo "==> ArtCraft Launcher $VERSION for FreeBSD $ARCH"
+echo "==> FlowApps $VERSION for FreeBSD $ARCH"
 
 export CARGO_BUILD_JOBS="${CARGO_BUILD_JOBS:-4}"
 if [[ "$SKIP_BUILD" = 0 ]]; then

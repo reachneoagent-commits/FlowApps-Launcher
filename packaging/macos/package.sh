@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Build, sign and (optionally) notarize the macOS release artifact:
 #
-#   $DIST/artcraft-launcher-<version>-macos-<arch>.dmg   ArtCraft Launcher.app on a drag-to-Applications DMG
+#   $DIST/flowapps-launcher-<version>-macos-<arch>.dmg   FlowApps.app on a drag-to-Applications DMG
 #
 # Usage: packaging/macos/package.sh [--arch universal|aarch64|x86_64] [--skip-build]
 #
@@ -17,8 +17,8 @@ set -euo pipefail
 HERE="$ROOT/packaging/macos"
 
 # ---- app-specific values ----------------------------------------------------------------------
-PKG=artcraft-launcher          # cargo package and binary
-APP_NAME="ArtCraft Launcher"   # display name: bundle, executable, icon, DMG volume
+PKG=flowapps-launcher          # cargo package and binary
+APP_NAME="FlowApps"   # display name: bundle, executable, icon, DMG volume
 
 ARCH=universal
 SKIP_BUILD=0
@@ -112,7 +112,7 @@ stapler_retry() {
   exit 1
 }
 
-# ---- ArtCraft Launcher.app ---------------------------------------------------------------------
+# ---- FlowApps.app ---------------------------------------------------------------------
 echo "==> assembling $APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 # Executable and icon carry the display name (CFBundleExecutable / CFBundleIconFile).

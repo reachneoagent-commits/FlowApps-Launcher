@@ -149,24 +149,20 @@ const fn app(
 // The bundled suite, in website display order, then the approved community apps.
 include!(concat!(env!("OUT_DIR"), "/catalog.rs"));
 
-/// The Apple Developer team that signs every official Craft App and ArtCraft Launcher (Learning
+/// The Apple Developer team that signs every official Craft App and FlowApps (Learning
 /// Machines LLC): the macOS side of the Windows publisher check.
 pub const ARTCRAFT_TEAM_ID: &str = "DJ6XS33FX8";
 
 /// ArtCraft's website.
-pub const WEBSITE_URL: &str = "https://getartcraft.com";
-/// The GitHub account every official Craft App's repository lives under. The release feed can
+pub const WEBSITE_URL: &str = "https://github.com/reachneoagent-commits";
+/// The GitHub account every FlowApps repository lives under. The release feed can
 /// only move an app within it; a community app installs from its own repo, pinned in [`SUITE`].
-pub const GITHUB_OWNER: &str = "storytold";
-/// ArtCraft on GitHub: every Craft App's source.
-pub const GITHUB_URL: &str = "https://github.com/storytold";
-/// ArtCraft's social accounts: (service, URL). Shown as small icons, less prominent than Discord.
-pub const SOCIAL: [(&str, &str); 5] = [
-    ("X", "https://x.com/get_artcraft"),
-    ("Instagram", "https://www.instagram.com/officialartcraftstudios"),
-    ("LinkedIn", "https://www.linkedin.com/company/artcraft-ai"),
-    ("YouTube", "https://www.youtube.com/@OfficialArtcraftStudios"),
-    ("TikTok", "https://www.tiktok.com/@artcraft.studios"),
+pub const GITHUB_OWNER: &str = "reachneoagent-commits";
+/// FlowApps on GitHub: every app's source.
+pub const GITHUB_URL: &str = "https://github.com/reachneoagent-commits";
+/// FlowApps's social accounts: (service, URL). Shown as small icons.
+pub const SOCIAL: [(&str, &str); 1] = [
+    ("GitHub", "https://github.com/reachneoagent-commits"),
 ];
 
 /// The ArtCraft community on Discord.
@@ -174,21 +170,21 @@ pub const DISCORD_URL: &str = "https://discord.gg/artcraft";
 /// Deep link into the Discord application for the ArtCraft server invite.
 pub const DISCORD_APP_URL: &str = "discord://-/invite/artcraft";
 
-/// ArtCraft Launcher itself, described like a Craft App so it can update itself with the same
-/// machinery (asset names `artcraft-launcher-<ver>-…`, bundle id `ai.storyteller.artcraft-launcher`,
-/// `ArtCraft Launcher.app`). Not part of [`SUITE`].
+/// FlowApps itself, described like a Craft App so it can update itself with the same
+/// machinery (asset names `flowapps-launcher-<ver>-…`, bundle id `ai.reachneo.flowapps`,
+/// `FlowApps.app`). Not part of [`SUITE`].
 pub const LAUNCHER: CraftApp = app(
-    "artcraft-launcher",
-    "ArtCraft Launcher",
-    "Installs and updates the Craft App Suite",
-    [[0x0b, 0x0b, 0x0c], [0x0b, 0x0b, 0x0c], [0xf2, 0xf1, 0xee]],
-    "storytold/craft-launcher",
+    "flowapps-launcher",
+    "FlowApps",
+    "Installs and updates your apps",
+    [[0x0b, 0x0b, 0x0c], [0x0b, 0x0b, 0x0c], [0xf0, 0xee, 0xea]],
+    "reachneoagent-commits/Flow-launcher",
 );
 
 /// The launcher's own repo, checked so it can say when a newer launcher is out.
-pub const LAUNCHER_REPO: &str = "storytold/craft-launcher";
+pub const LAUNCHER_REPO: &str = "reachneoagent-commits/Flow-launcher";
 /// The launcher's own asset stem.
-pub const LAUNCHER_ID: &str = "artcraft-launcher";
+pub const LAUNCHER_ID: &str = "flowapps-launcher";
 
 /// A Craft App's 128 px icon (PNG), as copied from its repo into `assets/app-icons`: the UI
 /// draws it, and the Linux install puts it in the desktop menu.
@@ -217,6 +213,9 @@ pub fn app_icon_png(id: &str) -> Option<&'static [u8]> {
         "cadcraft" => include_bytes!("../../../assets/app-icons/cadcraft.png"),
         "soundcraft" => include_bytes!("../../../assets/app-icons/soundcraft.png"),
         "figcraft" => include_bytes!("../../../assets/app-icons/figcraft.png"),
+        "flowgram" => include_bytes!("../../../assets/app-icons/flowgram.png"),
+        "voxflow" => include_bytes!("../../../assets/app-icons/voxflow.png"),
+        "mailflow" => include_bytes!("../../../assets/app-icons/mailflow.png"),
         _ => return None,
     })
 }
@@ -236,8 +235,8 @@ mod tests {
 
     /// Every catalog entry must have a distinct lookup key.
     #[test]
-    fn suite_has_nineteen_apps_with_unique_ids() {
-        assert_eq!(SUITE.len(), 19);
+    fn suite_has_three_apps_with_unique_ids() {
+        assert_eq!(SUITE.len(), 3);
         let mut ids: Vec<_> = SUITE.iter().map(|a| a.id).collect();
         ids.sort_unstable();
         ids.dedup();

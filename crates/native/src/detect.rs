@@ -10,7 +10,7 @@
 
 use std::path::{Path, PathBuf};
 
-use artcraft_launcher_core::{CraftApp, InstallSource, Installed, version};
+use flowapps_launcher_core::{CraftApp, InstallSource, Installed, version};
 
 use crate::manifest::Manifest;
 
@@ -59,7 +59,7 @@ fn from_manifest(app: &CraftApp, manifest: &Manifest) -> Option<Installed> {
     }
     // On macOS the bundle itself is the truth (the app may have updated itself).
     #[cfg(target_os = "macos")]
-    if rec.kind == artcraft_launcher_core::PackageKind::Dmg {
+    if rec.kind == flowapps_launcher_core::PackageKind::Dmg {
         return macos::read_bundle(app, &rec.path);
     }
     Some(Installed {
@@ -87,8 +87,8 @@ pub(crate) fn appimage_version(name: &str, stems: &[&str]) -> Option<Option<Stri
     if stems.iter().any(|s| base.eq_ignore_ascii_case(s)) {
         return Some(None);
     }
-    let parsed = artcraft_launcher_core::platform::parse_asset_name(&format!("{base}.AppImage"), stems)?;
-    (parsed.kind == artcraft_launcher_core::PackageKind::AppImage && parsed.token.starts_with("linux-")).then_some(Some(parsed.version))
+    let parsed = flowapps_launcher_core::platform::parse_asset_name(&format!("{base}.AppImage"), stems)?;
+    (parsed.kind == flowapps_launcher_core::PackageKind::AppImage && parsed.token.starts_with("linux-")).then_some(Some(parsed.version))
 }
 
 /// Who our Windows Installer packages name as their publisher. A community app's names its own
@@ -118,7 +118,7 @@ fn exe_candidates(app: &CraftApp, location: Option<&Path>, program_files: &[Path
 /// installs to `ArtCraft\Launcher`, the apps to `ArtCraft\<App>`.
 #[cfg_attr(not(windows), allow(dead_code))]
 fn suite_folders(app: &CraftApp, roots: &[PathBuf]) -> Vec<PathBuf> {
-    if app.id != artcraft_launcher_core::catalog::LAUNCHER_ID {
+    if app.id != flowapps_launcher_core::catalog::LAUNCHER_ID {
         return Vec::new();
     }
     roots.iter().map(|root| root.join("ArtCraft").join("Launcher")).collect()
@@ -129,7 +129,7 @@ fn suite_folders(app: &CraftApp, roots: &[PathBuf]) -> Vec<PathBuf> {
 #[cfg_attr(not(windows), allow(dead_code))]
 fn install_dir_keys(app: &CraftApp) -> Vec<String> {
     let mut keys = vec![format!(r"SOFTWARE\{}", app.name)];
-    if app.id == artcraft_launcher_core::catalog::LAUNCHER_ID {
+    if app.id == flowapps_launcher_core::catalog::LAUNCHER_ID {
         keys.push(format!(r"SOFTWARE\{PUBLISHER}\{}", app.name));
     }
     keys
@@ -241,7 +241,7 @@ pub mod windows {
 
     /// Reads the ProductVersion string from a program's VERSIONINFO, in the first language that
     /// has one, without running the program or any other process.
-    pub fn executable_version(path: &std::path::Path) -> Option<artcraft_launcher_core::version::Version> {
+    pub fn executable_version(path: &std::path::Path) -> Option<flowapps_launcher_core::version::Version> {
         let path = dunce::canonicalize(path).ok()?;
         let info = winsafe::HVERSIONINFO::GetFileVersionInfo(path.to_str()?).ok()?;
         let listed = info.langs_and_cps().map(<[_]>::to_vec).unwrap_or_default();
@@ -261,7 +261,7 @@ pub mod windows {
     /// An MSI install found in the registry.
     pub struct MsiInstall {
         pub product_code: String,
-        pub version: Option<artcraft_launcher_core::version::Version>,
+        pub version: Option<flowapps_launcher_core::version::Version>,
         pub exe: Option<PathBuf>,
         /// The context of the uninstall record that named it: the machine's records are per-machine,
         /// the current account's own are per-user.
@@ -465,7 +465,7 @@ pub mod linux {
     /// pacman, Flatpak). Read once per detection pass.
     pub fn packages() -> Vec<Package> {
         let ours = |name: &str| {
-            artcraft_launcher_core::hosted_catalog::apps().iter().any(|a| {
+            flowapps_launcher_core::hosted_catalog::apps().iter().any(|a| {
                 [InstallSource::Deb, InstallSource::Rpm, InstallSource::Pacman, InstallSource::Flatpak]
                     .iter()
                     .any(|m| crate::packages::candidate_names(a, *m).iter().any(|n| n == name))
@@ -512,7 +512,7 @@ pub mod linux {
                 }
                 // Bundles built from a release tarball often list no version: ask Flatpak directly.
                 for (id, version, _, installation) in flatpaks.iter_mut().filter(|(id, v, _, _)| {
-                    v.is_empty() && artcraft_launcher_core::hosted_catalog::apps().iter().any(|a| a.bundle_ids().any(|b| b == *id))
+                    v.is_empty() && flowapps_launcher_core::hosted_catalog::apps().iter().any(|a| a.bundle_ids().any(|b| b == *id))
                 }) {
                     let scope_arg = packages::flatpak_scope(if scope.is_empty() { installation.as_deref() } else { Some("user") });
                     let info_args = ["info", &scope_arg, &arch, id];
@@ -753,7 +753,7 @@ mod linux_tests {
     #[test]
     fn ours_filter_matches_rpm_packages() {
         let ours = |name: &str| {
-            artcraft_launcher_core::hosted_catalog::apps().iter().any(|a| {
+            flowapps_launcher_core::hosted_catalog::apps().iter().any(|a| {
                 [InstallSource::Deb, InstallSource::Rpm, InstallSource::Pacman, InstallSource::Flatpak]
                     .iter()
                     .any(|m| crate::packages::candidate_names(a, *m).iter().any(|n| n == name))
@@ -819,7 +819,7 @@ mod linux_tests {
 
 #[cfg(test)]
 mod tests {
-    use artcraft_launcher_core::SUITE;
+    use flowapps_launcher_core::SUITE;
 
     use super::*;
 
@@ -1157,10 +1157,10 @@ mod tests {
     }
 
     #[test]
-    fn the_launcher_msi_installs_to_artcraft_launcher_and_the_apps_do_not() {
+    fn the_launcher_msi_installs_to_flowapps_launcher_and_the_apps_do_not() {
         let roots = roots();
         let want: Vec<PathBuf> = roots.iter().map(|root| root.join("ArtCraft").join("Launcher")).collect();
-        assert_eq!(suite_folders(&artcraft_launcher_core::catalog::LAUNCHER, &roots), want);
+        assert_eq!(suite_folders(&flowapps_launcher_core::catalog::LAUNCHER, &roots), want);
         let photo = CraftApp::by_id("photocraft").unwrap();
         assert!(suite_folders(photo, &roots).is_empty());
     }
@@ -1168,8 +1168,8 @@ mod tests {
     #[test]
     fn the_launcher_records_its_folder_under_the_publisher_key() {
         assert_eq!(
-            install_dir_keys(&artcraft_launcher_core::catalog::LAUNCHER),
-            [r"SOFTWARE\ArtCraft Launcher".to_string(), format!(r"SOFTWARE\{LEARNING_MACHINES}\ArtCraft Launcher")]
+            install_dir_keys(&flowapps_launcher_core::catalog::LAUNCHER),
+            [r"SOFTWARE\FlowApps".to_string(), format!(r"SOFTWARE\{LEARNING_MACHINES}\FlowApps")]
         );
         let photo = CraftApp::by_id("photocraft").unwrap();
         assert_eq!(install_dir_keys(photo), [r"SOFTWARE\PhotoCraft".to_string()]);

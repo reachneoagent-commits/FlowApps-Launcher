@@ -1,10 +1,10 @@
 //! What the UI knows about each app.
 
-use artcraft_launcher_core::platform::{Platform, pick_asset};
-use artcraft_launcher_core::protocol::{JobPhase, LatestRelease, PausedDownload};
-use artcraft_launcher_core::release::Release;
-use artcraft_launcher_core::status::{self, AppStatus, Latest};
-use artcraft_launcher_core::{CraftApp, Installed};
+use flowapps_launcher_core::platform::{Platform, pick_asset};
+use flowapps_launcher_core::protocol::{JobPhase, LatestRelease, PausedDownload};
+use flowapps_launcher_core::release::Release;
+use flowapps_launcher_core::status::{self, AppStatus, Latest};
+use flowapps_launcher_core::{CraftApp, Installed};
 
 use crate::i18n::t;
 
@@ -17,13 +17,13 @@ pub struct AppEntry {
     pub detected: bool,
     pub job: Option<JobPhase>,
     /// The service `latest` came from.
-    pub origin: Option<artcraft_launcher_core::protocol::Origin>,
+    pub origin: Option<flowapps_launcher_core::protocol::Origin>,
     /// A download waiting to be resumed.
     pub paused: Option<PausedDownload>,
     /// A finished download waiting for another try at installing it.
     pub ready: bool,
     /// The backend's word on whether an install of the latest release over the installed copy
-    /// would go ahead ([`Event::Installable`](artcraft_launcher_core::protocol::Event::Installable));
+    /// would go ahead ([`Event::Installable`](flowapps_launcher_core::protocol::Event::Installable));
     /// `None` where it gives none (the web build), and then [`Self::has_download`] decides. Only
     /// read while a copy is installed.
     pub installable: Option<bool>,
@@ -66,7 +66,7 @@ impl AppEntry {
     pub fn newer_out_of_reach(&self, platform: Option<Platform>) -> Option<String> {
         let installed = self.installed.as_ref().filter(|i| !i.externally_managed)?;
         let newer =
-            self.release()?.version.as_ref().zip(installed.version.as_ref()).is_some_and(|(l, i)| artcraft_launcher_core::version::is_update(l, i));
+            self.release()?.version.as_ref().zip(installed.version.as_ref()).is_some_and(|(l, i)| flowapps_launcher_core::version::is_update(l, i));
         (newer && !self.installs_here(platform)).then(|| self.latest_label()).flatten()
     }
 

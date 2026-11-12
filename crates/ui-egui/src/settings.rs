@@ -2,7 +2,7 @@
 
 use std::collections::BTreeMap;
 
-use artcraft_launcher_core::PackageKind;
+use flowapps_launcher_core::PackageKind;
 use serde::{Deserialize, Serialize};
 
 use crate::i18n::t;
@@ -87,7 +87,7 @@ impl CheckEvery {
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(default)]
 pub struct Settings {
-    pub install_locations: artcraft_launcher_core::protocol::InstallLocations,
+    pub install_locations: flowapps_launcher_core::protocol::InstallLocations,
     pub view: ViewMode,
     pub filter: Filter,
     pub sort: SortKey,
@@ -113,8 +113,8 @@ pub struct Settings {
     pub notify: bool,
     pub prereleases: bool,
     /// Version track per app. Missing entries follow stable releases.
-    pub versions: BTreeMap<String, artcraft_launcher_core::protocol::VersionTrack>,
-    pub launcher_version: artcraft_launcher_core::protocol::VersionTrack,
+    pub versions: BTreeMap<String, flowapps_launcher_core::protocol::VersionTrack>,
+    pub launcher_version: flowapps_launcher_core::protocol::VersionTrack,
     /// Linux: the package format to prefer for new installs (empty: the system's own).
     pub preferred_kinds: Vec<PackageKind>,
     /// Announcements and alerts from the release feed the user dismissed (by notice id).
@@ -134,7 +134,7 @@ pub struct Settings {
     /// Catalog ids pinned to the top of the grid/table, in the order the user chose.
     pub pinned: Vec<String>,
     /// Extra command-line flags each app is opened with (catalog id → the text as typed, split
-    /// by [`args::split`](artcraft_launcher_core::args::split) at launch).
+    /// by [`args::split`](flowapps_launcher_core::args::split) at launch).
     pub launch_flags: BTreeMap<String, String>,
 }
 

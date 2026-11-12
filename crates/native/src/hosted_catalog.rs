@@ -4,7 +4,7 @@ use std::io::Read;
 use std::path::Path;
 use std::sync::Once;
 
-use artcraft_launcher_core::hosted_catalog::{
+use flowapps_launcher_core::hosted_catalog::{
     CATALOG_URL, MAX_CATALOG_BYTES, MAX_ICON_BYTES, MAX_SIGNATURE_BYTES, SIGNATURE_URL, VerifiedCatalog, valid_icon,
 };
 use serde::{Deserialize, Serialize};
@@ -54,7 +54,7 @@ pub fn load_once(http: Option<&Http>, paths: &Paths) {
             let mut icons = HashMap::new();
             let mut network_available = true;
             for (id, url, digest) in catalog.icons() {
-                if artcraft_launcher_core::catalog::app_icon_png(id).is_some_and(|b| valid_icon(b, digest)) {
+                if flowapps_launcher_core::catalog::app_icon_png(id).is_some_and(|b| valid_icon(b, digest)) {
                     continue;
                 }
                 let saved = cache.with_file_name(format!("catalog-icon-{digest}.png"));
@@ -120,8 +120,8 @@ mod tests {
         let icons: Vec<_> = verified.icons().collect();
         assert!(!icons.is_empty());
         for (id, _, digest) in icons {
-            assert!(artcraft_launcher_core::hosted_catalog::apps().iter().any(|app| app.id == id));
-            let icon = artcraft_launcher_core::catalog::app_icon_png(id).unwrap();
+            assert!(flowapps_launcher_core::hosted_catalog::apps().iter().any(|app| app.id == id));
+            let icon = flowapps_launcher_core::catalog::app_icon_png(id).unwrap();
             assert!(valid_icon(icon, digest), "invalid live icon for {id}");
         }
     }

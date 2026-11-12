@@ -1,9 +1,9 @@
 //! Published-release selector. A choice changes the release used by future checks, not a running install.
-use artcraft_launcher_core::catalog::{CraftApp, LAUNCHER, LAUNCHER_ID};
-use artcraft_launcher_core::platform::pick_asset;
-use artcraft_launcher_core::protocol::VersionTrack;
-use artcraft_launcher_core::release::{Asset, Release, choose_version, is_nightly};
-use artcraft_launcher_core::{Os, version};
+use flowapps_launcher_core::catalog::{CraftApp, LAUNCHER, LAUNCHER_ID};
+use flowapps_launcher_core::platform::pick_asset;
+use flowapps_launcher_core::protocol::VersionTrack;
+use flowapps_launcher_core::release::{Asset, Release, choose_version, is_nightly};
+use flowapps_launcher_core::{Os, version};
 use egui::{RichText, Ui};
 
 use crate::app::LauncherUi;
@@ -168,7 +168,7 @@ impl LauncherUi {
     /// have). The button can't explain on click, so its hover does.
     pub(crate) fn version_refusal(&self, entry: &crate::model::AppEntry, tag: &str) -> Option<String> {
         (entry.installed.is_some() && self.version_installs(entry, tag) == Some(false))
-            .then(|| crate::fmt(tl!("ArtCraft Launcher can't install version {version} over this copy."), &[("version", tag)]))
+            .then(|| crate::fmt(tl!("FlowApps can't install version {version} over this copy."), &[("version", tag)]))
     }
 
     pub(crate) fn version_combo(&mut self, ui: &mut Ui, id: &str, app: &CraftApp, width: f32, label: egui::Id) -> bool {

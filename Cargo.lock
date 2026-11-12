@@ -271,106 +271,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d3fb67a6e08acf24fdeccbac2cb6ac4305825bd1f117462e0e6f2f193345ad56"
 
 [[package]]
-name = "artcraft-launcher"
-version = "0.19.2"
-dependencies = [
- "artcraft-launcher-core",
- "artcraft-launcher-native",
- "artcraft-launcher-ui-egui",
- "craft-quit",
- "eframe",
- "egui",
- "env_logger",
- "image",
- "log",
- "notify-rust",
- "objc2 0.6.5",
- "objc2-app-kit 0.3.2",
- "objc2-foundation 0.3.2",
- "rfd",
- "ron",
- "serde",
- "tray-icon",
- "winreg",
- "winresource",
- "zbus",
-]
-
-[[package]]
-name = "artcraft-launcher-core"
-version = "0.19.2"
-dependencies = [
- "base64 0.22.1",
- "ed25519-dalek",
- "jiff",
- "semver",
- "serde",
- "serde_json",
- "sha2",
- "toml 1.1.8+spec-1.1.0",
-]
-
-[[package]]
-name = "artcraft-launcher-native"
-version = "0.19.2"
-dependencies = [
- "artcraft-launcher-core",
- "craft-update",
- "dirs 6.0.0",
- "dunce",
- "flate2",
- "getrandom 0.3.4",
- "log",
- "plist",
- "serde",
- "serde_json",
- "sha2",
- "tar",
- "tempfile",
- "ureq",
- "verifysign",
- "winreg",
- "winsafe",
- "zip",
-]
-
-[[package]]
-name = "artcraft-launcher-ui-egui"
-version = "0.19.2"
-dependencies = [
- "artcraft-launcher-core",
- "craft-ui",
- "egui",
- "egui_extras",
- "egui_kittest",
- "image",
- "jiff",
- "js-sys",
- "log",
- "serde",
- "serde_json",
- "skrifa",
- "sys-locale",
- "wasm-bindgen",
-]
-
-[[package]]
-name = "artcraft-launcher-web"
-version = "0.19.2"
-dependencies = [
- "artcraft-launcher-core",
- "artcraft-launcher-ui-egui",
- "eframe",
- "egui",
- "js-sys",
- "log",
- "serde_json",
- "wasm-bindgen",
- "wasm-bindgen-futures",
- "web-sys",
-]
-
-[[package]]
 name = "as-raw-xcb-connection"
 version = "1.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1784,6 +1684,106 @@ name = "float-cmp"
 version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "98de4bbd547a563b716d8dfa9aad1cb19bfab00f4fa09a6a4ed21dbcf44ce9c4"
+
+[[package]]
+name = "flowapps-launcher"
+version = "0.19.2"
+dependencies = [
+ "craft-quit",
+ "eframe",
+ "egui",
+ "env_logger",
+ "flowapps-launcher-core",
+ "flowapps-launcher-native",
+ "flowapps-launcher-ui-egui",
+ "image",
+ "log",
+ "notify-rust",
+ "objc2 0.6.5",
+ "objc2-app-kit 0.3.2",
+ "objc2-foundation 0.3.2",
+ "rfd",
+ "ron",
+ "serde",
+ "tray-icon",
+ "winreg",
+ "winresource",
+ "zbus",
+]
+
+[[package]]
+name = "flowapps-launcher-core"
+version = "0.19.2"
+dependencies = [
+ "base64 0.22.1",
+ "ed25519-dalek",
+ "jiff",
+ "semver",
+ "serde",
+ "serde_json",
+ "sha2",
+ "toml 1.1.8+spec-1.1.0",
+]
+
+[[package]]
+name = "flowapps-launcher-native"
+version = "0.19.2"
+dependencies = [
+ "craft-update",
+ "dirs 6.0.0",
+ "dunce",
+ "flate2",
+ "flowapps-launcher-core",
+ "getrandom 0.3.4",
+ "log",
+ "plist",
+ "serde",
+ "serde_json",
+ "sha2",
+ "tar",
+ "tempfile",
+ "ureq",
+ "verifysign",
+ "winreg",
+ "winsafe",
+ "zip",
+]
+
+[[package]]
+name = "flowapps-launcher-ui-egui"
+version = "0.19.2"
+dependencies = [
+ "craft-ui",
+ "egui",
+ "egui_extras",
+ "egui_kittest",
+ "flowapps-launcher-core",
+ "image",
+ "jiff",
+ "js-sys",
+ "log",
+ "serde",
+ "serde_json",
+ "skrifa",
+ "sys-locale",
+ "wasm-bindgen",
+]
+
+[[package]]
+name = "flowapps-launcher-web"
+version = "0.19.2"
+dependencies = [
+ "eframe",
+ "egui",
+ "flowapps-launcher-core",
+ "flowapps-launcher-ui-egui",
+ "js-sys",
+ "log",
+ "serde_json",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+ "web-sys",
+]
 
 [[package]]
 name = "foldhash"

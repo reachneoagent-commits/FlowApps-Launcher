@@ -10,7 +10,7 @@
 use std::collections::BTreeMap;
 use std::path::Path;
 
-use artcraft_launcher_core::protocol::VersionTrack;
+use flowapps_launcher_core::protocol::VersionTrack;
 use craft_update::pins::{Pins, VersionTrack as SharedTrack};
 
 fn shared(track: &VersionTrack) -> SharedTrack {

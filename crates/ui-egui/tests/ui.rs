@@ -7,15 +7,15 @@ use std::cell::{Cell, RefCell};
 use std::rc::Rc;
 use std::sync::OnceLock;
 
-use artcraft_launcher_core::details::AppDetails;
-use artcraft_launcher_core::protocol::{
+use flowapps_launcher_core::details::AppDetails;
+use flowapps_launcher_core::protocol::{
     Backend, CANCELLED, Capabilities, Command, Event, INSTALL_CANCELLED, JobPhase, LatestRelease, Origin, PausedDownload, Source,
 };
-use artcraft_launcher_core::release::{Asset, Release};
-use artcraft_launcher_core::status::InstallSource;
-use artcraft_launcher_core::{Arch, Installed, Os, Platform, SUITE, version};
-use artcraft_launcher_ui_egui::settings::ViewMode;
-use artcraft_launcher_ui_egui::{Host, LauncherUi, Settings};
+use flowapps_launcher_core::release::{Asset, Release};
+use flowapps_launcher_core::status::InstallSource;
+use flowapps_launcher_core::{Arch, Installed, Os, Platform, SUITE, version};
+use flowapps_launcher_ui_egui::settings::ViewMode;
+use flowapps_launcher_ui_egui::{Host, LauncherUi, Settings};
 use egui_kittest::Harness;
 use egui_kittest::kittest::{NodeT, Queryable};
 
@@ -55,7 +55,7 @@ struct Fake {
     pictures: Rc<Cell<Pictures>>,
     /// Apps whose pictures were asked for and not answered yet.
     asked: Vec<String>,
-    downloads: std::collections::BTreeMap<String, (artcraft_launcher_core::PackageKind, u64)>,
+    downloads: std::collections::BTreeMap<String, (flowapps_launcher_core::PackageKind, u64)>,
     clock: Rc<Cell<i64>>,
 }
 
@@ -69,11 +69,11 @@ impl Backend for Fake {
     fn poll(&mut self) -> Vec<Event> {
         for event in &self.events {
             if let Event::Latest { app, latest: LatestRelease::Found(release), .. } = event
-                && let Some(def) = artcraft_launcher_core::CraftApp::by_id(app)
+                && let Some(def) = flowapps_launcher_core::CraftApp::by_id(app)
             {
                 let platform = self.platform().unwrap();
                 let stems: Vec<_> = def.stems().collect();
-                if let Some((asset, kind)) = artcraft_launcher_core::platform::pick_asset(release, &stems, platform, platform.default_kinds()) {
+                if let Some((asset, kind)) = flowapps_launcher_core::platform::pick_asset(release, &stems, platform, platform.default_kinds()) {
                     self.downloads.insert(app.clone(), (kind, asset.size));
                 }
             }
@@ -103,7 +103,7 @@ impl Backend for Fake {
     fn now(&self) -> i64 {
         self.clock.get()
     }
-    fn download_size(&self, app: &str) -> Option<(artcraft_launcher_core::PackageKind, u64)> {
+    fn download_size(&self, app: &str) -> Option<(flowapps_launcher_core::PackageKind, u64)> {
         self.downloads.get(app).copied()
     }
 }
@@ -137,9 +137,9 @@ impl Host for NoHost {}
 /// never paints a synthetic cursor into saved images.
 fn test_harness_builder<State>(theme: egui::Theme) -> egui_kittest::HarnessBuilder<State> {
     let choice = if theme == egui::Theme::Dark {
-        artcraft_launcher_ui_egui::theme::ThemeChoice::Dark
+        flowapps_launcher_ui_egui::theme::ThemeChoice::Dark
     } else {
-        artcraft_launcher_ui_egui::theme::ThemeChoice::Light
+        flowapps_launcher_ui_egui::theme::ThemeChoice::Light
     };
     egui_kittest::HarnessBuilder::default()
         // 0.37 defaults: strict accessible names and a panic on a missing glyph. Neither is
@@ -148,9 +148,9 @@ fn test_harness_builder<State>(theme: egui::Theme) -> egui_kittest::HarnessBuild
         .with_accessibility_check(true)
         .with_render_cursor(false)
         .with_context_setup(move |ctx| {
-            artcraft_launcher_ui_egui::theme::install_fonts(ctx, None);
+            flowapps_launcher_ui_egui::theme::install_fonts(ctx, None);
             egui_extras::install_image_loaders(ctx);
-            artcraft_launcher_ui_egui::theme::apply(ctx, choice);
+            flowapps_launcher_ui_egui::theme::apply(ctx, choice);
         })
 }
 
@@ -233,7 +233,7 @@ fn harness_with(
     manage: bool,
     scale: f32,
 ) -> (Harness<'static, Option<LauncherUi>>, Rc<RefCell<Vec<Command>>>) {
-    harness_full(events, view, theme, manage, scale, artcraft_launcher_ui_egui::TitleBar::Native, Rc::default(), None, None)
+    harness_full(events, view, theme, manage, scale, flowapps_launcher_ui_egui::TitleBar::Native, Rc::default(), None, None)
 }
 
 /// Like `harness_with`, with the details pictures answered as `pictures` says (changeable during the test).
@@ -245,7 +245,7 @@ fn harness_pictures(
     scale: f32,
     pictures: Rc<Cell<Pictures>>,
 ) -> (Harness<'static, Option<LauncherUi>>, Rc<RefCell<Vec<Command>>>) {
-    harness_full(events, view, theme, manage, scale, artcraft_launcher_ui_egui::TitleBar::Native, pictures, None, None)
+    harness_full(events, view, theme, manage, scale, flowapps_launcher_ui_egui::TitleBar::Native, pictures, None, None)
 }
 
 fn harness_with_title_bar(
@@ -254,7 +254,7 @@ fn harness_with_title_bar(
     theme: egui::Theme,
     manage: bool,
     scale: f32,
-    bar: artcraft_launcher_ui_egui::TitleBar,
+    bar: flowapps_launcher_ui_egui::TitleBar,
 ) -> (Harness<'static, Option<LauncherUi>>, Rc<RefCell<Vec<Command>>>) {
     harness_full(events, view, theme, manage, scale, bar, Rc::default(), None, None)
 }
@@ -266,7 +266,7 @@ fn harness_with_discord(discord_url: Option<&'static str>) -> (Harness<'static, 
         egui::Theme::Dark,
         true,
         1.0,
-        artcraft_launcher_ui_egui::TitleBar::Native,
+        flowapps_launcher_ui_egui::TitleBar::Native,
         Rc::default(),
         None,
         discord_url,
@@ -283,23 +283,23 @@ fn harness_full(
     theme: egui::Theme,
     manage: bool,
     scale: f32,
-    bar: artcraft_launcher_ui_egui::TitleBar,
+    bar: flowapps_launcher_ui_egui::TitleBar,
     pictures: Rc<Cell<Pictures>>,
     platform: Option<Platform>,
     discord_url: Option<&'static str>,
 ) -> (Harness<'static, Option<LauncherUi>>, Rc<RefCell<Vec<Command>>>) {
-    struct HeaderHost(artcraft_launcher_ui_egui::TitleBar, Option<&'static str>);
+    struct HeaderHost(flowapps_launcher_ui_egui::TitleBar, Option<&'static str>);
     impl Host for HeaderHost {
-        fn title_bar(&self) -> artcraft_launcher_ui_egui::TitleBar {
+        fn title_bar(&self) -> flowapps_launcher_ui_egui::TitleBar {
             self.0
         }
         fn discord_url(&self) -> &'static str {
-            self.1.unwrap_or(artcraft_launcher_core::catalog::DISCORD_URL)
+            self.1.unwrap_or(flowapps_launcher_core::catalog::DISCORD_URL)
         }
     }
     // Integration tests compile without cfg!(test), so system_lang() picks up the
     // developer's locale. Force English so labels match the assertions.
-    artcraft_launcher_ui_egui::i18n::set_test_lang(artcraft_launcher_ui_egui::i18n::Lang::EN);
+    flowapps_launcher_ui_egui::i18n::set_test_lang(flowapps_launcher_ui_egui::i18n::Lang::EN);
     let sent = Rc::new(RefCell::new(Vec::new()));
     let sent2 = sent.clone();
     let fake = Fake { events, sent: sent2, manage, pictures, asked: Vec::new(), downloads: Default::default(), clock: Rc::new(Cell::new(NOW)) };
@@ -317,9 +317,9 @@ fn harness_full(
             {
                 let mut s = settings.clone();
                 s.theme = if theme == egui::Theme::Dark {
-                    artcraft_launcher_ui_egui::theme::ThemeChoice::Dark
+                    flowapps_launcher_ui_egui::theme::ThemeChoice::Dark
                 } else {
-                    artcraft_launcher_ui_egui::theme::ThemeChoice::Light
+                    flowapps_launcher_ui_egui::theme::ThemeChoice::Light
                 };
                 *state = Some(LauncherUi::new(ui.ctx(), b, s));
             }
@@ -355,7 +355,7 @@ fn folder_harness(picked: Rc<RefCell<Option<String>>>) -> (Harness<'static, Opti
             self.0.borrow_mut().take()
         }
     }
-    artcraft_launcher_ui_egui::i18n::set_test_lang(artcraft_launcher_ui_egui::i18n::Lang::EN);
+    flowapps_launcher_ui_egui::i18n::set_test_lang(flowapps_launcher_ui_egui::i18n::Lang::EN);
     let sent = Rc::new(RefCell::new(Vec::new()));
     let mut backend = Some(Fake {
         events: vec![
@@ -409,7 +409,7 @@ fn app_and_launcher_offer_version_choices_without_starting_an_install() {
     h.get_by_label("Latest release");
     h.get_by_label("Nightly (none published yet)");
     assert!(h.query_by_label("Launcher versions").is_none(), "version selection belongs in Settings, not another dialog");
-    assert!(sent.borrow().iter().any(|c| matches!(c, Command::ListVersions { app } if app == artcraft_launcher_core::catalog::LAUNCHER_ID)));
+    assert!(sent.borrow().iter().any(|c| matches!(c, Command::ListVersions { app } if app == flowapps_launcher_core::catalog::LAUNCHER_ID)));
 }
 
 #[test]
@@ -417,13 +417,13 @@ fn version_choices_have_room_and_nightly_scrolls_with_the_versions() {
     let releases: Vec<_> = (1..=25)
         .rev()
         .map(|v| {
-            let mut r = release("artcraft-launcher", &format!("0.{v}.0"), NOW);
+            let mut r = release("flowapps-launcher", &format!("0.{v}.0"), NOW);
             r.assets[0].sha256 = Some("0".repeat(64));
             r
         })
         .collect();
     let mut ev = events();
-    ev.push(Event::Versions { app: artcraft_launcher_core::catalog::LAUNCHER_ID.into(), result: Ok(releases) });
+    ev.push(Event::Versions { app: flowapps_launcher_core::catalog::LAUNCHER_ID.into(), result: Ok(releases) });
     let (mut h, _) = harness_with(ev, ViewMode::Grid, egui::Theme::Dark, true, 1.0);
     h.set_size(egui::vec2(1180.0, 1100.0));
     h.run_steps(6);
@@ -458,7 +458,7 @@ struct VersionsFake {
     sent: Rc<RefCell<Vec<Command>>>,
     answer: Vec<Release>,
     platform: Platform,
-    launcher_kind: Option<artcraft_launcher_core::PackageKind>,
+    launcher_kind: Option<flowapps_launcher_core::PackageKind>,
 }
 
 impl Backend for VersionsFake {
@@ -471,7 +471,7 @@ impl Backend for VersionsFake {
     fn poll(&mut self) -> Vec<Event> {
         std::mem::take(&mut *self.events.borrow_mut())
     }
-    fn launcher_kind(&self) -> Option<artcraft_launcher_core::PackageKind> {
+    fn launcher_kind(&self) -> Option<flowapps_launcher_core::PackageKind> {
         self.launcher_kind
     }
     fn capabilities(&self) -> Capabilities {
@@ -498,11 +498,11 @@ type VersionsHarness = (Harness<'static, Option<LauncherUi>>, Rc<RefCell<Vec<Com
 struct Machine {
     platform: Platform,
     theme: egui::Theme,
-    preferred: Vec<artcraft_launcher_core::PackageKind>,
+    preferred: Vec<flowapps_launcher_core::PackageKind>,
     /// Events after the suite's (such as how PhotoCraft is installed).
     more: Vec<Event>,
     /// What the backend says the running launcher was installed as.
-    launcher_kind: Option<artcraft_launcher_core::PackageKind>,
+    launcher_kind: Option<flowapps_launcher_core::PackageKind>,
 }
 
 impl Default for Machine {
@@ -700,7 +700,7 @@ fn version_rows_show_the_release_date_and_download_size() {
         // The selected row sits on the accent, where the muted grey can't be read: its date and
         // size take the row's own text colour there.
         let style = h.ctx.global_style();
-        let (accent, muted) = (style.visuals.selection.bg_fill, artcraft_launcher_ui_egui::theme::Tokens::get(&h.ctx).muted);
+        let (accent, muted) = (style.visuals.selection.bg_fill, flowapps_launcher_ui_egui::theme::Tokens::get(&h.ctx).muted);
         assert_eq!(on_accent, style.visuals.selection.stroke.color, "{theme:?}: the selected row's text colour");
         assert!(contrast(on_accent, accent) > contrast(muted, accent) + 1.0, "{theme:?}: {on_accent:?} on {accent:?}");
         // Other rows keep the muted colour.
@@ -754,7 +754,7 @@ fn photocraft_not_installed() -> Event {
 /// then the preferred one, so a portable copy shows the ZIP even where the MSI is preferred.
 #[test]
 fn a_version_row_sizes_the_package_this_install_would_use() {
-    use artcraft_launcher_core::PackageKind::{Msi, PortableZip};
+    use flowapps_launcher_core::PackageKind::{Msi, PortableZip};
     let windows = Platform { os: Os::Windows, arch: Arch::X64 };
     let cases = [
         (Some(InstallSource::Launcher), vec![Msi], "90 MB", "the launcher's portable copy updates from the ZIP"),
@@ -807,10 +807,10 @@ fn a_freebsd_version_row_sizes_the_tarball() {
 /// The launcher's own list in Settings sizes the launcher's download for this machine.
 #[test]
 fn the_launcher_version_list_sizes_the_launchers_download() {
-    let mut r = release("artcraft-launcher", "0.9.0", NOW);
+    let mut r = release("flowapps-launcher", "0.9.0", NOW);
     r.assets[0].sha256 = Some("0".repeat(64));
     let mut ev = events();
-    ev.push(Event::Versions { app: artcraft_launcher_core::catalog::LAUNCHER_ID.into(), result: Ok(vec![r]) });
+    ev.push(Event::Versions { app: flowapps_launcher_core::catalog::LAUNCHER_ID.into(), result: Ok(vec![r]) });
     let (mut h, _) = harness_with(ev, ViewMode::Grid, egui::Theme::Dark, true, 1.0);
     h.run_steps(6);
     h.get_by_label("Settings").click();
@@ -826,11 +826,11 @@ fn the_launcher_version_list_sizes_the_launchers_download() {
 /// the manual download stands in, but not on Linux, where any format could be running.
 #[test]
 fn the_launcher_version_list_sizes_what_its_self_update_downloads() {
-    use artcraft_launcher_core::PackageKind::{AppImage, PortableZip};
+    use flowapps_launcher_core::PackageKind::{AppImage, PortableZip};
     let windows = Platform { os: Os::Windows, arch: Arch::X64 };
     let linux = Platform { os: Os::Linux, arch: Arch::X64 };
-    let on_windows = release_with("artcraft-launcher", "0.9.0", &[("windows-x64.msi", 120), ("windows-x64-portable.zip", 90)]);
-    let on_linux = release_with("artcraft-launcher", "0.9.0", &[("linux-x86_64.AppImage", 150), ("linux-x86_64.deb", 100)]);
+    let on_windows = release_with("flowapps-launcher", "0.9.0", &[("windows-x64.msi", 120), ("windows-x64-portable.zip", 90)]);
+    let on_linux = release_with("flowapps-launcher", "0.9.0", &[("linux-x86_64.AppImage", 150), ("linux-x86_64.deb", 100)]);
     let cases = [
         (windows, Some(PortableZip), &on_windows, Some("90 MB"), "a portable launcher updates from the ZIP"),
         (windows, None, &on_windows, Some("120 MB"), "not known yet: the manual download, the MSI"),
@@ -968,11 +968,11 @@ fn the_install_folder_fields_default_to_the_hosts_answer() {
             *self.initial.borrow_mut() = Some(initial.map(str::to_string));
             self.picked.borrow_mut().take()
         }
-        fn default_install_folder(&mut self, _kind: artcraft_launcher_core::PackageKind, _arch: Option<Arch>) -> Option<String> {
+        fn default_install_folder(&mut self, _kind: flowapps_launcher_core::PackageKind, _arch: Option<Arch>) -> Option<String> {
             Some("/Applications".into())
         }
     }
-    artcraft_launcher_ui_egui::i18n::set_test_lang(artcraft_launcher_ui_egui::i18n::Lang::EN);
+    flowapps_launcher_ui_egui::i18n::set_test_lang(flowapps_launcher_ui_egui::i18n::Lang::EN);
     let sent = Rc::new(RefCell::new(Vec::new()));
     let mut backend = Some(Fake {
         downloads: Default::default(),
@@ -1044,7 +1044,7 @@ impl Host for PackageHost {
         *self.initial.borrow_mut() = Some(initial.map(str::to_string));
         None
     }
-    fn default_install_folder(&mut self, kind: artcraft_launcher_core::PackageKind, arch: Option<Arch>) -> Option<String> {
+    fn default_install_folder(&mut self, kind: flowapps_launcher_core::PackageKind, arch: Option<Arch>) -> Option<String> {
         Some(format!("{kind:?} {:?}", arch?))
     }
 }
@@ -1053,9 +1053,9 @@ impl Host for PackageHost {
 /// Returns the harness and what Browse was last opened at.
 fn windows_package_harness(
     apps: &[(&str, &[&str])],
-    preferred: Vec<artcraft_launcher_core::PackageKind>,
+    preferred: Vec<flowapps_launcher_core::PackageKind>,
 ) -> (Harness<'static, Option<LauncherUi>>, BrowsedFrom) {
-    artcraft_launcher_ui_egui::i18n::set_test_lang(artcraft_launcher_ui_egui::i18n::Lang::EN);
+    flowapps_launcher_ui_egui::i18n::set_test_lang(flowapps_launcher_ui_egui::i18n::Lang::EN);
     let mut events = Vec::new();
     for (id, assets) in apps {
         let mut latest = release(id, "0.6.0", NOW);
@@ -1097,7 +1097,7 @@ fn windows_package_harness(
 #[test]
 fn the_install_folder_default_follows_the_package_the_backend_falls_back_to() {
     let (mut h, initial) =
-        windows_package_harness(&[("photocraft", &["photocraft-0.6.0-windows-x86.msi"])], vec![artcraft_launcher_core::PackageKind::PortableZip]);
+        windows_package_harness(&[("photocraft", &["photocraft-0.6.0-windows-x86.msi"])], vec![flowapps_launcher_core::PackageKind::PortableZip]);
     h.run_steps(8);
     h.get_by_label("Install").scroll_to_me();
     h.run_steps(3);
@@ -1139,7 +1139,7 @@ fn windows_package_choice_can_select_portable_and_configures_the_backend() {
         egui::Theme::Light,
         true,
         1.0,
-        artcraft_launcher_ui_egui::TitleBar::Native,
+        flowapps_launcher_ui_egui::TitleBar::Native,
         Rc::default(),
         Some(Platform { os: Os::Windows, arch: Arch::X64 }),
         None,
@@ -1151,11 +1151,11 @@ fn windows_package_choice_can_select_portable_and_configures_the_backend() {
     h.run_steps(2);
     h.get_by_label("Portable (.zip)").click();
     h.run_steps(3);
-    assert_eq!(h.state().as_ref().unwrap().settings.preferred_kinds, [artcraft_launcher_core::PackageKind::PortableZip]);
+    assert_eq!(h.state().as_ref().unwrap().settings.preferred_kinds, [flowapps_launcher_core::PackageKind::PortableZip]);
     assert!(
         sent.borrow()
             .iter()
-            .any(|command| matches!(command, Command::Configure(options) if options.kinds == [artcraft_launcher_core::PackageKind::PortableZip]))
+            .any(|command| matches!(command, Command::Configure(options) if options.kinds == [flowapps_launcher_core::PackageKind::PortableZip]))
     );
 }
 
@@ -1170,7 +1170,7 @@ fn a_narrow_settings_row_keeps_its_control_clear_of_its_label() {
         egui::Theme::Light,
         true,
         1.0,
-        artcraft_launcher_ui_egui::TitleBar::Native,
+        flowapps_launcher_ui_egui::TitleBar::Native,
         Rc::default(),
         Some(Platform { os: Os::Windows, arch: Arch::X64 }),
         None,
@@ -1468,7 +1468,7 @@ fn the_backends_installability_answer_decides_an_update() {
 }
 
 /// The tooltip on the note beside a copy behind a release it can't take.
-const OUT_OF_REACH_TIP: &str = "0.5.0 is out, but ArtCraft Launcher can't install it over this copy.";
+const OUT_OF_REACH_TIP: &str = "0.5.0 is out, but FlowApps can't install it over this copy.";
 
 #[test]
 /// The note beside a copy behind a release it can't take shows in the table too.
@@ -1521,7 +1521,7 @@ fn a_kept_version_gets_no_out_of_reach_note_and_says_why_it_cant_install() {
         .expect("the harness built the launcher")
         .settings
         .versions
-        .insert("photocraft".into(), artcraft_launcher_core::protocol::VersionTrack::Pinned("v0.5.0".into()));
+        .insert("photocraft".into(), flowapps_launcher_core::protocol::VersionTrack::Pinned("v0.5.0".into()));
     h.run_steps(4);
     assert!(h.query_by_label_contains("latest 0.5.0").is_none(), "no note while a version is kept");
     let install = h.get_by_label("Install version v0.5.0");
@@ -1615,7 +1615,7 @@ fn the_details_drawer_splits_a_waiting_update_too() {
 /// A toast created by logic while no window ran is shown once on the first drawing pass and
 /// expires relative to that pass.
 fn a_job_finished_while_hidden_shows_one_fresh_toast_on_the_next_frame() {
-    artcraft_launcher_ui_egui::i18n::set_test_lang(artcraft_launcher_ui_egui::i18n::Lang::EN);
+    flowapps_launcher_ui_egui::i18n::set_test_lang(flowapps_launcher_ui_egui::i18n::Lang::EN);
     let sent = Rc::new(RefCell::new(Vec::new()));
     let backend = Fake {
         downloads: Default::default(),
@@ -1773,7 +1773,7 @@ fn downloads_can_be_paused_resumed_and_discarded() {
     h.run_steps(4);
     // Bring the paused and reconnecting apps on screen.
     if let Some(l) = h.state_mut().as_mut() {
-        l.settings.filter = artcraft_launcher_ui_egui::settings::Filter::NotInstalled;
+        l.settings.filter = flowapps_launcher_ui_egui::settings::Filter::NotInstalled;
     }
     h.run_steps(6);
     snapshot(&mut h, "grid-downloads-dark");
@@ -1799,7 +1799,7 @@ fn a_kept_download_offers_retry_install_and_download_again() {
     let (mut h, sent) = harness(ViewMode::Grid, egui::Theme::Dark, true);
     h.run_steps(4);
     if let Some(l) = h.state_mut().as_mut() {
-        l.settings.filter = artcraft_launcher_ui_egui::settings::Filter::NotInstalled;
+        l.settings.filter = flowapps_launcher_ui_egui::settings::Filter::NotInstalled;
     }
     h.run_steps(6);
     // Below the fold in the restyled grid: bring the card on screen first.
@@ -1919,8 +1919,8 @@ fn an_install_waiting_for_another_says_so_and_can_be_cancelled() {
 #[test]
 fn the_launcher_update_waiting_for_other_installs_can_be_cancelled() {
     let mut ev = events();
-    ev.push(Event::LauncherUpdate(release("artcraft-launcher", "0.2.0", NOW)));
-    ev.push(Event::Progress { app: "artcraft-launcher".into(), phase: JobPhase::Waiting });
+    ev.push(Event::LauncherUpdate(release("flowapps-launcher", "0.2.0", NOW)));
+    ev.push(Event::Progress { app: "flowapps-launcher".into(), phase: JobPhase::Waiting });
     let (mut h, sent) = harness_with(ev, ViewMode::Grid, egui::Theme::Dark, true, 1.0);
     h.run_steps(6);
     snapshot(&mut h, "grid-launcher-waiting-dark");
@@ -1928,15 +1928,15 @@ fn the_launcher_update_waiting_for_other_installs_can_be_cancelled() {
     sent.borrow_mut().clear();
     h.get_by_label("Cancel update").click();
     h.run_steps(2);
-    assert_eq!(*sent.borrow(), [Command::Cancel { app: "artcraft-launcher".into() }]);
+    assert_eq!(*sent.borrow(), [Command::Cancel { app: "flowapps-launcher".into() }]);
 }
 
 #[test]
 /// The launcher banner's Cancel crosses the action boundary once per visible frame.
 fn the_launcher_banner_cancel_is_sent_once_across_discarded_passes() {
     let mut ev = events();
-    ev.push(Event::LauncherUpdate(release("artcraft-launcher", "0.2.0", NOW)));
-    ev.push(Event::Progress { app: "artcraft-launcher".into(), phase: JobPhase::Waiting });
+    ev.push(Event::LauncherUpdate(release("flowapps-launcher", "0.2.0", NOW)));
+    ev.push(Event::Progress { app: "flowapps-launcher".into(), phase: JobPhase::Waiting });
     let (mut h, sent) = harness_with(ev, ViewMode::Grid, egui::Theme::Dark, true, 1.0);
     h.run_steps(6);
     let at = h.get_by_label("Cancel update").rect().center();
@@ -1957,9 +1957,9 @@ fn each_cancellation_says_what_it_called_off() {
     ev.push(Event::Progress { app: "lightcraft".into(), phase: JobPhase::Waiting });
     ev.push(finished("lightcraft", CANCELLED));
     // The launcher's own update, cancelled while it waited.
-    ev.push(Event::LauncherUpdate(release("artcraft-launcher", "0.2.0", NOW)));
-    ev.push(Event::Progress { app: "artcraft-launcher".into(), phase: JobPhase::Waiting });
-    ev.push(finished("artcraft-launcher", CANCELLED));
+    ev.push(Event::LauncherUpdate(release("flowapps-launcher", "0.2.0", NOW)));
+    ev.push(Event::Progress { app: "flowapps-launcher".into(), phase: JobPhase::Waiting });
+    ev.push(finished("flowapps-launcher", CANCELLED));
     // A download cancelled mid-way.
     ev.push(finished("filmcraft", CANCELLED));
     let (mut h, _) = harness_with(ev, ViewMode::Grid, egui::Theme::Dark, true, 1.0);
@@ -1988,7 +1988,7 @@ fn pinning_an_app_keeps_it_on_top_until_unpinned() {
     let (mut h, _) = harness(ViewMode::Table, egui::Theme::Dark, true);
     h.run_steps(6);
     // Name sort would put CADCraft before PhotoCraft; a pin must still win.
-    h.state_mut().as_mut().unwrap().settings.sort = artcraft_launcher_ui_egui::settings::SortKey::Name;
+    h.state_mut().as_mut().unwrap().settings.sort = flowapps_launcher_ui_egui::settings::SortKey::Name;
     h.state_mut().as_mut().unwrap().settings.sort_descending = false;
     h.run_steps(2);
     h.get_by_label("More actions for PhotoCraft").click();
@@ -2199,7 +2199,7 @@ fn hiding_an_app_removes_it_until_it_is_unhidden() {
     h.get_by_role_and_label(egui::accesskit::Role::Label, "PhotoCraft");
     assert!(h.query_by_label("Hidden Apps 1").is_none());
     assert!(h.state().as_ref().unwrap().settings.hidden.is_empty());
-    assert_eq!(h.state().as_ref().unwrap().settings.filter, artcraft_launcher_ui_egui::settings::Filter::All);
+    assert_eq!(h.state().as_ref().unwrap().settings.filter, flowapps_launcher_ui_egui::settings::Filter::All);
 }
 
 #[test]
@@ -2377,7 +2377,7 @@ fn the_first_close_to_the_tray_is_explained_once() {
     l.hidden_to_tray(&mut host);
     assert!(l.settings.tray_hint_shown);
     assert_eq!(host.0.len(), 1, "{:?}", host.0);
-    assert_eq!(host.0[0].0, "ArtCraft Launcher is still running");
+    assert_eq!(host.0[0].0, "FlowApps is still running");
     assert!(host.0[0].1.contains("tray icon"), "{}", host.0[0].1);
 }
 
@@ -2567,7 +2567,7 @@ fn hostile_release_asset_urls_never_reach_the_opener() {
     assert!(!opened.iter().any(|url| url.as_str() == HOSTILE), "a hostile card asset URL reached the opener: {opened:?}");
 
     let mut ev = events();
-    let mut launcher_release = release("artcraft-launcher", "0.2.0", NOW);
+    let mut launcher_release = release("flowapps-launcher", "0.2.0", NOW);
     launcher_release.assets[0].url = HOSTILE.to_string();
     ev.push(Event::LauncherUpdate(launcher_release));
     let (mut h, _) = harness_with(ev, ViewMode::Grid, egui::Theme::Dark, false, 1.0);
@@ -2579,7 +2579,7 @@ fn hostile_release_asset_urls_never_reach_the_opener() {
 
 #[test]
 fn discord_link_opens_app_when_discord_is_installed() {
-    let (mut h, _) = harness_with_discord(Some(artcraft_launcher_core::catalog::DISCORD_APP_URL));
+    let (mut h, _) = harness_with_discord(Some(flowapps_launcher_core::catalog::DISCORD_APP_URL));
     h.run_steps(6);
     assert_eq!(click_opens(&mut h, "Discord").as_deref(), Some("discord://-/invite/artcraft"));
 }
@@ -2635,7 +2635,7 @@ fn the_launcher_updates_itself_and_quits_to_restart() {
     }
     let sent = Rc::new(RefCell::new(Vec::new()));
     let mut events = events();
-    events.push(Event::LauncherUpdate(release("artcraft-launcher", "0.2.0", NOW)));
+    events.push(Event::LauncherUpdate(release("flowapps-launcher", "0.2.0", NOW)));
     let shared_events = Rc::new(RefCell::new(Vec::new()));
     struct Scripted {
         inner: Fake,
@@ -2689,9 +2689,9 @@ fn the_launcher_updates_itself_and_quits_to_restart() {
         None,
     );
     h.run_steps(6);
-    h.get_by_role_and_label(egui::accesskit::Role::Label, "ArtCraft Launcher 0.2.0 is available.");
+    h.get_by_role_and_label(egui::accesskit::Role::Label, "FlowApps 0.2.0 is available.");
     assert_eq!(
-        h.query_all_by_label_contains("ArtCraft Launcher 0.2.0 is available").count(),
+        h.query_all_by_label_contains("FlowApps 0.2.0 is available").count(),
         1,
         "the update title is announced once, not once by the icon and once by the heading"
     );
@@ -2701,7 +2701,7 @@ fn the_launcher_updates_itself_and_quits_to_restart() {
     // Downloading: the banner shows progress instead of the button.
     shared_events
         .borrow_mut()
-        .push(Event::Progress { app: "artcraft-launcher".into(), phase: JobPhase::Downloading { done: 5 << 20, total: 10 << 20 } });
+        .push(Event::Progress { app: "flowapps-launcher".into(), phase: JobPhase::Downloading { done: 5 << 20, total: 10 << 20 } });
     h.run_steps(3);
     assert!(h.query_by_label("Update and restart").is_none());
     assert!(!quit.get());
@@ -2716,13 +2716,13 @@ fn the_launcher_updates_itself_and_quits_to_restart() {
 /// toolbar banner.
 fn launcher_update_prompts_to_relaunch_with_updated_version() {
     let mut ev = events();
-    ev.push(Event::LauncherUpdate(release("artcraft-launcher", "0.2.0", NOW)));
+    ev.push(Event::LauncherUpdate(release("flowapps-launcher", "0.2.0", NOW)));
     let (mut h, _) = harness_with(ev, ViewMode::Grid, egui::Theme::Dark, true, 1.0);
     h.run_steps(6);
     // Dialog pops up on launch with the update prompt
-    h.get_by_role_and_label(egui::accesskit::Role::Label, "ArtCraft Launcher 0.2.0 is available.");
+    h.get_by_role_and_label(egui::accesskit::Role::Label, "FlowApps 0.2.0 is available.");
     assert_eq!(
-        h.query_all_by_label_contains("ArtCraft Launcher 0.2.0 is available").count(),
+        h.query_all_by_label_contains("FlowApps 0.2.0 is available").count(),
         1,
         "the update title is announced once, not once by the icon and once by the heading"
     );
@@ -2752,7 +2752,7 @@ fn the_current_desktop_setting_is_only_offered_where_the_os_has_desktops() {
 /// A feed alert is acknowledged only by OK (persisted), while an inline announcement stays until
 /// its own Dismiss is clicked.
 fn feed_announcements_and_alerts_show_until_dismissed() {
-    use artcraft_launcher_core::feed::Notice;
+    use flowapps_launcher_core::feed::Notice;
     let notice = |id: &str, title: &str, link: Option<&str>| Notice {
         id: id.into(),
         title: title.into(),
@@ -2808,7 +2808,7 @@ fn feed_announcements_and_alerts_show_until_dismissed() {
 
 #[test]
 fn automatic_checks_run_every_twelve_minutes() {
-    use artcraft_launcher_ui_egui::settings::CheckEvery;
+    use flowapps_launcher_ui_egui::settings::CheckEvery;
     assert_eq!(Settings::default().check_every.seconds(), Some(720));
     // Older saved choices still load, and mean "automatically" now.
     assert_eq!(CheckEvery::Day.seconds(), Some(720));
@@ -2820,7 +2820,7 @@ fn automatic_checks_run_every_twelve_minutes() {
 /// `UpdateLauncher`.
 fn automatic_updates_queue_installs_for_outdated_apps_and_launcher() {
     let mut ev = events();
-    ev.push(Event::LauncherUpdate(release("artcraft-launcher", "0.2.0", NOW)));
+    ev.push(Event::LauncherUpdate(release("flowapps-launcher", "0.2.0", NOW)));
     let sent = Rc::new(RefCell::new(Vec::new()));
     let sent2 = sent.clone();
     let mut backend = Some(Fake {
@@ -2981,7 +2981,7 @@ fn a_freebsd_system_binary_is_not_offered_an_update_it_would_refuse() {
 /// With auto-update off, no app install or launcher update is queued.
 fn automatic_updates_are_disabled_by_default() {
     let mut ev = events();
-    ev.push(Event::LauncherUpdate(release("artcraft-launcher", "0.2.0", NOW)));
+    ev.push(Event::LauncherUpdate(release("flowapps-launcher", "0.2.0", NOW)));
     let sent = Rc::new(RefCell::new(Vec::new()));
     let sent2 = sent.clone();
     let mut backend = Some(Fake {
@@ -3071,8 +3071,8 @@ fn web_build_offers_downloads() {
 fn custom_title_bar_has_window_buttons() {
     struct FramelessHost;
     impl Host for FramelessHost {
-        fn title_bar(&self) -> artcraft_launcher_ui_egui::TitleBar {
-            artcraft_launcher_ui_egui::TitleBar::Custom
+        fn title_bar(&self) -> flowapps_launcher_ui_egui::TitleBar {
+            flowapps_launcher_ui_egui::TitleBar::Custom
         }
     }
     let mut backend = Some(Fake {
@@ -3112,7 +3112,7 @@ fn custom_title_bar_has_window_buttons() {
 /// so it belongs to the close button, as it does with Windows' own caption buttons (#374).
 #[test]
 fn maximized_the_close_button_reaches_the_screens_corner() {
-    let (mut h, _) = harness_with_title_bar(events(), ViewMode::Grid, egui::Theme::Dark, true, 1.0, artcraft_launcher_ui_egui::TitleBar::Custom);
+    let (mut h, _) = harness_with_title_bar(events(), ViewMode::Grid, egui::Theme::Dark, true, 1.0, flowapps_launcher_ui_egui::TitleBar::Custom);
     h.run_steps(6);
     let set_maximized = |h: &mut Harness<'_, Option<LauncherUi>>, maximized: bool| {
         h.input_mut().viewports.entry(egui::ViewportId::ROOT).or_default().maximized = Some(maximized);
@@ -3155,11 +3155,11 @@ fn a_press_on_the_window_edge_only_resizes() {
     use egui::ViewportCommand as Asked;
     struct FramelessHost;
     impl Host for FramelessHost {
-        fn title_bar(&self) -> artcraft_launcher_ui_egui::TitleBar {
-            artcraft_launcher_ui_egui::TitleBar::Custom
+        fn title_bar(&self) -> flowapps_launcher_ui_egui::TitleBar {
+            flowapps_launcher_ui_egui::TitleBar::Custom
         }
     }
-    artcraft_launcher_ui_egui::i18n::set_test_lang(artcraft_launcher_ui_egui::i18n::Lang::EN);
+    flowapps_launcher_ui_egui::i18n::set_test_lang(flowapps_launcher_ui_egui::i18n::Lang::EN);
     let mut backend = Some(Fake {
         downloads: Default::default(),
         events: events(),
@@ -3465,7 +3465,7 @@ fn every_page_opens_and_pages_through_its_pictures() {
     // Tall enough to show all thirteen cards at once.
     h.set_size(egui::vec2(1180.0, 3000.0));
     h.run_steps(8);
-    for d in &artcraft_launcher_core::details::DETAILS {
+    for d in &flowapps_launcher_core::details::DETAILS {
         let name = SUITE.iter().find(|a| a.id == d.id).map(|a| a.name).unwrap_or(d.id);
         h.get_by_label(&format!("{name} details")).scroll_to_me();
         h.run_steps(3);
@@ -3613,7 +3613,7 @@ fn toolbar_keeps_navigation_refresh_search_and_view_on_one_unclipped_row() {
 
 #[test]
 fn the_toolbar_has_no_filter_dropdown() {
-    use artcraft_launcher_ui_egui::settings::Filter;
+    use flowapps_launcher_ui_egui::settings::Filter;
     let (mut h, _) = harness(ViewMode::Grid, egui::Theme::Dark, true);
     h.run_steps(6);
     for label in ["All 13", "Installed 4", "Updates 2", "Not installed 9"] {
@@ -3626,7 +3626,7 @@ fn the_toolbar_has_no_filter_dropdown() {
 
 #[test]
 fn saved_filters_are_migrated_on_ui_construction() {
-    use artcraft_launcher_ui_egui::settings::Filter;
+    use flowapps_launcher_ui_egui::settings::Filter;
 
     for (saved, expected) in [
         (r#"{"filter":"All"}"#, Filter::All),
@@ -3656,7 +3656,7 @@ fn saved_filters_are_migrated_on_ui_construction() {
 /// Checks that, at one window width, every header control stays inside the window and clear of
 /// the brand text, that a custom title bar's buttons are there and inside, and snapshots the
 /// three widths that matter visually.
-fn assert_header_at_width(h: &mut Harness<'_, Option<LauncherUi>>, bar: artcraft_launcher_ui_egui::TitleBar, theme: egui::Theme, width: f32) {
+fn assert_header_at_width(h: &mut Harness<'_, Option<LauncherUi>>, bar: flowapps_launcher_ui_egui::TitleBar, theme: egui::Theme, width: f32) {
     for label in ["Show apps as cards", "Show apps as a table", "Settings", "Check for updates"] {
         let rect = h.get_by_label(label).rect();
         assert!(rect.left() >= 0.0 && rect.right() <= width, "{bar:?} {width}: {label} {rect:?}");
@@ -3664,7 +3664,7 @@ fn assert_header_at_width(h: &mut Harness<'_, Option<LauncherUi>>, bar: artcraft
             assert!(!rect.intersects(text.rect()), "{bar:?} {width}: Craft App Suite overlaps {label} {rect:?}");
         }
     }
-    if bar == artcraft_launcher_ui_egui::TitleBar::Custom {
+    if bar == flowapps_launcher_ui_egui::TitleBar::Custom {
         for label in ["Minimize", "Maximize", "Close"] {
             let rect = h.get_by_label(label).rect();
             assert!(rect.left() >= 0.0 && rect.right() <= width, "{width}: {label} {rect:?}");
@@ -3681,7 +3681,7 @@ fn assert_header_at_width(h: &mut Harness<'_, Option<LauncherUi>>, bar: artcraft
 
 #[test]
 fn narrow_header_keeps_the_view_switch_clear_of_brand_text() {
-    use artcraft_launcher_ui_egui::TitleBar;
+    use flowapps_launcher_ui_egui::TitleBar;
     for theme in [egui::Theme::Dark, egui::Theme::Light] {
         for bar in [TitleBar::Native, TitleBar::MacOs, TitleBar::Custom] {
             let (mut h, _) = harness_with_title_bar(events(), ViewMode::Grid, theme, true, 1.0, bar);
@@ -3710,7 +3710,7 @@ impl Host for OsMotion {
 /// animations (`reduce`) or not. Nothing is downloading, so the window is still unless something
 /// animates.
 fn short_window(reduce: Rc<Cell<bool>>) -> Harness<'static, Option<LauncherUi>> {
-    artcraft_launcher_ui_egui::i18n::set_test_lang(artcraft_launcher_ui_egui::i18n::Lang::EN);
+    flowapps_launcher_ui_egui::i18n::set_test_lang(flowapps_launcher_ui_egui::i18n::Lang::EN);
     let events = events().into_iter().filter(|e| !matches!(e, Event::Progress { .. })).collect();
     let mut backend = Some(Fake {
         events,
@@ -3848,7 +3848,7 @@ fn selected_version_action_previews_its_checked_download_plan() {
             .unwrap()
             .settings
             .versions
-            .insert("photocraft".into(), artcraft_launcher_core::protocol::VersionTrack::Pinned("v0.5.0".into()));
+            .insert("photocraft".into(), flowapps_launcher_core::protocol::VersionTrack::Pinned("v0.5.0".into()));
         // Keep PhotoCraft's action visible in either view.
         h.get_by_role(egui::accesskit::Role::TextInput).click();
         h.get_by_role(egui::accesskit::Role::TextInput).type_text("PhotoCraft");
@@ -3906,7 +3906,7 @@ fn unknown_download_sizes_are_not_presented_as_one_kilobyte() {
 
 #[test]
 fn download_size_preview_uses_the_managed_plan_or_manual_platform_formats() {
-    use artcraft_launcher_core::PackageKind;
+    use flowapps_launcher_core::PackageKind;
     struct Windows(Fake, Option<(PackageKind, u64)>);
     impl Backend for Windows {
         fn send(&mut self, c: Command) {
@@ -3941,7 +3941,7 @@ fn download_size_preview_uses_the_managed_plan_or_manual_platform_formats() {
                 sha256: None,
             })
             .collect();
-        artcraft_launcher_ui_egui::i18n::set_test_lang(artcraft_launcher_ui_egui::i18n::Lang::EN);
+        flowapps_launcher_ui_egui::i18n::set_test_lang(flowapps_launcher_ui_egui::i18n::Lang::EN);
         let mut backend = Some(Windows(
             Fake {
                 events: vec![
@@ -4168,7 +4168,7 @@ fn long_notes_get_a_taller_card_when_zoomed() {
 
 #[test]
 fn command_m_minimizes_the_mac_window_only() {
-    use artcraft_launcher_ui_egui::TitleBar;
+    use flowapps_launcher_ui_egui::TitleBar;
     for bar in [TitleBar::MacOs, TitleBar::Native, TitleBar::Custom] {
         let (mut h, _) = harness_with_title_bar(events(), ViewMode::Grid, egui::Theme::Dark, true, 1.0, bar);
         h.run_steps(4);
@@ -4242,7 +4242,7 @@ fn a_not_installed_card_is_grey_until_the_pointer_is_over_it() {
 
 #[test]
 fn the_sort_offers_name_both_ways_recently_updated_and_frequently_used() {
-    use artcraft_launcher_ui_egui::settings::SortKey;
+    use flowapps_launcher_ui_egui::settings::SortKey;
     let (mut h, _) = harness(ViewMode::Grid, egui::Theme::Dark, true);
     h.run_steps(6);
     h.get_by_value("Name (A–Z)").click();
@@ -4263,7 +4263,7 @@ fn the_sort_offers_name_both_ways_recently_updated_and_frequently_used() {
 
 #[test]
 fn opening_an_app_counts_and_frequently_used_puts_the_most_opened_first() {
-    use artcraft_launcher_ui_egui::settings::SortKey;
+    use flowapps_launcher_ui_egui::settings::SortKey;
     let (mut h, sent) = harness(ViewMode::Grid, egui::Theme::Dark, true);
     h.run_steps(6);
     h.state_mut().as_mut().unwrap().settings.sort = SortKey::Frequent;
@@ -4283,7 +4283,7 @@ fn opening_an_app_counts_and_frequently_used_puts_the_most_opened_first() {
 
 #[test]
 fn an_apps_page_is_a_card_in_the_middle_with_next_and_previous_arrows_and_closes_from_outside() {
-    use artcraft_launcher_core::details::AppDetails;
+    use flowapps_launcher_core::details::AppDetails;
     let (mut h, _) = harness(ViewMode::Grid, egui::Theme::Dark, true);
     h.run_steps(6);
     let headline = |id: &str| AppDetails::by_id(id).unwrap().headline;
@@ -4323,7 +4323,7 @@ fn an_apps_page_is_a_card_in_the_middle_with_next_and_previous_arrows_and_closes
 /// A version pin is distinct from a favorite: the lock names the exact tag and requires confirmation.
 #[test]
 fn version_padlock_confirms_before_unlocking_in_grid_and_table() {
-    use artcraft_launcher_core::protocol::VersionTrack;
+    use flowapps_launcher_core::protocol::VersionTrack;
     let tip = "Version pinned to v0.4.1. Click to unlock.";
     for view in [ViewMode::Grid, ViewMode::Table] {
         let (mut h, sent) = harness(view, egui::Theme::Dark, true);
@@ -4363,7 +4363,7 @@ fn version_padlock_confirms_before_unlocking_in_grid_and_table() {
 
 #[test]
 fn a_version_padlock_does_not_unlock_a_choice_changed_after_confirmation_opened() {
-    use artcraft_launcher_core::protocol::VersionTrack;
+    use flowapps_launcher_core::protocol::VersionTrack;
     let (mut h, _) = harness(ViewMode::Grid, egui::Theme::Dark, true);
     h.run_steps(4);
     h.state_mut().as_mut().unwrap().settings.versions.insert("photocraft".into(), VersionTrack::Pinned("v0.4.1".into()));
@@ -4379,7 +4379,7 @@ fn a_version_padlock_does_not_unlock_a_choice_changed_after_confirmation_opened(
 
 #[test]
 fn favorite_and_nightly_choices_do_not_show_a_version_padlock() {
-    use artcraft_launcher_core::protocol::VersionTrack;
+    use flowapps_launcher_core::protocol::VersionTrack;
     let (mut h, _) = harness(ViewMode::Grid, egui::Theme::Dark, true);
     h.run_steps(4);
     h.state_mut().as_mut().unwrap().settings.pin_app("photocraft");
@@ -4392,7 +4392,7 @@ fn favorite_and_nightly_choices_do_not_show_a_version_padlock() {
 
 #[test]
 fn launcher_version_padlock_confirms_and_returns_to_settings() {
-    use artcraft_launcher_core::protocol::VersionTrack;
+    use flowapps_launcher_core::protocol::VersionTrack;
     let (mut h, sent) = harness(ViewMode::Grid, egui::Theme::Dark, true);
     h.run_steps(4);
     h.state_mut().as_mut().unwrap().settings.launcher_version = VersionTrack::Pinned("v0.19.0".into());

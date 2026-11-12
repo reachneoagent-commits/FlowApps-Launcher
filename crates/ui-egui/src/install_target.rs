@@ -8,9 +8,9 @@
 //! The UI cannot see a Linux machine's package managers, so there a fresh install answers nothing
 //! and the field keeps saying "System default".
 
-use artcraft_launcher_core::platform::{parse_asset_name, pick_asset};
-use artcraft_launcher_core::protocol::LatestRelease;
-use artcraft_launcher_core::{Arch, Asset, CraftApp, InstallSource, Installed, Os, PackageKind, Release};
+use flowapps_launcher_core::platform::{parse_asset_name, pick_asset};
+use flowapps_launcher_core::protocol::LatestRelease;
+use flowapps_launcher_core::{Arch, Asset, CraftApp, InstallSource, Installed, Os, PackageKind, Release};
 
 use crate::app::{Host, LauncherUi};
 use crate::model::AppEntry;
@@ -127,7 +127,7 @@ mod tests {
 
     #[test]
     fn a_fresh_install_tries_the_preferred_format_then_the_rest() {
-        let app = &artcraft_launcher_core::SUITE[0];
+        let app = &flowapps_launcher_core::SUITE[0];
         assert_eq!(fresh_kinds(app, Os::Windows, &[]), [PackageKind::Msi, PackageKind::PortableZip]);
         assert_eq!(fresh_kinds(app, Os::Windows, &[PackageKind::PortableZip]), [PackageKind::PortableZip, PackageKind::Msi]);
         // A preference this platform cannot install is skipped, as the backend does.
@@ -142,7 +142,7 @@ mod tests {
     #[test]
     fn an_update_keeps_the_installed_copys_format_as_the_backend_does() {
         use PackageKind::{Dmg, Msi, PortableZip};
-        let app = &artcraft_launcher_core::SUITE[0];
+        let app = &flowapps_launcher_core::SUITE[0];
         let kinds = |os, source: Option<InstallSource>, preferred: &[PackageKind]| install_kinds(app, os, source.map(installed).as_ref(), preferred);
         // The launcher's own copy on Windows is its portable ZIP, even with MSI preferred.
         assert_eq!(kinds(Os::Windows, Some(InstallSource::Launcher), &[Msi]), [PortableZip]);

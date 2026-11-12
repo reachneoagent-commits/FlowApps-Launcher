@@ -79,18 +79,18 @@ const fn hex(rgb: u32) -> Color32 {
 impl Tokens {
     pub const DARK: Self = Self {
         dark: true,
-        bg: hex(0x121316),
+        bg: hex(0x090909),
         sunken: hex(0x060607),
-        ink: hex(0xf2f1ee),
+        ink: hex(0xf0eeea),
         ink_strong: hex(0xffffff),
-        muted: ink_alpha(0xf2f1ee, 153),
-        faint: ink_alpha(0xf2f1ee, 97),
-        line: ink_alpha(0xf2f1ee, 38),
-        line_strong: ink_alpha(0xf2f1ee, 102),
-        accent: hex(0x2d81ff),
-        accent_ink: hex(0x74aaff),
+        muted: ink_alpha(0xf0eeea, 153),
+        faint: ink_alpha(0xf0eeea, 97),
+        line: ink_alpha(0xf0eeea, 38),
+        line_strong: ink_alpha(0xf0eeea, 102),
+        accent: hex(0xff5c00),
+        accent_ink: hex(0xff8a33),
         invert_bg: hex(0xffffff),
-        invert_fg: hex(0x0b0b0c),
+        invert_fg: hex(0x090909),
         // A green and LightCraft's amber from the site's app inks, so status colours come from its palette.
         good: hex(0x3fd6b8),
         warn: hex(0xffc14d),
@@ -125,7 +125,7 @@ impl Tokens {
     }
 
     /// An app's text colour (`--app-ink`): readable on this appearance's background.
-    pub fn app_ink(&self, app: &artcraft_launcher_core::CraftApp) -> Color32 {
+    pub fn app_ink(&self, app: &flowapps_launcher_core::CraftApp) -> Color32 {
         rgb(if self.dark { app.ink_dark } else { app.ink_light })
     }
 }

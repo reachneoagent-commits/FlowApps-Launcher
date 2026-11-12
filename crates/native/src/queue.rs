@@ -20,7 +20,7 @@ use std::sync::atomic::{AtomicUsize, Ordering};
 use std::time::Duration;
 use std::time::Instant;
 
-use artcraft_launcher_core::protocol::CANCELLED;
+use flowapps_launcher_core::protocol::CANCELLED;
 
 type Outcome = Result<(), String>;
 

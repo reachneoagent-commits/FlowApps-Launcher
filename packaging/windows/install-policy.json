@@ -1,14 +1,14 @@
 {
-  "id": "artcraft-launcher",
-  "name": "ArtCraft Launcher",
+  "id": "flowapps-launcher",
+  "name": "FlowApps",
   "mode": "perUser",
   "upgradeCode": "1AC08DBF-D4CF-4BA4-A81E-CAA5C1004974",
   "sources": [
-    "artcraft-launcher.wxs"
+    "flowapps-launcher.wxs"
   ],
-  "icon": "assets/app-icon/artcraft-launcher.ico",
+  "icon": "assets/app-icon/flowapps-launcher.ico",
   "localization": [
-    "artcraft-launcher.en-us.wxl"
+    "flowapps-launcher.en-us.wxl"
   ],
   "extensions": [
     "UI",
@@ -16,36 +16,36 @@
   ],
   "payloads": [
     "NOTICE",
-    "artcraft-launcher.exe"
+    "flowapps-launcher.exe"
   ],
   "registry": [
     [
       "1",
-      "Software\\Learning Machines LLC\\ArtCraft Launcher",
+      "Software\\Learning Machines LLC\\FlowApps",
       "InstallDir",
       "[INSTALLFOLDER]"
     ],
     [
       "1",
-      "Software\\Learning Machines LLC\\ArtCraft Launcher",
+      "Software\\Learning Machines LLC\\FlowApps",
       "DesktopShortcutChoice",
       "[DESKTOPSHORTCUTCHOICE]"
     ],
     [
       "1",
-      "Software\\Microsoft\\Windows\\CurrentVersion\\App Paths\\artcraft-launcher.exe",
+      "Software\\Microsoft\\Windows\\CurrentVersion\\App Paths\\flowapps-launcher.exe",
       "",
       "[#ArtCraftLauncherExe]"
     ],
     [
       "1",
-      "Software\\Learning Machines LLC\\ArtCraft Launcher",
+      "Software\\Learning Machines LLC\\FlowApps",
       "StartMenuShortcut",
       "#1"
     ],
     [
       "1",
-      "Software\\Learning Machines LLC\\ArtCraft Launcher",
+      "Software\\Learning Machines LLC\\FlowApps",
       "DesktopShortcut",
       "#1"
     ]

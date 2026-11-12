@@ -20,9 +20,9 @@ dbg_macro = "warn"
 todo = "warn"
 
 [workspace.dependencies]
-artcraft-launcher-core = { path = "crates/core" }
-artcraft-launcher-ui-egui = { path = "crates/ui-egui" }
-artcraft-launcher-native = { path = "crates/native" }
+flowapps-launcher-core = { path = "crates/core" }
+flowapps-launcher-ui-egui = { path = "crates/ui-egui" }
+flowapps-launcher-native = { path = "crates/native" }
 egui = { version = "0.37", features = ["monochrome_emoji_fonts"] }
 eframe = { version = "0.37", default-features = false }
 egui_extras = { version = "0.37", default-features = false }

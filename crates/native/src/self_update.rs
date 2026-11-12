@@ -1,14 +1,14 @@
-//! ArtCraft Launcher updating itself.
+//! FlowApps updating itself.
 //!
 //! Delegated to [`craft_update::self_update`].
 
 use std::ffi::OsString;
 
-use artcraft_launcher_core::PackageKind;
-use artcraft_launcher_core::platform::Platform;
-use artcraft_launcher_core::protocol::JobPhase;
-use artcraft_launcher_core::release::Release;
-use artcraft_launcher_core::version::Version;
+use flowapps_launcher_core::PackageKind;
+use flowapps_launcher_core::platform::Platform;
+use flowapps_launcher_core::protocol::JobPhase;
+use flowapps_launcher_core::release::Release;
+use flowapps_launcher_core::version::Version;
 
 use crate::http::{Http, Stop};
 use crate::paths::Paths;
@@ -51,16 +51,16 @@ fn to_update_release(release: &Release) -> craft_update::Release {
 fn to_update_platform(platform: Platform) -> craft_update::Platform {
     craft_update::Platform {
         os: match platform.os {
-            artcraft_launcher_core::Os::Windows => craft_update::Os::Windows,
-            artcraft_launcher_core::Os::MacOs => craft_update::Os::MacOs,
-            artcraft_launcher_core::Os::Linux => craft_update::Os::Linux,
-            artcraft_launcher_core::Os::FreeBsd => craft_update::Os::FreeBsd,
+            flowapps_launcher_core::Os::Windows => craft_update::Os::Windows,
+            flowapps_launcher_core::Os::MacOs => craft_update::Os::MacOs,
+            flowapps_launcher_core::Os::Linux => craft_update::Os::Linux,
+            flowapps_launcher_core::Os::FreeBsd => craft_update::Os::FreeBsd,
         },
         arch: match platform.arch {
-            artcraft_launcher_core::Arch::X64 => craft_update::Arch::X64,
-            artcraft_launcher_core::Arch::Arm64 => craft_update::Arch::Arm64,
-            artcraft_launcher_core::Arch::X86 => craft_update::Arch::X86,
-            artcraft_launcher_core::Arch::Riscv64 => craft_update::Arch::Riscv64,
+            flowapps_launcher_core::Arch::X64 => craft_update::Arch::X64,
+            flowapps_launcher_core::Arch::Arm64 => craft_update::Arch::Arm64,
+            flowapps_launcher_core::Arch::X86 => craft_update::Arch::X86,
+            flowapps_launcher_core::Arch::Riscv64 => craft_update::Arch::Riscv64,
         },
     }
 }

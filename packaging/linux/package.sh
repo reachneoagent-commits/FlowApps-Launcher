@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# Build and package ArtCraft Launcher for Linux (<arch> is x86_64, aarch64 or riscv64):
+# Build and package FlowApps for Linux (<arch> is x86_64, aarch64 or riscv64):
 #
-#   $DIST/artcraft-launcher-<version>-linux-<arch>.AppImage  any distro with glibc >= the build host's
-#   $DIST/artcraft-launcher-<version>-linux-<arch>.AppImage.zsync  delta updates (needs zsyncmake)
-#   $DIST/artcraft-launcher-<version>-linux-<arch>.deb       Debian, Ubuntu, Mint, Pop!_OS, ...
-#   $DIST/artcraft-launcher-<version>-linux-<arch>.rpm       Fedora, openSUSE, RHEL, ...
-#   $DIST/artcraft-launcher-<version>-linux-<arch>.tar.gz    plain FHS-style tree (bin/, share/)
+#   $DIST/flowapps-launcher-<version>-linux-<arch>.AppImage  any distro with glibc >= the build host's
+#   $DIST/flowapps-launcher-<version>-linux-<arch>.AppImage.zsync  delta updates (needs zsyncmake)
+#   $DIST/flowapps-launcher-<version>-linux-<arch>.deb       Debian, Ubuntu, Mint, Pop!_OS, ...
+#   $DIST/flowapps-launcher-<version>-linux-<arch>.rpm       Fedora, openSUSE, RHEL, ...
+#   $DIST/flowapps-launcher-<version>-linux-<arch>.tar.gz    plain FHS-style tree (bin/, share/)
 #
 # Usage: packaging/linux/package.sh [--skip-build] [--formats "appimage deb rpm tar" or appimage,deb,rpm,tar]
 #
@@ -22,8 +22,8 @@ set -euo pipefail
 # shellcheck source=../env.sh
 . "$(dirname "${BASH_SOURCE[0]}")/../env.sh"
 HERE="$ROOT/packaging/linux"
-APP_ID=ai.storyteller.artcraft-launcher
-PKG=artcraft-launcher
+APP_ID=ai.reachneo.flowapps
+PKG=flowapps-launcher
 # Verify a downloaded file's sha256 against its expected hex digest.
 check_sha256() {
   local expected="$1"
@@ -57,10 +57,10 @@ case "$ARCH" in
   aarch64 | arm64) ARCH=aarch64; DEB_ARCH=arm64 ;;
   *) echo "unsupported architecture $ARCH" >&2; exit 2 ;;
 esac
-export ARTCRAFT_LAUNCHER_MAINTAINER="${ARTCRAFT_LAUNCHER_MAINTAINER:-ArtCraft Launcher maintainers <craft-launcher@storyteller.ai>}"
+export ARTCRAFT_LAUNCHER_MAINTAINER="${ARTCRAFT_LAUNCHER_MAINTAINER:-FlowApps maintainers <craft-launcher@storyteller.ai>}"
 BASENAME="$PKG-$VERSION-linux-$ARCH"
 
-echo "==> ArtCraft Launcher $VERSION for Linux $ARCH ($FORMATS)"
+echo "==> FlowApps $VERSION for Linux $ARCH ($FORMATS)"
 
 if [[ "$SKIP_BUILD" = 0 ]]; then
   if [[ -n "${CROSS_TARGET:-}" ]]; then
@@ -185,7 +185,7 @@ if has appimage; then
   # file and fetch only the blocks that changed in a newer release, through the .zsync published
   # next to each AppImage on GitHub Releases. `latest` is the newest published release that is
   # not a pre-release. A fork's builds point at its own releases through GITHUB_REPOSITORY.
-  # The repo is craft-launcher while the files are artcraft-launcher-*.
+  # The repo is craft-launcher while the files are flowapps-launcher-*.
   REPO="${GITHUB_REPOSITORY:-storytold/craft-launcher}"
   UPDATE_INFO="gh-releases-zsync|${REPO%%/*}|${REPO#*/}|latest|$PKG-*-linux-$ARCH.AppImage.zsync"
   # Extract-and-run: works without FUSE (containers, CI). The output embeds the static runtime,

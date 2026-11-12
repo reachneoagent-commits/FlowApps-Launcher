@@ -2,12 +2,12 @@
 
 use std::time::Duration;
 
-use artcraft_launcher_core::protocol::{
+use flowapps_launcher_core::protocol::{
     Backend, BackendOptions, CANCELLED, Capabilities, Command, Event, INSTALL_CANCELLED, JobPhase, LatestRelease, PAUSED, Source,
 };
-use artcraft_launcher_core::release::Release;
-use artcraft_launcher_core::status::AppStatus;
-use artcraft_launcher_core::{Arch, PackageKind, Platform};
+use flowapps_launcher_core::release::Release;
+use flowapps_launcher_core::status::AppStatus;
+use flowapps_launcher_core::{Arch, PackageKind, Platform};
 
 use crate::i18n::set_current;
 use crate::model::AppEntry;
@@ -70,7 +70,7 @@ pub trait Host {
     }
     /// The URL to open when Discord is clicked. Defaults to the web link.
     fn discord_url(&self) -> &'static str {
-        artcraft_launcher_core::catalog::DISCORD_URL
+        flowapps_launcher_core::catalog::DISCORD_URL
     }
     /// Quit the launcher for real (not just hide to the tray).
     fn quit(&mut self) {}
@@ -115,7 +115,7 @@ pub(crate) enum Dialog {
     Install { app: String, folder: String },
     Replace { app: String, path: String },
     Settings,
-    LauncherUpdate(artcraft_launcher_core::Release),
+    LauncherUpdate(flowapps_launcher_core::Release),
     Versions(String),
     LaunchFlags { app: String, flags: String },
 }
@@ -152,15 +152,15 @@ pub struct LauncherUi {
     pub(crate) version_requests: std::collections::HashSet<String>,
     /// While the Choose version dialog is open: its app and the choice it had before, put back
     /// unless the dialog's Install keeps the new one.
-    pub(crate) version_before: Option<(String, artcraft_launcher_core::protocol::VersionTrack)>,
+    pub(crate) version_before: Option<(String, flowapps_launcher_core::protocol::VersionTrack)>,
     /// The launcher's own update, while it downloads and installs.
-    pub(crate) launcher_job: Option<artcraft_launcher_core::protocol::JobPhase>,
+    pub(crate) launcher_job: Option<flowapps_launcher_core::protocol::JobPhase>,
     /// The new launcher is in place: quit so it can start.
     restart_requested: bool,
     /// News from ArtCraft's release feed, shown inline until dismissed.
-    pub(crate) announcements: Vec<artcraft_launcher_core::feed::Notice>,
+    pub(crate) announcements: Vec<flowapps_launcher_core::feed::Notice>,
     /// Alerts from the feed, shown as popups until acknowledged.
-    pub(crate) alerts: Vec<artcraft_launcher_core::feed::Notice>,
+    pub(crate) alerts: Vec<flowapps_launcher_core::feed::Notice>,
     pub(crate) search: String,
     pub(crate) toasts: Vec<Toast>,
     pub(crate) dialog: Option<Dialog>,
@@ -262,7 +262,7 @@ impl LauncherUi {
         Self {
             backend,
             settings,
-            entries: artcraft_launcher_core::hosted_catalog::apps()
+            entries: flowapps_launcher_core::hosted_catalog::apps()
                 .iter()
                 .filter(|a| platform.is_none_or(|p| a.runs_on(p.os)))
                 .map(AppEntry::new)
@@ -300,7 +300,7 @@ impl LauncherUi {
             last_detect: 0,
             was_focused: true,
             auto_update_attempted: std::collections::BTreeSet::new(),
-            discord_url: artcraft_launcher_core::catalog::DISCORD_URL,
+            discord_url: flowapps_launcher_core::catalog::DISCORD_URL,
             pending: Vec::new(),
             frame: None,
             flushed: Vec::new(),
@@ -406,7 +406,7 @@ impl LauncherUi {
                 UiAction::Launch(id) => {
                     let flags = self.settings.launch_flags.get(id).map_or("", String::as_str);
                     // The dialog only saves flags that split, but the settings file can be edited by hand.
-                    let Ok(args) = artcraft_launcher_core::args::split(flags) else {
+                    let Ok(args) = flowapps_launcher_core::args::split(flags) else {
                         let name = self.entry(id).map_or(id.as_str(), |e| e.app.name).to_string();
                         let text = crate::i18n::fmt(tl!("{name} wasn't opened: a quote in its launch options isn't closed."), &[("name", &name)]);
                         self.queue_toast(text, true);
@@ -477,7 +477,7 @@ impl LauncherUi {
     pub(crate) fn custom_install_folders(&self) -> bool {
         self.caps.manage_apps
             && self.platform.is_some_and(|p| {
-                matches!(p.os, artcraft_launcher_core::Os::Windows | artcraft_launcher_core::Os::MacOs | artcraft_launcher_core::Os::Linux)
+                matches!(p.os, flowapps_launcher_core::Os::Windows | flowapps_launcher_core::Os::MacOs | flowapps_launcher_core::Os::Linux)
             })
             && !crate::settings::is_flatpak_sandbox()
     }
@@ -561,14 +561,14 @@ impl LauncherUi {
     fn handle(&mut self, event: Event) -> bool {
         match event {
             Event::CatalogUpdated => {
-                for app in artcraft_launcher_core::hosted_catalog::apps().iter().filter(|a| self.platform.is_none_or(|p| a.runs_on(p.os))) {
+                for app in flowapps_launcher_core::hosted_catalog::apps().iter().filter(|a| self.platform.is_none_or(|p| a.runs_on(p.os))) {
                     if let Some(entry) = self.entries.iter_mut().find(|e| e.app.id == app.id) {
                         entry.app = app;
                     } else {
                         self.entries.push(AppEntry::new(app));
                     }
                 }
-                self.entries.sort_by_key(|entry| artcraft_launcher_core::hosted_catalog::apps().iter().position(|app| app.id == entry.app.id));
+                self.entries.sort_by_key(|entry| flowapps_launcher_core::hosted_catalog::apps().iter().position(|app| app.id == entry.app.id));
                 self.backend.send(Command::Detect);
                 true
             }
@@ -648,7 +648,7 @@ impl LauncherUi {
     }
 
     // A failed check keeps the release we already know about (and where it came from).
-    fn on_latest(&mut self, app: String, latest: LatestRelease, from: artcraft_launcher_core::protocol::Origin) {
+    fn on_latest(&mut self, app: String, latest: LatestRelease, from: flowapps_launcher_core::protocol::Origin) {
         if let Some(e) = self.entry_mut(&app)
             && !(matches!(latest, LatestRelease::Failed(_)) && matches!(e.latest, Some(LatestRelease::Found(_))))
         {
@@ -659,7 +659,7 @@ impl LauncherUi {
 
     // Routes a job phase to the launcher's own slot or to the app card it belongs to.
     fn on_progress(&mut self, app: String, phase: JobPhase) {
-        if app == artcraft_launcher_core::catalog::LAUNCHER_ID {
+        if app == flowapps_launcher_core::catalog::LAUNCHER_ID {
             self.launcher_job = Some(phase);
             if matches!(self.dialog, Some(Dialog::LauncherUpdate(_))) {
                 self.dialog = None;
@@ -671,7 +671,7 @@ impl LauncherUi {
 
     /// Summarizes a job's end as a toast; cancellations have their own messages.
     fn on_job_finished(&mut self, app: String, result: Result<String, String>) {
-        let launcher = app == artcraft_launcher_core::catalog::LAUNCHER_ID;
+        let launcher = app == flowapps_launcher_core::catalog::LAUNCHER_ID;
         // What the job was doing when it ended says what a cancellation called off.
         let last = if launcher { self.launcher_job.take() } else { self.entry(&app).and_then(|e| e.job) };
         if let Some(e) = self.entry_mut(&app) {
@@ -730,7 +730,7 @@ impl LauncherUi {
         if self.settings.notify {
             let (title, body) = match fresh.as_slice() {
                 [(_, name, v)] => {
-                    let body: String = tl!("Open ArtCraft Launcher to update.").to_string();
+                    let body: String = tl!("Open FlowApps to update.").to_string();
                     (crate::i18n::fmt(tl!("{name} {v} is available"), &[("name", name), ("v", v)]), body)
                 }
                 many => {
@@ -754,7 +754,7 @@ impl LauncherUi {
         }
         self.settings.tray_hint_shown = true;
         host.notify(
-            tl!("ArtCraft Launcher is still running"),
+            tl!("FlowApps is still running"),
             tl!("It's in the tray: open it or quit it from the tray icon, or turn this off in the settings."),
         );
     }
@@ -790,7 +790,7 @@ impl LauncherUi {
             && let Some(r) = &self.launcher_update
             && self.launcher_job.is_none()
         {
-            let id = artcraft_launcher_core::catalog::LAUNCHER_ID.to_string();
+            let id = flowapps_launcher_core::catalog::LAUNCHER_ID.to_string();
             let v = r.version_label();
             if !self.auto_update_attempted.contains(&(id.clone(), v.clone())) {
                 log::info!("auto-update: queuing launcher self-update to {v}");
@@ -951,7 +951,7 @@ impl LauncherUi {
             .enumerate()
             .filter(|(_, e)| {
                 self.in_filter(e, self.settings.filter)
-                    && !(self.settings.hide_community_apps && e.app.kind == artcraft_launcher_core::catalog::AppKind::Community)
+                    && !(self.settings.hide_community_apps && e.app.kind == flowapps_launcher_core::catalog::AppKind::Community)
                     && self.platform.is_none_or(|p| e.app.runs_on(p.os))
                     && (needle.is_empty() || e.app.name.to_lowercase().contains(&needle) || e.app.tagline.to_lowercase().contains(&needle))
             })
@@ -1025,7 +1025,7 @@ impl LauncherUi {
     /// "ArtCraft API", "GitHub" or "ArtCraft API and GitHub": the services behind the releases on
     /// screen right now. `None` until something has loaded.
     pub(crate) fn sources_label(&self) -> Option<String> {
-        use artcraft_launcher_core::protocol::Origin;
+        use flowapps_launcher_core::protocol::Origin;
         let mut api = false;
         let mut github = false;
         for e in &self.entries {
@@ -1193,7 +1193,7 @@ mod tests {
         assert!(ui.handle(Event::CatalogUpdated));
         assert_eq!(
             ui.entries.iter().map(|e| e.app.id).collect::<Vec<_>>(),
-            artcraft_launcher_core::hosted_catalog::apps().iter().map(|a| a.id).collect::<Vec<_>>()
+            flowapps_launcher_core::hosted_catalog::apps().iter().map(|a| a.id).collect::<Vec<_>>()
         );
         assert!(ui.entry(id).unwrap().detected);
         assert_eq!(sent.borrow().as_slice(), &[Command::Detect]);

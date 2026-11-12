@@ -11,14 +11,14 @@
 
 use std::path::Path;
 
-use artcraft_launcher_core::CraftApp;
+use flowapps_launcher_core::CraftApp;
 
 /// The key that marks an entry as written by the launcher.
 pub const MARKER: &str = "X-ArtCraft-Launcher=true";
 
 /// The menu categories and the window class each app's own `.desktop` file declares.
 pub fn meta(app: &CraftApp) -> (&'static str, Option<&'static str>) {
-    if let Some(meta) = artcraft_launcher_core::hosted_catalog::metadata(app.id) {
+    if let Some(meta) = flowapps_launcher_core::hosted_catalog::metadata(app.id) {
         return (meta.desktop_categories.as_str(), Some(meta.startup_wm_class.as_str()));
     }
     match app.id {

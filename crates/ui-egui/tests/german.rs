@@ -5,12 +5,12 @@
 use std::cell::{Cell, RefCell};
 use std::rc::Rc;
 
-use artcraft_launcher_core::protocol::{Backend, Capabilities, Command, Event, JobPhase, LatestRelease, Origin, PausedDownload, Source};
-use artcraft_launcher_core::release::{Asset, Release};
-use artcraft_launcher_core::status::InstallSource;
-use artcraft_launcher_core::{Arch, Installed, Os, Platform, SUITE, version};
-use artcraft_launcher_ui_egui::settings::ViewMode;
-use artcraft_launcher_ui_egui::{Host, LauncherUi, Settings};
+use flowapps_launcher_core::protocol::{Backend, Capabilities, Command, Event, JobPhase, LatestRelease, Origin, PausedDownload, Source};
+use flowapps_launcher_core::release::{Asset, Release};
+use flowapps_launcher_core::status::InstallSource;
+use flowapps_launcher_core::{Arch, Installed, Os, Platform, SUITE, version};
+use flowapps_launcher_ui_egui::settings::ViewMode;
+use flowapps_launcher_ui_egui::{Host, LauncherUi, Settings};
 use egui_kittest::Harness;
 use egui_kittest::kittest::Queryable;
 
@@ -114,7 +114,7 @@ fn harness_language(
     language: &str,
     extra: Vec<Event>,
 ) -> (Harness<'static, Option<LauncherUi>>, Rc<RefCell<Vec<Command>>>) {
-    artcraft_launcher_ui_egui::i18n::set_test_lang(artcraft_launcher_ui_egui::i18n::Lang::EN);
+    flowapps_launcher_ui_egui::i18n::set_test_lang(flowapps_launcher_ui_egui::i18n::Lang::EN);
     let sent = Rc::new(RefCell::new(Vec::new()));
     let sent2 = sent.clone();
     let mut events = events();
@@ -128,9 +128,9 @@ fn harness_language(
             {
                 let mut s = settings.clone();
                 s.theme = if theme == egui::Theme::Dark {
-                    artcraft_launcher_ui_egui::theme::ThemeChoice::Dark
+                    flowapps_launcher_ui_egui::theme::ThemeChoice::Dark
                 } else {
-                    artcraft_launcher_ui_egui::theme::ThemeChoice::Light
+                    flowapps_launcher_ui_egui::theme::ThemeChoice::Light
                 };
                 *state = Some(LauncherUi::new(ui.ctx(), Box::new(b), s));
             }
@@ -205,14 +205,14 @@ fn german_switches_persists_and_keeps_install_actions() {
         web.set_size(egui::vec2(width, 900.0));
         web.run_steps(6);
         for label in ["Show apps as cards", "Show apps as a table", "Settings", "Check for updates"] {
-            let rect = web.get_by_label(artcraft_launcher_ui_egui::i18n::t(label)).rect();
+            let rect = web.get_by_label(flowapps_launcher_ui_egui::i18n::t(label)).rect();
             assert!(rect.left() >= 0.0 && rect.right() <= width, "{width}: {label} {rect:?}");
             if let Some(text) = web.query_by_label("Craft App Suite") {
                 assert!(!rect.intersects(text.rect()), "{width}: Craft App Suite overlaps {label} {rect:?}");
             }
         }
     }
-    for language in &artcraft_launcher_ui_egui::i18n::LANGUAGES {
+    for language in &flowapps_launcher_ui_egui::i18n::LANGUAGES {
         main_buttons_fit_the_narrowest_window(language.code);
     }
     a_table_update_too_narrow_to_sit_side_by_side_stacks();
@@ -277,7 +277,7 @@ fn main_button_in_line(h: &Harness<'static, Option<LauncherUi>>, menu: egui::Rec
 /// At the launcher's narrowest, no main button outgrows its slot or crowds out the `⋯` menu (#956):
 /// a kept update, a kept install and a plain update, in both views, whichever label `language` has.
 fn main_buttons_fit_the_narrowest_window(language: &str) {
-    use artcraft_launcher_ui_egui::i18n::{fmt, t};
+    use flowapps_launcher_ui_egui::i18n::{fmt, t};
     for view in [ViewMode::Table, ViewMode::Grid] {
         let kept = ["photocraft", "vectorcraft"].map(|app| Event::ReadyToInstall { app: app.into(), ready: true });
         let (mut h, _) = harness_language(view, egui::Theme::Dark, true, language, kept.into());

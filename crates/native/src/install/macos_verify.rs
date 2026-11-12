@@ -8,7 +8,7 @@
 use std::path::Path;
 use std::time::Duration;
 
-use artcraft_launcher_core::CraftApp;
+use flowapps_launcher_core::CraftApp;
 
 const CODESIGN: &str = "/usr/bin/codesign";
 const SPCTL: &str = "/usr/sbin/spctl";
@@ -354,7 +354,7 @@ mod tests {
     #[test]
     fn mac_install_failed_or_unknown_checks_preserve_old_bytes_records_and_cached_download() {
         use crate::install::macos::{Expect, check_and_swap};
-        use artcraft_launcher_core::{InstallSource, Installed};
+        use flowapps_launcher_core::{InstallSource, Installed};
         let app = solidcraft();
         let dir = tempfile::tempdir().unwrap();
         let staged = dir.path().join("new.app");
@@ -418,7 +418,7 @@ mod tests {
     #[test]
     fn disabled_assessments_allow_only_the_verified_staged_copy_to_swap() {
         use crate::install::macos::{Expect, check_and_swap};
-        use artcraft_launcher_core::{InstallSource, Installed};
+        use flowapps_launcher_core::{InstallSource, Installed};
 
         let app = solidcraft();
         let dir = tempfile::tempdir().unwrap();
@@ -457,7 +457,7 @@ mod tests {
     #[ignore = "needs a staged signed/notarized release; simulates disabled status without changing host settings"]
     fn mac_install_real_release_keeps_its_own_checks_when_assessments_are_disabled() {
         use crate::install::macos::{Expect, check_and_swap};
-        use artcraft_launcher_core::{InstallSource, Installed, version::Version};
+        use flowapps_launcher_core::{InstallSource, Installed, version::Version};
 
         let source = std::path::PathBuf::from(std::env::var_os("ARTCRAFT_LAUNCHER_TEST_STAGED_APP").expect("set the owned staged release path"));
         let dir = tempfile::tempdir().unwrap();

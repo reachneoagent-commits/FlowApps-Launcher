@@ -3,7 +3,7 @@
 # exports VERSION, NFPM_ARCH and GLIBC_FLOOR (the build runner's glibc baseline).
 #
 #   nfpm package -f packaging/linux/nfpm.yaml -p deb -t dist/release/
-name: artcraft-launcher
+name: flowapps-launcher
 arch: ${NFPM_ARCH}
 platform: linux
 version: ${VERSION}
@@ -18,7 +18,7 @@ homepage: https://github.com/storytold/craft-launcher
 license: MIT OR Apache-2.0
 description: |-
   Install, update and launch the Craft App Suite.
-  ArtCraft Launcher lists PhotoCraft, LightCraft, FilmCraft, DesignCraft,
+  FlowApps lists PhotoCraft, LightCraft, FilmCraft, DesignCraft,
   VectorCraft, PdfCraft, EffectCraft, WordCraft, DeckCraft, GridCraft, CADCraft,
   SoundCraft and FigCraft, installs the right build for this computer and keeps
   them up to date from GitHub releases. It can live in the system tray.
@@ -67,8 +67,8 @@ overrides:
       - xdg-desktop-portal
 
 contents:
-  - src: ${STAGE}/usr/bin/artcraft-launcher
-    dst: /usr/bin/artcraft-launcher
+  - src: ${STAGE}/usr/bin/flowapps-launcher
+    dst: /usr/bin/flowapps-launcher
     file_info: { mode: 0755 }
   - src: ${STAGE}/usr/share/
     dst: /usr/share/

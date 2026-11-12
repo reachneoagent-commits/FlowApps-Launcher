@@ -12,7 +12,7 @@ pub struct Paths {
     pub cache: PathBuf,
 }
 
-const DIR: &str = if cfg!(any(target_os = "macos", target_os = "windows")) { "ArtCraft Launcher" } else { "artcraft-launcher" };
+const DIR: &str = if cfg!(any(target_os = "macos", target_os = "windows")) { "FlowApps" } else { "flow-launcher" };
 
 impl Paths {
     pub fn new() -> Result<Self, String> {
@@ -50,14 +50,14 @@ impl Paths {
     /// A picture of an app's details page, saved after its first download: under the revision of the
     /// pictures repository it was fetched from, so a new revision never reads an old picture.
     pub fn screenshot(&self, app: &str, key: &str) -> PathBuf {
-        self.cache.join("screenshots").join(artcraft_launcher_core::details::SCREENSHOTS_REV).join(app).join(format!("{key}.jpg"))
+        self.cache.join("screenshots").join(flowapps_launcher_core::details::SCREENSHOTS_REV).join(app).join(format!("{key}.jpg"))
     }
 
     pub fn manifest(&self) -> PathBuf {
         self.data.join("installed.json")
     }
 
-    /// The launcher's own log files (`artcraft-launcher.log` and the previous runs').
+    /// The launcher's own log files (`flowapps-launcher.log` and the previous runs').
     pub fn logs(&self) -> PathBuf {
         self.data.join("logs")
     }

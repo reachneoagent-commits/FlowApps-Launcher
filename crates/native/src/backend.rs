@@ -5,15 +5,15 @@ use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{Arc, Mutex, OnceLock, PoisonError};
 use std::time::{Duration, Instant};
 
-use artcraft_launcher_core::catalog::{LAUNCHER, LAUNCHER_ID};
-use artcraft_launcher_core::feed::{Feed, FeedAnswer};
-use artcraft_launcher_core::platform::{Arch, Os, Platform, pick_asset};
-use artcraft_launcher_core::protocol::{
+use flowapps_launcher_core::catalog::{LAUNCHER, LAUNCHER_ID};
+use flowapps_launcher_core::feed::{Feed, FeedAnswer};
+use flowapps_launcher_core::platform::{Arch, Os, Platform, pick_asset};
+use flowapps_launcher_core::protocol::{
     Backend, BackendOptions, CANCELLED, Capabilities, Command, Event, INSTALL_CANCELLED, JobPhase, LatestRelease, Origin, PAUSED, PausedDownload,
     Source, VersionTrack,
 };
-use artcraft_launcher_core::release::{Asset, Release};
-use artcraft_launcher_core::{CraftApp, Installed, PackageKind, version};
+use flowapps_launcher_core::release::{Asset, Release};
+use flowapps_launcher_core::{CraftApp, Installed, PackageKind, version};
 
 use crate::feed_throttle::{self, FeedThrottle, Outcome};
 use crate::http::{self, Http, Stop};
@@ -88,7 +88,7 @@ struct Shared {
     /// A detection pass is running; another request waits for the next one.
     detecting: AtomicBool,
     last_check: Mutex<Option<i64>>,
-    /// The newer ArtCraft Launcher release, once a check has found one.
+    /// The newer FlowApps release, once a check has found one.
     launcher_release: Mutex<Option<Release>>,
     /// How this launcher is installed, when it can replace itself. Worked out on the check thread
     /// just before a newer launcher is announced: finding out can ask the host's Flatpak, which
@@ -247,7 +247,7 @@ impl NativeBackend {
         let waker: Waker = Arc::new(waker);
         let paths = Paths::new().unwrap_or_else(|e| {
             log::error!("{e}; keeping files in the temporary folder");
-            Paths::under(&std::env::temp_dir().join("artcraft-launcher"))
+            Paths::under(&std::env::temp_dir().join("flowapps-launcher"))
         });
         let http = match Http::new() {
             Ok(h) => Some(h),
@@ -301,7 +301,7 @@ impl NativeBackend {
         let pre = options.prereleases;
         let feed = if pre { None } else { load_feed(&self.paths) };
         let now = crate::now();
-        for app in artcraft_launcher_core::hosted_catalog::apps().iter().filter(|a| self.platform.is_none_or(|p| a.runs_on(p.os))) {
+        for app in flowapps_launcher_core::hosted_catalog::apps().iter().filter(|a| self.platform.is_none_or(|p| a.runs_on(p.os))) {
             let answer = match feed.as_ref().map(|f| f.answer(app, now)) {
                 Some(FeedAnswer::Fresh(Some(r))) => Some((LatestRelease::Found(r), Origin::ArtCraftApi)),
                 Some(FeedAnswer::Fresh(None)) => Some((LatestRelease::None, Origin::ArtCraftApi)),
@@ -323,7 +323,7 @@ impl NativeBackend {
         let paths = self.paths.clone();
         let platform = self.platform;
         std::thread::spawn(move || {
-            for app in artcraft_launcher_core::hosted_catalog::apps().iter().filter(|a| platform.is_none_or(|p| a.runs_on(p.os))) {
+            for app in flowapps_launcher_core::hosted_catalog::apps().iter().filter(|a| platform.is_none_or(|p| a.runs_on(p.os))) {
                 report_partial(app, &shared, &paths, platform);
             }
         });
@@ -349,12 +349,12 @@ impl NativeBackend {
             http::clean_downloads(&paths.downloads(), Duration::from_secs(30 * 86_400), Duration::from_secs(7 * 86_400));
             let snapshot = crate::detect::Snapshot::take();
             let manifest = shared.manifest.lock().unwrap_or_else(PoisonError::into_inner).clone();
-            for app in artcraft_launcher_core::hosted_catalog::apps().iter().filter(|a| platform.is_none_or(|p| a.runs_on(p.os))) {
+            for app in flowapps_launcher_core::hosted_catalog::apps().iter().filter(|a| platform.is_none_or(|p| a.runs_on(p.os))) {
                 let found = crate::detect::detect(app, &manifest, &snapshot);
                 publish_detected(app, found, &shared, platform);
             }
             // Downloads paused (or cut off by quitting) in an earlier run.
-            for app in artcraft_launcher_core::hosted_catalog::apps().iter().filter(|a| platform.is_none_or(|p| a.runs_on(p.os))) {
+            for app in flowapps_launcher_core::hosted_catalog::apps().iter().filter(|a| platform.is_none_or(|p| a.runs_on(p.os))) {
                 report_partial(app, &shared, &paths, platform);
             }
             drop(busy);
@@ -366,9 +366,10 @@ impl NativeBackend {
     /// day old, or no answer at all), at most once an hour per app unless `force`.
     fn check(&self, force: bool) {
         let (Some(source), Some(http)) = (self.source.clone(), self.http.clone()) else {
-            crate::hosted_catalog::load_once(None, &self.paths);
+            // Hosted catalog disabled: this launcher ships only its own compiled app list.
+    // crate::hosted_catalog::load_once(None, &self.paths);
             self.shared.emit(Event::CatalogUpdated);
-            for app in artcraft_launcher_core::hosted_catalog::apps().iter().filter(|a| self.platform.is_none_or(|p| a.runs_on(p.os))) {
+            for app in flowapps_launcher_core::hosted_catalog::apps().iter().filter(|a| self.platform.is_none_or(|p| a.runs_on(p.os))) {
                 self.shared.emit(Event::Latest {
                     app: app.id.to_string(),
                     latest: LatestRelease::Failed("secure connections aren't available".into()),
@@ -392,7 +393,8 @@ impl NativeBackend {
         std::thread::spawn(move || {
             let busy = busy;
             shared.emit(Event::CheckStarted);
-            crate::hosted_catalog::load_once(Some(&http), &paths);
+            // Hosted catalog disabled: this launcher ships only its own compiled app list.
+            // crate::hosted_catalog::load_once(Some(&http), &paths);
             shared.emit(Event::CatalogUpdated);
             let (feed, fallback) = check_plan(&http, mirror.as_ref(), pre, &paths, &shared);
             if let Some(f) = &feed {
@@ -400,7 +402,7 @@ impl NativeBackend {
             }
             let now = crate::now();
             let queue = Mutex::new(
-                artcraft_launcher_core::hosted_catalog::apps()
+                flowapps_launcher_core::hosted_catalog::apps()
                     .iter()
                     .filter(|a| platform.is_none_or(|p| a.runs_on(p.os)))
                     .chain(std::iter::once(&LAUNCHER))
@@ -410,7 +412,7 @@ impl NativeBackend {
             source.save();
             {
                 let answered = shared.answered.lock().unwrap_or_else(PoisonError::into_inner);
-                if artcraft_launcher_core::hosted_catalog::apps()
+                if flowapps_launcher_core::hosted_catalog::apps()
                     .iter()
                     .filter(|a| platform.is_none_or(|p| a.runs_on(p.os)))
                     .all(|a| answered.contains(a.id))
@@ -419,7 +421,7 @@ impl NativeBackend {
                 }
             }
             // A newer release changes which file an install would use.
-            for app in artcraft_launcher_core::hosted_catalog::apps().iter().filter(|a| platform.is_none_or(|p| a.runs_on(p.os))) {
+            for app in flowapps_launcher_core::hosted_catalog::apps().iter().filter(|a| platform.is_none_or(|p| a.runs_on(p.os))) {
                 report_partial(app, &shared, &paths, platform);
             }
             let source_used = source_used_of(&sources);
@@ -453,7 +455,7 @@ impl NativeBackend {
             restarting
         };
         if restarting {
-            let result = Err("ArtCraft Launcher is restarting to finish its update. Try again once it's back.".into());
+            let result = Err("FlowApps is restarting to finish its update. Try again once it's back.".into());
             self.shared.emit(Event::JobFinished { app: app.id.to_string(), result });
             return false;
         }
@@ -573,7 +575,7 @@ impl NativeBackend {
         let (Some(install), Some(platform)) = (self.shared.self_install.get().cloned().flatten(), self.platform) else {
             self.shared.emit(Event::JobFinished {
                 app: id,
-                result: Err("this copy of ArtCraft Launcher can't update itself; download the new version instead".into()),
+                result: Err("this copy of FlowApps can't update itself; download the new version instead".into()),
             });
             return;
         };
@@ -636,7 +638,7 @@ enum Work {
 fn release_matches_track(release: &Release, track: &VersionTrack, prereleases: bool) -> bool {
     match track {
         VersionTrack::Stable => prereleases || (!release.prerelease && release.version.as_ref().is_some_and(version::is_stable)),
-        VersionTrack::Nightly => artcraft_launcher_core::release::is_nightly(release),
+        VersionTrack::Nightly => flowapps_launcher_core::release::is_nightly(release),
         VersionTrack::Pinned(tag) => &release.tag == tag,
     }
 }
@@ -673,7 +675,7 @@ fn downgrade_previous(
 /// one). `None` for any other copy, which [`install_plan`] decides; else the copy, or why the
 /// update can't run. [`run_install`] and the UI's [`Event::Installable`] both ask this.
 fn repository_update<'a>(app: &CraftApp, existing: Option<&'a Installed>, options: &BackendOptions) -> Option<Result<&'a Installed, String>> {
-    let inst = existing.filter(|i| i.source == artcraft_launcher_core::InstallSource::Flatpak && i.externally_managed)?;
+    let inst = existing.filter(|i| i.source == flowapps_launcher_core::InstallSource::Flatpak && i.externally_managed)?;
     Some(if !matches!(options.versions.get(app.id), None | Some(VersionTrack::Stable)) {
         Err(install::managed_elsewhere(app, inst, false).unwrap_or_else(|| "Update this app through its Flatpak repository".into()))
     } else if !cfg!(target_os = "linux") {
@@ -739,7 +741,7 @@ fn install_plan(
         Asking::Answer(system) => Some(system),
     };
     let (asset, kind) = planned_asset_on(app, &release, platform, options, (existing, record), system).ok_or_else(|| {
-        if platform.os == artcraft_launcher_core::Os::Linux
+        if platform.os == flowapps_launcher_core::Os::Linux
             && options.install_locations.folder(app.id).is_some()
             && existing.is_none()
             && record.is_none()
@@ -973,7 +975,7 @@ fn restart_blocked(mut busy: Vec<&str>) -> String {
         _ => (busy.join(", "), "were", "them"),
     };
     format!(
-        "ArtCraft Launcher didn't restart to update: {names} {were} still installing. Answer or close any password prompt, \
+        "FlowApps didn't restart to update: {names} {were} still installing. Answer or close any password prompt, \
          let {them} finish or cancel {them}, then press Update and restart again."
     )
 }
@@ -1001,7 +1003,7 @@ fn planned_asset_on(
     system: Option<&install::SystemKinds>,
 ) -> Option<(Asset, PackageKind)> {
     let stems: Vec<&str> = app.stems().collect();
-    let custom_linux = platform.os == artcraft_launcher_core::Os::Linux
+    let custom_linux = platform.os == flowapps_launcher_core::Os::Linux
         && !process::in_sandbox()
         && existing.is_none()
         && record.is_none()
@@ -1009,7 +1011,7 @@ fn planned_asset_on(
     let kinds = if existing.is_none() && record.is_some_and(|r| r.kind == PackageKind::PortableZip) {
         vec![PackageKind::PortableZip]
     } else if custom_linux {
-        vec![artcraft_launcher_core::PackageKind::AppImage]
+        vec![flowapps_launcher_core::PackageKind::AppImage]
     } else {
         match system {
             Some(system) => install::choose_kinds_on(app, existing, record, &options.kinds, system),
@@ -1104,7 +1106,7 @@ fn planned_download(
     let existing = shared.installed.lock().unwrap_or_else(PoisonError::into_inner).get(app.id).cloned();
     let record = shared.manifest.lock().unwrap_or_else(PoisonError::into_inner).apps.get(app.id).cloned();
     let (asset, kind) = planned_asset(app, &release, platform?, options, existing.as_ref(), record.as_ref())?;
-    artcraft_launcher_core::release::valid_file_name(&asset.name).then(|| (install::download_path(paths, &asset), kind, asset.size))
+    flowapps_launcher_core::release::valid_file_name(&asset.name).then(|| (install::download_path(paths, &asset), kind, asset.size))
 }
 
 /// What one check asks: which feed to poll (a local mirror trumps everything), and how much to
@@ -1388,7 +1390,7 @@ fn feed_url() -> String {
     std::env::var("ARTCRAFT_LAUNCHER_FEED_URL")
         .ok()
         .filter(|u| feed_url_override_allowed(u, cfg!(feature = "local-mirror")))
-        .unwrap_or_else(|| artcraft_launcher_core::feed::FEED_URL.to_string())
+        .unwrap_or_else(|| flowapps_launcher_core::feed::FEED_URL.to_string())
 }
 
 fn feed_url_override_allowed(url: &str, allow_https: bool) -> bool {
@@ -1451,7 +1453,7 @@ fn mirror_chosen(app: &CraftApp, feed: Option<&Feed>, now: i64, track: &VersionT
     let (answer, origin, source) = mirror_latest(app, feed, now);
     let chosen = match (track, answer) {
         (VersionTrack::Stable, answer) => answer,
-        (VersionTrack::Nightly, Some(LatestRelease::Found(r))) if artcraft_launcher_core::release::is_nightly(&r) => Some(LatestRelease::Found(r)),
+        (VersionTrack::Nightly, Some(LatestRelease::Found(r))) if flowapps_launcher_core::release::is_nightly(&r) => Some(LatestRelease::Found(r)),
         (VersionTrack::Pinned(tag), Some(LatestRelease::Found(r))) if &r.tag == tag => Some(LatestRelease::Found(r)),
         (_, Some(LatestRelease::Failed(why))) => Some(LatestRelease::Failed(why)),
         _ => Some(LatestRelease::None),
@@ -1495,7 +1497,7 @@ impl NativeBackend {
     /// Starts fetching the pictures of an app's details page, unless they are already on their way.
     /// An app without a page, or a name that isn't an app, is ignored.
     fn fetch_screenshots(&self, app: &str) {
-        let Some(details) = artcraft_launcher_core::details::AppDetails::by_id(app) else { return };
+        let Some(details) = flowapps_launcher_core::details::AppDetails::by_id(app) else { return };
         if !self.shared.pictures_busy.lock().unwrap_or_else(PoisonError::into_inner).insert(details.id) {
             return;
         }
@@ -1642,9 +1644,9 @@ mod tests {
     use std::sync::atomic::AtomicUsize;
     use std::sync::mpsc;
 
-    use artcraft_launcher_core::InstallSource;
+    use flowapps_launcher_core::InstallSource;
 
-    use artcraft_launcher_core::protocol::LatestRelease;
+    use flowapps_launcher_core::protocol::LatestRelease;
 
     use super::*;
 
@@ -2097,7 +2099,7 @@ mod tests {
         assert_eq!(planned_asset(app, &release, platform, &portable_options, None, None).unwrap().1, PackageKind::PortableZip);
         let msi = Installed {
             version: None,
-            source: artcraft_launcher_core::InstallSource::Msi,
+            source: flowapps_launcher_core::InstallSource::Msi,
             location: r"C:\Apps\PhotoCraft\photocraft.exe".into(),
             package: None,
             externally_managed: false,
@@ -2107,7 +2109,7 @@ mod tests {
         assert_eq!(planned_asset(app, &release, platform, &portable_options, Some(&msi), None).unwrap().1, PackageKind::Msi);
         let launcher = Installed {
             version: None,
-            source: artcraft_launcher_core::InstallSource::Launcher,
+            source: flowapps_launcher_core::InstallSource::Launcher,
             location: r"D:\Craft Apps\PhotoCraft\photocraft.exe".into(),
             package: None,
             externally_managed: false,
@@ -2137,7 +2139,7 @@ mod tests {
         let platform = Platform { os: Os::Linux, arch: Arch::X64 };
         let options = BackendOptions {
             kinds: vec![PackageKind::Deb],
-            install_locations: artcraft_launcher_core::protocol::InstallLocations { root: Some("/custom/apps".into()), ..Default::default() },
+            install_locations: flowapps_launcher_core::protocol::InstallLocations { root: Some("/custom/apps".into()), ..Default::default() },
             ..Default::default()
         };
         let mut release = release("0.5.0");
@@ -2146,7 +2148,7 @@ mod tests {
         assert!(planned_asset(app, &release, platform, &options, None, None).is_none());
         let existing = Installed {
             version: None,
-            source: artcraft_launcher_core::InstallSource::Deb,
+            source: flowapps_launcher_core::InstallSource::Deb,
             location: "/usr/bin/photocraft".into(),
             package: None,
             externally_managed: false,
@@ -2185,7 +2187,7 @@ mod tests {
     /// A copy of [`APP`] at `version`, installed the way `source` says.
     fn copy_of(version: &str, source: InstallSource, location: &str) -> Installed {
         Installed {
-            version: artcraft_launcher_core::version::parse(version),
+            version: flowapps_launcher_core::version::parse(version),
             source,
             location: location.into(),
             package: None,
@@ -2197,7 +2199,7 @@ mod tests {
 
     /// `release(v)` with its version known, so it is on the stable track.
     fn stable(v: &str) -> Release {
-        Release { version: artcraft_launcher_core::version::parse(v), ..release(v) }
+        Release { version: flowapps_launcher_core::version::parse(v), ..release(v) }
     }
 
     /// Makes the backend's view of what this system can install `available` (as if just asked),

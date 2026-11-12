@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Build the browser version and zip it:  $DIST/artcraft-launcher-web-<version>.zip
+# Build the browser version and zip it:  $DIST/flowapps-launcher-web-<version>.zip
 #
 # Usage: packaging/web/package.sh [--skip-build]
 #
 # Needs: trunk (brew install trunk / cargo install trunk --locked) and the wasm32-unknown-unknown
-# target. The zip holds a self-contained static site in artcraft-launcher-web-<version>/ that works
+# target. The zip holds a self-contained static site in flowapps-launcher-web-<version>/ that works
 # from any URL path and inside an <iframe>. Hosting notes: packaging/web/README.md.
 set -euo pipefail
 # shellcheck source=../env.sh
@@ -13,7 +13,7 @@ HERE="$ROOT/packaging/web"
 
 if [[ "${1:-}" != "--skip-build" ]]; then
   command -v trunk >/dev/null || { echo "error: trunk not found (cargo install trunk --locked)" >&2; exit 1; }
-  (cd "$ROOT/apps/artcraft-launcher-web" && trunk build --release --cargo-profile wasm-release)
+  (cd "$ROOT/apps/flowapps-launcher-web" && trunk build --release --cargo-profile wasm-release)
 fi
 
 SITE="$ROOT/dist/web"
@@ -41,7 +41,7 @@ for wasm in "$SITE"/*.wasm; do
 done
 [[ "$WASM_COUNT" -gt 0 ]] || { echo "error: no .wasm in $SITE" >&2; exit 1; }
 
-NAME="artcraft-launcher-web-$VERSION"
+NAME="flowapps-launcher-web-$VERSION"
 WORK="$CARGO_TARGET_DIR/web-package"
 rm -rf "$WORK"
 mkdir -p "$WORK/$NAME"

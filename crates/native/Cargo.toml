@@ -1,6 +1,6 @@
 [package]
-name = "artcraft-launcher-native"
-description = "ArtCraft Launcher desktop backend: release lookups, detecting installed Craft Apps, installing and updating them"
+name = "flowapps-launcher-native"
+description = "FlowApps desktop backend: release lookups, detecting installed Craft Apps, installing and updating them"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
@@ -17,7 +17,7 @@ workspace = true
 local-mirror = []
 
 [dependencies]
-artcraft-launcher-core = { workspace = true }
+flowapps-launcher-core = { workspace = true }
 craft-update = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }

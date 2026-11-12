@@ -3,13 +3,13 @@
 //! and screenshots come from `core::details`; the live facts (version, date, download size, release
 //! notes) from the app's latest GitHub release.
 
-use artcraft_launcher_core::CraftApp;
+use flowapps_launcher_core::CraftApp;
 use std::sync::Arc;
 
-use artcraft_launcher_core::details::AppDetails;
-use artcraft_launcher_core::platform::pick_asset;
-use artcraft_launcher_core::protocol::Command;
-use artcraft_launcher_core::status::AppStatus;
+use flowapps_launcher_core::details::AppDetails;
+use flowapps_launcher_core::platform::pick_asset;
+use flowapps_launcher_core::protocol::Command;
+use flowapps_launcher_core::status::AppStatus;
 use egui::{Color32, CornerRadius, Id, Margin, Order, Rect, RichText, Sense, Stroke, Ui, emath::easing, pos2, vec2};
 
 use crate::app::LauncherUi;
@@ -44,7 +44,7 @@ impl Picture {
         match result {
             // The backend already enforces the pixel budget; re-check here so bytes can never
             // reach egui's image loader (which allocates from the JPEG header) unvalidated.
-            Ok(bytes) if artcraft_launcher_core::details::screenshot_within_budget(&bytes) => Self::Ready(bytes.into()),
+            Ok(bytes) if flowapps_launcher_core::details::screenshot_within_budget(&bytes) => Self::Ready(bytes.into()),
             Ok(_) => Self::Failed("the picture's dimensions are too large".into()),
             Err(why) => Self::Failed(why),
         }
@@ -247,7 +247,7 @@ impl LauncherUi {
     fn neighbour_apps(&self, id: &str) -> (Option<String>, Option<String>) {
         let mut ids: Vec<&str> = self.visible_ids().into_iter().filter(|i| AppDetails::by_id(i).is_some()).collect();
         if !ids.contains(&id) {
-            ids = artcraft_launcher_core::hosted_catalog::apps()
+            ids = flowapps_launcher_core::hosted_catalog::apps()
                 .iter()
                 .filter(|a| self.platform.is_none_or(|p| a.runs_on(p.os)))
                 .map(|a| a.id)

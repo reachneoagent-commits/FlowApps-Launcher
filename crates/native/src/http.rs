@@ -3,7 +3,7 @@
 use std::io::{Read, Write};
 use std::path::Path;
 
-use artcraft_launcher_core::protocol::{CANCELLED, PAUSED};
+use flowapps_launcher_core::protocol::{CANCELLED, PAUSED};
 use std::time::Duration;
 
 use sha2::{Digest, Sha256};
@@ -1044,7 +1044,7 @@ pub(crate) mod tests {
         enc.finish().unwrap()
     }
 
-    /// Live: a real Craft App release asset (`cargo test -p artcraft-launcher-native -- --ignored`).
+    /// Live: a real Craft App release asset (`cargo test -p flowapps-launcher-native -- --ignored`).
     #[test]
     #[ignore = "needs network access"]
     fn downloads_a_real_release_asset() {
@@ -1052,9 +1052,9 @@ pub(crate) mod tests {
         let Fetched::Body { text, .. } = http.get_api("https://api.github.com/repos/storytold/wordcraft/releases/latest", None).unwrap() else {
             panic!("no release")
         };
-        let release = artcraft_launcher_core::release::parse_github_release(&text, "storytold/wordcraft").unwrap();
+        let release = flowapps_launcher_core::release::parse_github_release(&text, "storytold/wordcraft").unwrap();
         let sums_url = &release.sums_asset().unwrap().url;
-        let sums = artcraft_launcher_core::release::parse_sha256sums(&http.get_text(sums_url).unwrap().unwrap());
+        let sums = flowapps_launcher_core::release::parse_sha256sums(&http.get_text(sums_url).unwrap().unwrap());
         let asset = release.assets.iter().find(|a| a.name.ends_with("freebsd-x86_64.tar.gz")).unwrap();
         let sha = asset.sha256.clone().or_else(|| sums.iter().find(|(_, n)| *n == asset.name).map(|(h, _)| h.clone())).unwrap();
         let dir = tempfile::tempdir().unwrap();
