@@ -30,9 +30,9 @@ fn load_icon() -> Result<tray_icon::Icon, String> {
     // FlowApps symbol mark: white on transparent, used as the tray icon.
     // macOS tints the white mark to the menu bar's colours as a template image.
     let bytes: &[u8] = if cfg!(target_os = "macos") {
-        include_bytes!("../../../assets/app-icons/flowapps-tray-44.png")
+        include_bytes!("../../../assets/app-icons/flowapps-tray-orange-20.png")
     } else {
-        include_bytes!("../../../assets/app-icons/flowapps-tray-64.png")
+        include_bytes!("../../../assets/app-icons/flowapps-tray-orange-16.png")
     };
     let img = image::load_from_memory_with_format(bytes, image::ImageFormat::Png).map_err(|e| e.to_string())?.into_rgba8();
     let (w, h) = img.dimensions();
@@ -63,9 +63,9 @@ impl Tray {
         let links = [(github.id().clone(), GITHUB_URL)];
         let image = load_icon()?;
         let builder = identity(TrayIconBuilder::new()).with_menu(Box::new(menu));
-        // macOS draws the icon as a template image (recoloured for light and dark menu bars).
+        // macOS: draw the icon in full colour (orange brand mark on transparent).
         #[cfg(target_os = "macos")]
-        let builder = builder.with_icon_templated(image);
+        let builder = builder.with_icon(image);
         #[cfg(not(target_os = "macos"))]
         let builder = builder.with_icon(image);
         let icon = builder.with_menu_on_left_click(cfg!(target_os = "macos")).with_tooltip("FlowApps").build().map_err(|e| e.to_string())?;
