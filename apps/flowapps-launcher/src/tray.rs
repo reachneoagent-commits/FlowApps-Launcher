@@ -30,9 +30,9 @@ fn load_icon() -> Result<tray_icon::Icon, String> {
     // FlowApps symbol mark: white on transparent, used as the tray icon.
     // macOS tints the white mark to the menu bar's colours as a template image.
     let bytes: &[u8] = if cfg!(target_os = "macos") {
-        include_bytes!("../../../assets/app-icons/flowapps-tray-orange-20.png")
+        include_bytes!("../../../assets/app-icons/flowapps-tray-20.png")
     } else {
-        include_bytes!("../../../assets/app-icons/flowapps-tray-orange-16.png")
+        include_bytes!("../../../assets/app-icons/flowapps-tray-16.png")
     };
     let img = image::load_from_memory_with_format(bytes, image::ImageFormat::Png).map_err(|e| e.to_string())?.into_rgba8();
     let (w, h) = img.dimensions();
