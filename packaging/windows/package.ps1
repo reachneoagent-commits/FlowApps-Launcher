@@ -38,7 +38,7 @@ function Invoke-Native([string] $What, [scriptblock] $Block) {
 }
 
 # The version lives in one place: [workspace.package] version in the root Cargo.toml.
-$Version = $env:ARTCRAFT_LAUNCHER_VERSION
+$Version = $env:FLOWAPPS_LAUNCHER_VERSION
 if (-not $Version) {
   $inPkg = $false
   foreach ($line in Get-Content (Join-Path $Root 'Cargo.toml')) {
@@ -55,8 +55,8 @@ $Dist = if ($env:DIST) { $env:DIST } else { Join-Path $Root 'dist\release' }
 $TargetDir = if ($env:CARGO_TARGET_DIR) { $env:CARGO_TARGET_DIR } else { Join-Path $Root 'target' }
 New-Item -ItemType Directory -Force -Path $Dist | Out-Null
 
-if (-not $env:ARTCRAFT_LAUNCHER_BUILD_SHA) { $env:ARTCRAFT_LAUNCHER_BUILD_SHA = (git -C $Root rev-parse HEAD 2>$null) }
-if (-not $env:ARTCRAFT_LAUNCHER_BUILD_DATE) { $env:ARTCRAFT_LAUNCHER_BUILD_DATE = (Get-Date).ToUniversalTime().ToString('yyyy-MM-dd') }
+if (-not $env:FLOWAPPS_LAUNCHER_BUILD_SHA) { $env:FLOWAPPS_LAUNCHER_BUILD_SHA = (git -C $Root rev-parse HEAD 2>$null) }
+if (-not $env:FLOWAPPS_LAUNCHER_BUILD_DATE) { $env:FLOWAPPS_LAUNCHER_BUILD_DATE = (Get-Date).ToUniversalTime().ToString('yyyy-MM-dd') }
 
 Write-Output "$AppName $Version for Windows $Arch ($Target)"
 
@@ -66,7 +66,7 @@ if (-not $SkipBuild) {
   $flagVar = 'CARGO_TARGET_' + ($Target.ToUpper() -replace '-', '_') + '_RUSTFLAGS'
   [Environment]::SetEnvironmentVariable($flagVar, '-C target-feature=+crt-static')
   # Fail the build (rather than warn) if the icon/VERSIONINFO can't be embedded.
-  $env:ARTCRAFT_LAUNCHER_REQUIRE_WINRES = '1'
+  $env:FLOWAPPS_LAUNCHER_REQUIRE_WINRES = '1'
   Invoke-Native "cargo build ($Target)" { cargo build --release --locked -p $Pkg --target $Target }
 }
 
@@ -111,7 +111,7 @@ function New-InstallerArt([string] $BannerOut, [string] $DialogOut) {
   $accent = [System.Drawing.ColorTranslator]::FromHtml('#e8650a')
   $muted = [System.Drawing.Color]::FromArgb(153, 242, 241, 238)
   $line = [System.Drawing.Color]::FromArgb(38, 242, 241, 238)
-  # The Craft App Suite, in the launcher's order (crates/core/src/catalog.rs).
+  # The FlowApps suite, in the launcher's order (crates/core/src/catalog.rs).
   $apps = 'flowgram', 'voxflow', 'mailflow'
   $mark = [System.Drawing.Image]::FromFile((Join-Path $Root 'assets\app-icon\hicolor\256x256\apps\ai.reachneo.flowapps.png'))
   $icons = $apps | ForEach-Object { [System.Drawing.Image]::FromFile((Join-Path $Root "assets\app-icons\$_.png")) }

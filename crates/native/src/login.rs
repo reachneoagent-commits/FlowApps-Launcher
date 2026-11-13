@@ -223,7 +223,7 @@ fn flatpak_exec(app_id: &str) -> String {
 #[cfg_attr(any(target_os = "macos", windows), allow(dead_code))]
 fn entry_text(exec: &str, extra: &str) -> String {
     format!(
-        "[Desktop Entry]\nType=Application\nName=FlowApps\nComment=Install and update the Craft App Suite\nExec={exec} {HIDDEN_FLAG}\nIcon={ID}\nTerminal=false\nX-GNOME-Autostart-enabled=true\n{extra}"
+        "[Desktop Entry]\nType=Application\nName=FlowApps\nComment=Install and update the FlowApps suite\nExec={exec} {HIDDEN_FLAG}\nIcon={ID}\nTerminal=false\nX-GNOME-Autostart-enabled=true\n{extra}"
     )
 }
 
@@ -407,7 +407,7 @@ mod tests {
         assert_eq!(
             autostart_entry(Path::new("/usr/bin/flowapps-launcher")).as_deref(),
             Some(
-                "[Desktop Entry]\nType=Application\nName=FlowApps\nComment=Install and update the Craft App Suite\nExec=\"/usr/bin/flowapps-launcher\" --hidden\nIcon=ai.reachneo.flowapps\nTerminal=false\nX-GNOME-Autostart-enabled=true\n"
+                "[Desktop Entry]\nType=Application\nName=FlowApps\nComment=Install and update the FlowApps suite\nExec=\"/usr/bin/flowapps-launcher\" --hidden\nIcon=ai.reachneo.flowapps\nTerminal=false\nX-GNOME-Autostart-enabled=true\n"
             )
         );
     }

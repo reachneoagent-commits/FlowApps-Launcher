@@ -1,6 +1,6 @@
 //! FlowApps in the browser.
 //!
-//! A browser can't install apps, so this build lists the Craft App Suite with each app's latest
+//! A browser can't install apps, so this build lists the FlowApps suite with each app's latest
 //! release (read straight from the GitHub API, which allows cross-origin requests) and offers the
 //! right download for the visitor's system.
 

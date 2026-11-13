@@ -1,13 +1,13 @@
 [Desktop Entry]
 Type=Application
-Name=ArtCraft Launcher
+Name=FlowApps
 GenericName=App Launcher
-Comment=Install, update and launch the Craft App Suite
-Exec=artcraft-launcher
-TryExec=artcraft-launcher
-Icon=ai.storyteller.artcraft-launcher
+Comment=Install, update and launch the FlowApps suite
+Exec=flowapps-launcher
+TryExec=flowapps-launcher
+Icon=ai.reachneo.flowapps
 Terminal=false
 StartupNotify=true
-StartupWMClass=ai.storyteller.artcraft-launcher
+StartupWMClass=ai.reachneo.flowapps
 Categories=Utility;PackageManager;
 Keywords=artcraft;craft;launcher;installer;updater;photocraft;filmcraft;apps;

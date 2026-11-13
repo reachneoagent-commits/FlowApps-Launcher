@@ -449,7 +449,7 @@ mod tests {
     #[test]
     #[ignore = "needs the independently staged real release; no app execution or swap"]
     fn mac_install_real_release_passes_the_production_verifier() {
-        let bundle = std::env::var_os("ARTCRAFT_LAUNCHER_TEST_STAGED_APP").expect("set the owned staged release path");
+        let bundle = std::env::var_os("FLOWAPPS_LAUNCHER_TEST_STAGED_APP").expect("set the owned staged release path");
         verify_with(solidcraft(), Path::new(&bundle), "G5QA5U5X2S", crate::process::run_with_output).unwrap();
     }
 
@@ -459,7 +459,7 @@ mod tests {
         use crate::install::macos::{Expect, check_and_swap};
         use flowapps_launcher_core::{InstallSource, Installed, version::Version};
 
-        let source = std::path::PathBuf::from(std::env::var_os("ARTCRAFT_LAUNCHER_TEST_STAGED_APP").expect("set the owned staged release path"));
+        let source = std::path::PathBuf::from(std::env::var_os("FLOWAPPS_LAUNCHER_TEST_STAGED_APP").expect("set the owned staged release path"));
         let dir = tempfile::tempdir().unwrap();
         let staged_dir = dir.path().join("staged");
         let destination_dir = dir.path().join("Applications");

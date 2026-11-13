@@ -6,13 +6,13 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>MIT OR Apache-2.0</project_license>
   <name>FlowApps</name>
-  <summary>Install, update and launch the Craft App Suite</summary>
+  <summary>Install, update and launch the FlowApps suite</summary>
   <developer id="ai.storyteller">
     <name>Learning Machines LLC</name>
   </developer>
   <description>
     <p>
-      FlowApps lists every app in the Craft App Suite (PhotoCraft, LightCraft, FilmCraft,
+      FlowApps lists every app in the FlowApps suite (PhotoCraft, LightCraft, FilmCraft,
       DesignCraft, VectorCraft, PdfCraft, EffectCraft, WordCraft, DeckCraft, GridCraft, CADCraft,
       SoundCraft and FigCraft), installs the right build for your computer, and keeps them up to date.
     </p>

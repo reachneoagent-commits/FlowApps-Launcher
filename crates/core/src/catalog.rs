@@ -1,4 +1,4 @@
-//! The Craft App Suite: bundled data with a signed hosted startup snapshot.
+//! The FlowApps suite: bundled data with a signed hosted startup snapshot.
 //!
 //! The list is data so a later version can fetch it from an API; [`SUITE`] is the built-in copy.
 //!
@@ -69,7 +69,7 @@ impl CraftApp {
 
     /// The app's website: its page on getartcraft.com, or a community app's own site.
     pub fn website(&self) -> String {
-        self.site.map_or_else(|| format!("https://getartcraft.com/apps/{}", self.id), str::to_string)
+        self.site.map_or_else(|| self.repo_url(), str::to_string)
     }
 
     /// Whether the launcher installs this app from a `kind` package.
@@ -162,7 +162,7 @@ pub const UNSIGNED_MAC_TEAM: &str = "unsigned";
 
 pub const ARTCRAFT_TEAM_ID: &str = "DJ6XS33FX8";
 
-/// ArtCraft's website.
+/// FlowApps on the web: our GitHub.
 pub const WEBSITE_URL: &str = "https://github.com/reachneoagent-commits";
 /// The GitHub account every FlowApps repository lives under. The release feed can
 /// only move an app within it; a community app installs from its own repo, pinned in [`SUITE`].
@@ -172,10 +172,9 @@ pub const GITHUB_URL: &str = "https://github.com/reachneoagent-commits";
 /// FlowApps's social accounts: (service, URL). Shown as small icons.
 pub const SOCIAL: [(&str, &str); 0] = [];
 
-/// The ArtCraft community on Discord.
-pub const DISCORD_URL: &str = "https://discord.gg/artcraft";
-/// Deep link into the Discord application for the ArtCraft server invite.
-pub const DISCORD_APP_URL: &str = "discord://-/invite/artcraft";
+/// Where "community" links point: our GitHub (FlowApps has no Discord).
+pub const DISCORD_URL: &str = "https://github.com/reachneoagent-commits";
+pub const DISCORD_APP_URL: &str = "https://github.com/reachneoagent-commits";
 
 /// FlowApps itself, described like a Craft App so it can update itself with the same
 /// machinery (asset names `flowapps-launcher-<ver>-…`, bundle id `ai.reachneo.flowapps`,
@@ -204,26 +203,6 @@ pub fn app_icon_png(id: &str) -> Option<&'static [u8]> {
         return Some(icon);
     }
     Some(match id {
-        "artcraft" => include_bytes!("../../../assets/app-icons/artcraft.png"),
-        "photocraft" => include_bytes!("../../../assets/app-icons/photocraft.png"),
-        "vectorcraft" => include_bytes!("../../../assets/app-icons/vectorcraft.png"),
-        "filmcraft" => include_bytes!("../../../assets/app-icons/filmcraft.png"),
-        "lightcraft" => include_bytes!("../../../assets/app-icons/lightcraft.png"),
-        "pdfcraft" => include_bytes!("../../../assets/app-icons/pdfcraft.png"),
-        "effectcraft" => include_bytes!("../../../assets/app-icons/effectcraft.png"),
-        "anicraft" => include_bytes!("../../../assets/app-icons/anicraft.png"),
-        "designcraft" => include_bytes!("../../../assets/app-icons/designcraft.png"),
-        "wordcraft" => include_bytes!("../../../assets/app-icons/wordcraft.png"),
-        "deckcraft" => include_bytes!("../../../assets/app-icons/deckcraft.png"),
-        "gridcraft" => include_bytes!("../../../assets/app-icons/gridcraft.png"),
-        "texturecraft" => include_bytes!("../../../assets/app-icons/texturecraft.png"),
-        "materialcraft" => include_bytes!("../../../assets/app-icons/materialcraft.png"),
-        "craft-anything" => include_bytes!("../../../assets/app-icons/craft-anything.png"),
-        "solidcraft" => include_bytes!("../../../assets/app-icons/solidcraft.png"),
-        "mailcraft" => include_bytes!("../../../assets/app-icons/mailcraft.png"),
-        "cadcraft" => include_bytes!("../../../assets/app-icons/cadcraft.png"),
-        "soundcraft" => include_bytes!("../../../assets/app-icons/soundcraft.png"),
-        "figcraft" => include_bytes!("../../../assets/app-icons/figcraft.png"),
         "flowgram" => include_bytes!("../../../assets/app-icons/flowgram.png"),
         "voxflow" => include_bytes!("../../../assets/app-icons/voxflow.png"),
         "mailflow" => include_bytes!("../../../assets/app-icons/mailflow.png"),

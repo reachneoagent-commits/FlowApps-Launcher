@@ -22,7 +22,7 @@ check_packages() {
     if [[ "$floor" = unset ]]; then unset GLIBC_FLOOR; else export GLIBC_FLOOR="$floor"; fi
     export CROSS_ARCH="$arch" CROSS_TARGET="$target" CROSS_COMPILE=fixture-
     export CARGO_TARGET_DIR="$work/target" DIST="$work/dist"
-    export ARTCRAFT_LAUNCHER_VERSION=0.0.0 ARTCRAFT_LAUNCHER_BUILD_DATE=2026-01-01
+    export FLOWAPPS_LAUNCHER_VERSION=0.0.0 FLOWAPPS_LAUNCHER_BUILD_DATE=2026-01-01
     bash "$ROOT/packaging/linux/package.sh" --skip-build --formats "deb rpm"
   )
   deb="$work/dist/flowapps-launcher-0.0.0-linux-$arch.deb"

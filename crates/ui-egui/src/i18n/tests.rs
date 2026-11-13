@@ -202,7 +202,7 @@ fn complete_catalogs_translate_every_tagline() {
 #[test]
 fn product_names_stay_in_english() {
     for lang in Lang::all() {
-        for name in ["FlowApps", "Craft App Suite", "Launcher"] {
+        for name in ["FlowApps", "FlowApps suite", "Launcher"] {
             assert_eq!(tr(lang, name), name, "{}", lang.code());
         }
     }

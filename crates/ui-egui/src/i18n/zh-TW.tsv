@@ -1,6 +1,6 @@
-# Traditional Chinese (Taiwan) catalog for ArtCraft Launcher.
+# Traditional Chinese (Taiwan) catalog for FlowApps.
 # Format: context<TAB>English source<TAB>translation.
-# Original translations from the English UI. Product and app names (ArtCraft Launcher and its
+# Original translations from the English UI. Product and app names (FlowApps and its
 # "Launcher" tag, FlowApps Suite, PhotoCraft...) stay unchanged.
 # Shown with the system's Traditional Chinese font (Noto Sans CJK TC, PingFang TC, Microsoft
 # JhengHei...: see cjk_font.rs). Chinese has one plural form. Placeholders and trailing ellipses

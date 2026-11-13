@@ -1,6 +1,6 @@
-# Simplified Chinese (zh-CN) catalog for ArtCraft Launcher.
+# Simplified Chinese (zh-CN) catalog for FlowApps.
 # Format: context<TAB>English source<TAB>translation.
-# Original translations from the English UI. Product and app names (ArtCraft Launcher and its
+# Original translations from the English UI. Product and app names (FlowApps and its
 # "Launcher" tag, FlowApps Suite, PhotoCraft…) and third-party names stay unchanged.
 # Shown with the system's Chinese font (PingFang, Microsoft YaHei, Noto Sans CJK…): see cjk_font.rs.
 # Chinese has one plural form. Placeholders and trailing ellipses are preserved.

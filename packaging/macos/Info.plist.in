@@ -26,9 +26,9 @@
   <string>@SHORT_VERSION@</string>
   <key>CFBundleVersion</key>
   <string>@SHORT_VERSION@</string>
-  <key>ArtCraftLauncherVersion</key>
+  <key>FlowAppsLauncherVersion</key>
   <string>@VERSION@</string>
-  <key>ArtCraftLauncherBuildCommit</key>
+  <key>FlowAppsLauncherBuildCommit</key>
   <string>@BUILD_SHA@</string>
   <key>CFBundleIconFile</key>
   <string>FlowApps</string>

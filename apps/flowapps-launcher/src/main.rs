@@ -1,4 +1,4 @@
-//! FlowApps: install, update and open the Craft App Suite.
+//! FlowApps: install, update and open the FlowApps suite.
 //!
 //! The window can close to the tray (menu bar) and keep checking for updates, or quit entirely.
 
@@ -626,7 +626,7 @@ fn tray_step(requests: &[Request]) -> TrayStep {
 }
 
 /// The nearest folder at or above `initial` that exists, so Browse starts near a default that is
-/// often created only by the first install (`Program Files\ArtCraft`).
+/// often created only by the first install (`Program Files\FlowApps`).
 fn nearest_existing_folder(initial: Option<&str>) -> Option<std::path::PathBuf> {
     let folder = initial.map(std::path::PathBuf::from)?;
     folder.ancestors().find(|candidate| candidate.is_dir()).map(|folder| folder.to_path_buf())
@@ -1126,7 +1126,7 @@ mod tests {
     fn browse_starts_at_the_nearest_folder_that_exists() {
         let existing = std::env::temp_dir();
         assert_eq!(nearest_existing_folder(None), None);
-        // A default like `Program Files\ArtCraft` is often created only by the first install:
+        // A default like `Program Files\FlowApps` is often created only by the first install:
         // Browse then starts one level up, where the eye can find it again.
         let missing = existing.join("flowapps-launcher-does-not-exist-yet");
         assert_eq!(nearest_existing_folder(missing.to_str()), Some(existing.clone()));

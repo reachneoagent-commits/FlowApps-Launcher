@@ -1,6 +1,6 @@
 [package]
 name = "flowapps-launcher-core"
-description = "FlowApps core: the Craft App Suite catalog, versions, release parsing and asset choice (pure, wasm-safe)"
+description = "FlowApps core: the FlowApps suite catalog, versions, release parsing and asset choice (pure, wasm-safe)"
 version.workspace = true
 edition.workspace = true
 license.workspace = true

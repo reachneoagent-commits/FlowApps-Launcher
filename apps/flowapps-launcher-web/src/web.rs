@@ -13,7 +13,7 @@ use wasm_bindgen_futures::JsFuture;
 
 const SETTINGS_KEY: &str = "settings";
 
-/// Tell the UI the browser's languages (`?lang=ru` in the address first, as `ARTCRAFT_LAUNCHER_LOCALE`
+/// Tell the UI the browser's languages (`?lang=ru` in the address first, as `FLOWAPPS_LAUNCHER_LOCALE`
 /// does on the desktop) before the first frame, so the Automatic interface language follows the
 /// browser; and show the loading text in that language.
 fn detect_language() {
@@ -173,7 +173,7 @@ impl WebBackend {
         let pre = self.prereleases;
         wasm_bindgen_futures::spawn_local(async move {
             events.borrow_mut().push(Event::CheckStarted);
-            crate::hosted_catalog::refresh_once().await;
+            // FlowApps has no hosted catalog: the compiled app list is used.
             events.borrow_mut().push(Event::CatalogUpdated);
             ctx.request_repaint();
             let mut limited = None;

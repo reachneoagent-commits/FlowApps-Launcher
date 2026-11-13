@@ -1,6 +1,6 @@
 [package]
 name = "flowapps-launcher-web"
-description = "FlowApps in the browser: the Craft App Suite's latest releases, with downloads for the visitor's system"
+description = "FlowApps in the browser: the FlowApps suite's latest releases, with downloads for the visitor's system"
 version.workspace = true
 edition.workspace = true
 license.workspace = true

@@ -57,7 +57,7 @@ case "$ARCH" in
   aarch64 | arm64) ARCH=aarch64; DEB_ARCH=arm64 ;;
   *) echo "unsupported architecture $ARCH" >&2; exit 2 ;;
 esac
-export ARTCRAFT_LAUNCHER_MAINTAINER="${ARTCRAFT_LAUNCHER_MAINTAINER:-FlowApps maintainers <craft-launcher@storyteller.ai>}"
+export FLOWAPPS_LAUNCHER_MAINTAINER="${FLOWAPPS_LAUNCHER_MAINTAINER:-FlowApps maintainers <craft-launcher@storyteller.ai>}"
 BASENAME="$PKG-$VERSION-linux-$ARCH"
 
 echo "==> FlowApps $VERSION for Linux $ARCH ($FORMATS)"
@@ -79,7 +79,7 @@ install -Dm755 "$BIN/$PKG" "$STAGE/usr/bin/$PKG"
 "${CROSS_COMPILE:-}strip" "$STAGE/usr/bin/$PKG" 2>/dev/null || true
 install -Dm644 "$HERE/$APP_ID.desktop" "$STAGE/usr/share/applications/$APP_ID.desktop"
 mkdir -p "$STAGE/usr/share/metainfo"
-sed -e "s/@VERSION@/$VERSION/g" -e "s/@DATE@/$ARTCRAFT_LAUNCHER_BUILD_DATE/g" \
+sed -e "s/@VERSION@/$VERSION/g" -e "s/@DATE@/$FLOWAPPS_LAUNCHER_BUILD_DATE/g" \
   "$HERE/$APP_ID.metainfo.xml.in" >"$STAGE/usr/share/metainfo/$APP_ID.metainfo.xml"
 mkdir -p "$STAGE/usr/share/icons"
 cp -R "$ROOT/assets/app-icon/hicolor" "$STAGE/usr/share/icons/"
@@ -136,7 +136,7 @@ if has appimage; then
     echo "no pinned AppImage runtime for $ARCH; build the AppImage on x86_64 or aarch64" >&2
     exit 2
   fi
-  APPDIR="$WORK/ArtCraftLauncher.AppDir"
+  APPDIR="$WORK/FlowAppsLauncher.AppDir"
   cp -R "$STAGE" "$APPDIR"
   # AppRun is a script, not a symlink: it installs the .desktop entry and icons into
   # $XDG_DATA_HOME before launching, so Wayland compositors can resolve the window's

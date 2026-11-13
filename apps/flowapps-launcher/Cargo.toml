@@ -1,6 +1,6 @@
 [package]
 name = "flowapps-launcher"
-description = "FlowApps: install, update and open the Craft App Suite"
+description = "FlowApps: install, update and open the FlowApps suite"
 version.workspace = true
 edition.workspace = true
 license.workspace = true

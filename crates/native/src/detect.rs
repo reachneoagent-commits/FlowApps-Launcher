@@ -381,7 +381,7 @@ pub mod windows {
     /// disk.
     fn candidates_in_roots(app: &CraftApp, roots: &[PathBuf]) -> Vec<PathBuf> {
         let mut out: Vec<PathBuf> = suite_folders(app, roots).iter().flat_map(|dir| exe_candidates(app, Some(dir), &[])).collect();
-        let mut dirs: Vec<PathBuf> = roots.iter().map(|root| root.join("ArtCraft")).collect();
+        let mut dirs: Vec<PathBuf> = roots.iter().map(|root| root.join("FlowApps")).collect();
         dirs.extend(roots.iter().cloned());
         out.extend(exe_candidates(app, None, &dirs));
         out
@@ -1100,7 +1100,7 @@ mod tests {
     fn an_exe_in_the_suite_folder_of_any_root_is_found() {
         let dir = tempfile::tempdir().unwrap();
         let deck = CraftApp::by_id("deckcraft").unwrap();
-        let folder = dir.path().join("ArtCraft").join("DeckCraft");
+        let folder = dir.path().join("FlowApps").join("DeckCraft");
         std::fs::create_dir_all(&folder).unwrap();
         std::fs::write(folder.join("deckcraft.exe"), "x").unwrap();
         assert_eq!(windows::exe_in_roots(deck, vec![dir.path().to_path_buf()]), Some(folder.join("deckcraft.exe")));
@@ -1128,7 +1128,7 @@ mod tests {
     fn the_copy_with_the_records_version_is_the_one_opened() {
         let v = |s: &str| version::parse(s);
         let old = PathBuf::from(r"D:\Old\deckcraft.exe");
-        let new = PathBuf::from(r"C:\Users\a\AppData\Local\Programs\ArtCraft\DeckCraft\deckcraft.exe");
+        let new = PathBuf::from(r"C:\Users\a\AppData\Local\Programs\FlowApps\DeckCraft\deckcraft.exe");
         let version_of = |p: &std::path::Path| if p == old { v("0.11.1") } else { v("0.12.0") };
         let both = vec![old.clone(), new.clone()];
         assert_eq!(windows::pick_candidate(both.clone(), v("0.12.0").as_ref(), version_of), Some(new.clone()));
@@ -1146,7 +1146,7 @@ mod tests {
         let dir = tempfile::tempdir().unwrap();
         let deck = CraftApp::by_id("deckcraft").unwrap();
         let (a, b) = (dir.path().join("a"), dir.path().join("b"));
-        let exes: Vec<PathBuf> = [&a, &b].iter().map(|r| r.join("ArtCraft").join("DeckCraft").join("deckcraft.exe")).collect();
+        let exes: Vec<PathBuf> = [&a, &b].iter().map(|r| r.join("FlowApps").join("DeckCraft").join("deckcraft.exe")).collect();
         for exe in &exes {
             std::fs::create_dir_all(exe.parent().unwrap()).unwrap();
             std::fs::write(exe, "x").unwrap();
@@ -1159,7 +1159,7 @@ mod tests {
     #[test]
     fn the_launcher_msi_installs_to_flowapps_launcher_and_the_apps_do_not() {
         let roots = roots();
-        let want: Vec<PathBuf> = roots.iter().map(|root| root.join("ArtCraft").join("Launcher")).collect();
+        let want: Vec<PathBuf> = roots.iter().map(|root| root.join("FlowApps").join("Launcher")).collect();
         assert_eq!(suite_folders(&flowapps_launcher_core::catalog::LAUNCHER, &roots), want);
         let photo = CraftApp::by_id("photocraft").unwrap();
         assert!(suite_folders(photo, &roots).is_empty());

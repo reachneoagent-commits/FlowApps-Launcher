@@ -1,5 +1,5 @@
 //! Drives the launcher UI against a fake backend: what's shown for each status, and which
-//! commands the buttons send. `ARTCRAFT_LAUNCHER_SNAPSHOTS=<dir>` also saves screenshots; run that
+//! commands the buttons send. `FLOWAPPS_LAUNCHER_SNAPSHOTS=<dir>` also saves screenshots; run that
 //! with `-- --test-threads=1`, as rendering on several threads at once can crash Vulkan loaders
 //! older than 1.4.350 (KhronosGroup/Vulkan-Loader#1863).
 
@@ -193,10 +193,10 @@ fn events() -> Vec<Event> {
         ev.push(Event::Latest {
             app: (*id).into(),
             latest: LatestRelease::Found(release(id, v, NOW - 86_400 - i as i64 * 600)),
-            from: Origin::ArtCraftApi,
+            from: Origin::ReleaseFeed,
         });
     }
-    ev.push(Event::Latest { app: "soundcraft".into(), latest: LatestRelease::None, from: Origin::ArtCraftApi });
+    ev.push(Event::Latest { app: "soundcraft".into(), latest: LatestRelease::None, from: Origin::ReleaseFeed });
     let installed = [("photocraft", "0.4.1"), ("lightcraft", "0.4.0"), ("wordcraft", "0.3.0"), ("effectcraft", "0.5.0")];
     for app in &SUITE {
         let inst = installed.iter().find(|(id, _)| *id == app.id).map(|(_, v)| Installed {
@@ -333,11 +333,11 @@ fn harness_full(
     (harness, sent)
 }
 
-/// Save a PNG under `ARTCRAFT_LAUNCHER_SNAPSHOTS` when that is set. `name` is a test-owned file
+/// Save a PNG under `FLOWAPPS_LAUNCHER_SNAPSHOTS` when that is set. `name` is a test-owned file
 /// stem (the test names and sizes make each one unique), never a path: a separator is rejected so
 /// no caller can write outside the evidence directory.
 fn snapshot(h: &mut Harness<'_, Option<LauncherUi>>, name: &str) {
-    let Some(dir) = std::env::var_os("ARTCRAFT_LAUNCHER_SNAPSHOTS") else { return };
+    let Some(dir) = std::env::var_os("FLOWAPPS_LAUNCHER_SNAPSHOTS") else { return };
     assert!(
         !name.is_empty() && !name.contains(['/', '\\']) && name != "." && name != "..",
         "snapshot name must be one pathless file stem, got {name:?}"
@@ -1885,7 +1885,7 @@ fn a_retry_update_button_keeps_to_its_slot_and_leaves_room_for_the_menu() {
         ev.push(Event::Latest {
             app: "effectcraft".into(),
             latest: LatestRelease::Found(release("effectcraft", "0.12.0", NOW)),
-            from: Origin::ArtCraftApi,
+            from: Origin::ReleaseFeed,
         });
         ev.push(Event::ReadyToInstall { app: "effectcraft".into(), ready: true });
         let (mut h, _) = harness_with(ev, view, egui::Theme::Dark, true, 1.0);
@@ -2921,7 +2921,7 @@ fn a_freebsd_system_binary_is_not_offered_an_update_it_would_refuse() {
         origin: None,
         installation: None,
     };
-    let mut ev = vec![Event::Latest { app: "photocraft".into(), latest: LatestRelease::Found(tarball), from: Origin::ArtCraftApi }];
+    let mut ev = vec![Event::Latest { app: "photocraft".into(), latest: LatestRelease::Found(tarball), from: Origin::ReleaseFeed }];
     for app in &SUITE {
         ev.push(Event::Detected { app: app.id.into(), installed: (app.id == "photocraft").then(|| system.clone()) });
     }
@@ -3660,8 +3660,8 @@ fn assert_header_at_width(h: &mut Harness<'_, Option<LauncherUi>>, bar: flowapps
     for label in ["Show apps as cards", "Show apps as a table", "Settings", "Check for updates"] {
         let rect = h.get_by_label(label).rect();
         assert!(rect.left() >= 0.0 && rect.right() <= width, "{bar:?} {width}: {label} {rect:?}");
-        if let Some(text) = h.query_by_label("Craft App Suite") {
-            assert!(!rect.intersects(text.rect()), "{bar:?} {width}: Craft App Suite overlaps {label} {rect:?}");
+        if let Some(text) = h.query_by_label("FlowApps suite") {
+            assert!(!rect.intersects(text.rect()), "{bar:?} {width}: FlowApps suite overlaps {label} {rect:?}");
         }
     }
     if bar == flowapps_launcher_ui_egui::TitleBar::Custom {
@@ -3672,7 +3672,7 @@ fn assert_header_at_width(h: &mut Harness<'_, Option<LauncherUi>>, bar: flowapps
     }
     if width == 1180.0 {
         assert!(h.query_by_label("Launcher").is_none());
-        h.get_by_label("Craft App Suite");
+        h.get_by_label("FlowApps suite");
     }
     if [720.0, 800.0, 1180.0].contains(&width) {
         snapshot(h, &format!("header-{theme:?}-{bar:?}-{width}"));
@@ -3945,7 +3945,7 @@ fn download_size_preview_uses_the_managed_plan_or_manual_platform_formats() {
         let mut backend = Some(Windows(
             Fake {
                 events: vec![
-                    Event::Latest { app: "photocraft".into(), latest: LatestRelease::Found(r), from: Origin::ArtCraftApi },
+                    Event::Latest { app: "photocraft".into(), latest: LatestRelease::Found(r), from: Origin::ReleaseFeed },
                     Event::Detected { app: "photocraft".into(), installed: None },
                     Event::CheckFinished { at: NOW, source: Source::GitHubApi, rate_limited_until: None },
                 ],

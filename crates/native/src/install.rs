@@ -4,7 +4,7 @@
 //!
 //! - macOS: the signed `.app` from the release DMG into `/Applications`.
 //! - Windows: the release MSI (Windows Installer), for the current user into
-//!   `%LOCALAPPDATA%\Programs\ArtCraft\<App>` by default. An update keeps the installed copy's folder
+//!   `%LOCALAPPDATA%\Programs\FlowApps\<App>` by default. An update keeps the installed copy's folder
 //!   and scope (per-machine copies stay in `C:\Program Files\ArtCraft\<App>`).
 //! - Linux: the distro's own package (`.deb` through apt on the Debian family, `.rpm` through
 //!   dnf/zypper/rpm on the Fedora, Red Hat and SUSE families, read from `os-release`) with the
@@ -435,9 +435,9 @@ pub fn default_folder(kind: PackageKind, arch: Option<Arch>, paths: &Paths) -> O
         match kind {
             PackageKind::Msi => match arch {
                 Some(Arch::X86) => {
-                    Some(PathBuf::from(std::env::var_os("ProgramFiles(x86)").or_else(|| std::env::var_os("ProgramFiles"))?).join("ArtCraft"))
+                    Some(PathBuf::from(std::env::var_os("ProgramFiles(x86)").or_else(|| std::env::var_os("ProgramFiles"))?).join("FlowApps"))
                 }
-                Some(_) => Some(PathBuf::from(std::env::var_os("ProgramFiles")?).join("ArtCraft")),
+                Some(_) => Some(PathBuf::from(std::env::var_os("ProgramFiles")?).join("FlowApps")),
                 None => None,
             },
             PackageKind::PortableZip => Some(paths.apps()),
@@ -2423,7 +2423,7 @@ mod tests {
     #[cfg(windows)]
     #[test]
     fn an_update_takes_the_folder_only_from_the_records_own_scope() {
-        let folder = Some(PathBuf::from(r"C:\Users\a\AppData\Local\Programs\ArtCraft\DeckCraft"));
+        let folder = Some(PathBuf::from(r"C:\Users\a\AppData\Local\Programs\FlowApps\DeckCraft"));
         assert_eq!(keep_if_in_scope(folder.clone(), true), folder);
         assert_eq!(keep_if_in_scope(folder, false), None);
         assert_eq!(keep_if_in_scope(None, true), None);
@@ -2432,10 +2432,10 @@ mod tests {
     /// The default folder shown in the UI is the one a fresh install really uses.
     #[cfg(windows)]
     #[test]
-    fn the_default_folder_is_the_artcraft_suite_folder_in_program_files() {
+    fn the_default_folder_is_the_flowapps_suite_folder_in_program_files() {
         let paths = Paths::under(std::path::Path::new(r"C:\scratch"));
         let program_files = std::env::var_os("ProgramFiles").map(PathBuf::from).unwrap();
-        assert_eq!(default_folder(PackageKind::Msi, Some(Arch::X64), &paths), Some(program_files.join("ArtCraft")));
+        assert_eq!(default_folder(PackageKind::Msi, Some(Arch::X64), &paths), Some(program_files.join("FlowApps")));
         assert_eq!(default_folder(PackageKind::PortableZip, Some(Arch::X64), &paths), Some(paths.apps()));
         assert_eq!(default_folder(PackageKind::Dmg, Some(Arch::X64), &paths), None);
     }
@@ -2447,7 +2447,7 @@ mod tests {
     fn a_32_bit_package_uses_the_32_bit_program_files_and_an_unknown_architecture_answers_nothing() {
         let paths = Paths::under(std::path::Path::new(r"C:\scratch"));
         let x86 = std::env::var_os("ProgramFiles(x86)").or_else(|| std::env::var_os("ProgramFiles")).map(PathBuf::from).unwrap();
-        assert_eq!(default_folder(PackageKind::Msi, Some(Arch::X86), &paths), Some(x86.join("ArtCraft")));
+        assert_eq!(default_folder(PackageKind::Msi, Some(Arch::X86), &paths), Some(x86.join("FlowApps")));
         assert_eq!(default_folder(PackageKind::Msi, None, &paths), None);
     }
 

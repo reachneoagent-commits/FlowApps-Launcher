@@ -1,4 +1,4 @@
-# Georgian (ka) catalog for ArtCraft Launcher.
+# Georgian (ka) catalog for FlowApps.
 # Format: context<TAB>source<TAB>translation
 # Empty context = plain UI string (tl!, t).
 # @id = command-id keyed (tr_id).
@@ -6,14 +6,14 @@
 # @msg = status/error message template (message, msg).
 # Other context = disambiguation for tr_ctx.
 #
-# Clean-room: written from the meaning of ArtCraft Launcher's English labels in neutral Georgian,
+# Clean-room: written from the meaning of FlowApps's English labels in neutral Georgian,
 # with the terms the other Craft apps use in Georgian. The user is addressed with the polite
 # plural (თქვენ), as in Georgian system software. Commands are verbal nouns (ინსტალაცია,
 # განახლება, გახსნა). Georgian has no letter case: no Mtavruli capitals, even where the English
 # uses capitals ("NEW").
 #
 # Coverage: the whole interface — every menu string and tl! literal (complete_menus = true).
-# Left in English on purpose: product name "ArtCraft Launcher" (and its "Launcher" tag), suite
+# Left in English on purpose: product name "FlowApps" (and its "Launcher" tag), suite
 # name "FlowApps Suite", app names (PhotoCraft, LightCraft, FilmCraft, DesignCraft, VectorCraft,
 # PdfCraft, EffectCraft, WordCraft, DeckCraft, GridCraft, CADCraft, SoundCraft, FigCraft), "GitHub",
 # "Discord". Georgian case endings attach to them with a hyphen (GitHub-ზე, ArtCraft-ის).
