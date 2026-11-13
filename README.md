@@ -80,7 +80,7 @@ Download the build for your computer from the [latest release](https://github.co
 |---|---|---|
 | **Flowgram** | Grammar and spell checker for Mac and Windows | [GitHub](https://github.com/reachneoagent-commits/flowgram) |
 | **Voxflow** | Offline speech-to-text app | [GitHub](https://github.com/reachneoagent-commits/voxflow) |
-| **Mailflow** | Mail, calendar, contacts and tasks app | [GitHub](https://github.com/reachneoagent-commits/mailflow) |
+| **Mailflow** | Mail, calendar, contacts and tasks app, with optional AI writing help | [GitHub](https://github.com/reachneoagent-commits/mailflow) |
 
 ## License and credits
 

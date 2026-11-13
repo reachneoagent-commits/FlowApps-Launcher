@@ -56,7 +56,7 @@ text = "Continuous batching with SSD caching on Apple Silicon. Press a shortcut 
 [[apps]]
 id = "mailflow"
 name = "Mailflow"
-tagline = "Open-source mail, calendar, contacts and tasks app"
+tagline = "Mail, calendar, contacts and tasks, with optional AI writing help"
 color = [71, 55, 255]
 ink_light = [43, 43, 43]
 ink_dark = [229, 229, 229]
@@ -69,14 +69,18 @@ former_bundles = []
 kind = "community"
 publisher = "Reach Neo"
 [apps.details]
-headline = "An open-source mail, calendar, contacts and tasks program, written from scratch in Rust."
-about = "Mailflow is a clean-room reimplementation of the mail client people already know how to use: the ribbon, the folder pane, the message list with its reading pane, conversations, flags, categories, rules, a calendar with recurring meetings, people and to-dos. Native, GPU-rendered — no Electron, no web view."
+headline = "Mail, calendar, people and tasks in one native app, with help with writing when you ask for it."
+about = "A free, open source mail, calendar, contacts and tasks app for Mac and Windows. Help with writing is optional and runs only when you ask: on your own computer, or with a provider you choose. A fork of MailCraft."
 platforms = "macOS, Windows"
 
 [[apps.details.features]]
 title = "Mail, calendar, contacts"
-text = "Full-featured email client with calendar, contacts, and tasks in one native app."
+text = "A full email client with calendar, contacts and tasks in one native app, built on MailCraft."
 
 [[apps.details.features]]
-title = "Offline and local"
-text = "Everything runs locally on your machine. No cloud round-trips between you and your work."
+title = "Help with writing, or none"
+text = "Rewrite, shorten or tidy a draft with a model on your own computer, a free service or your own API key. Off until you set it up."
+
+[[apps.details.features]]
+title = "Yours to shape"
+text = "A guided setup you can skip section by section, and six colour themes in light and dark."
