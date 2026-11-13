@@ -1,45 +1,20 @@
 <p align="center">
-  <a href="https://github.com/reachneoagent-commits">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="docs/brand/flowapps-logo-white.svg">
-      <img alt="FlowApps" src="docs/brand/flowapps-logo.svg" width="32">
-    </picture>
-  </a>
-</p>
-
-<p align="center">
-  <img src="assets/app-icons/flowapps-symbol.png" width="128" height="128" alt="FlowApps icon: white Flow symbol on transparent">
+  <img src="assets/app-icons/flowapps-symbol.png" width="128" height="128" alt="FlowApps">
 </p>
 
 <h1 align="center">FlowApps</h1>
 
 <p align="center">
-  <b>One place to install, update and open every app in the FlowApps suite, rebuilt in pure Rust.</b><br>
+  <b>One place to install, update and open every app in the FlowApps suite.</b><br>
   Flowgram, Voxflow and Mailflow: the right build for your computer, kept up to date.
 </p>
 
 <p align="center">
-  <img alt="100% Rust" src="https://img.shields.io/badge/100%25-Rust-b7410e?style=flat-square&logo=rust">
-  <img alt="macOS · Windows · Linux · FreeBSD · Web" src="https://img.shields.io/badge/macOS%20%C2%B7%20Windows%20%C2%B7%20Linux%20%C2%B7%20FreeBSD%20%C2%B7%20Web-native-26282e?style=flat-square">
-  <img alt="License: MIT OR Apache-2.0" src="https://img.shields.io/badge/license-MIT%20%2F%20Apache--2.0-3a3a3a?style=flat-square">
-  <img alt="Status: early alpha" src="https://img.shields.io/badge/status-early%20alpha-d69e2e?style=flat-square">
+  <a href="https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/latest"><b>Download FlowApps</b></a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/reachneoagent-commits/Flow-launcher/releases/latest"><b>Download FlowApps</b></a> ·
-  <a href="https://github.com/reachneoagent-commits">FlowApps on GitHub</a>
-</p>
-
-<p align="center">
-  <a href="#what-it-does">What it does</a> ·
-  <a href="#features">Features</a> ·
-  <a href="#downloads">Downloads</a> ·
-  <a href="#build-from-source">Build from source</a> ·
-  <a href="#flowapps-suite">FlowApps Suite</a>
-</p>
-
-<p align="center">
-  <img src="docs/screenshots/flowapps-launcher-grid.png" alt="FlowApps Launcher on macOS in the grid view (dark theme): a card for each FlowApps app with its icon, status, version, release date and an Install or Open button" width="900">
+  <img src="docs/screenshots/flowapps-launcher-grid.png" alt="FlowApps on macOS: a card for each app with its icon, version and an Install or Open button" width="900">
 </p>
 
 ## What it does
@@ -70,39 +45,9 @@ you when an update is out. It is a small native app that can sit in your menu ba
 
 The web version shows the same catalog in the browser, with the latest download for each app.
 
-## Interface languages
-
-The interface is in English, Brazilian Portuguese (Português (Brasil)), Czech (Čeština), French
-(Français), Georgian (ქართული), German (Deutsch), Hungarian (Magyar), Japanese (日本語), Polish
-(Polski), Russian (Русский), Simplified Chinese (简体中文), Traditional Chinese (繁體中文) or Spanish
-(Español). **Auto**, the default, follows the system or browser language; **Settings → Language**
-picks one and switches at once, and the choice is kept between runs.
-
-## Where apps are installed
-
-FlowApps installs each app where your system normally keeps applications, using the
-app's official release package, so an app installed by the launcher is the same as one you
-installed by hand (and the launcher finds apps you installed yourself):
-
-| System | Where | How |
-|---|---|---|
-| macOS | `/Applications/<App>.app` | Copied from the signed release DMG |
-| Windows | `C:\Program Files\FlowApps\<App>` | The release MSI, through Windows Installer, for everyone on the computer |
-| Linux | `/usr/bin`, `/usr/share/applications` | The release `.deb` (apt) or `.rpm` (dnf, zypper) |
-
-FlowApps keeps itself current too: when a new version is out, **Update and restart**
-downloads it, verifies it, puts it where this copy is installed and reopens it.
-
-Updates use the same format an app was installed with. Every download is checked against the
-release's published SHA-256 before it is installed, and a running app is never replaced.
-
-The launcher writes its log to `logs/flowapps-launcher.log` in its data folder
-(`~/.local/share/flowapps-launcher` on Linux, `~/Library/Application Support/FlowApps`
-on macOS, `%LOCALAPPDATA%\FlowApps` on Windows).
-
 ## Downloads
 
-Download the build for your computer from the [latest release](https://github.com/reachneoagent-commits/Flow-launcher/releases/latest), or browse [all releases](https://github.com/reachneoagent-commits/Flow-launcher/releases). Every release has a `SHA256SUMS.txt` to check the files against. `<ver>` is the version number, for example `0.1.0`.
+Download the build for your computer from the [latest release](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/latest), or browse [all releases](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases). Every release has a `SHA256SUMS.txt` to check the files against. `<ver>` is the version number, for example `0.1.0`.
 
 **Windows** (10 and 11)
 
@@ -129,30 +74,13 @@ Download the build for your computer from the [latest release](https://github.co
 | `flowapps-launcher-<ver>-linux-{x86_64,aarch64}.flatpak` | Flatpak bundle |
 | `flowapps-launcher-<ver>-linux-{x86_64,aarch64}.tar.gz` | Plain tree (`bin/`, `share/`) |
 
-The tray icon uses the StatusNotifierItem standard: KDE, Xfce, Cinnamon and most other desktops show it; on GNOME install the AppIndicator extension.
-
-## Build from source
-
-You need a recent stable Rust (1.90 or newer). On Linux, install the windowing headers first
-(Debian/Ubuntu: `sudo apt install libxkbcommon-dev libwayland-dev libx11-dev libxrandr-dev libxi-dev libgl1-mesa-dev`).
-
-```sh
-git clone https://github.com/reachneoagent-commits/Flow-launcher
-cd Flow-launcher
-cargo run --release -p flowapps-launcher   # the desktop app
-cargo xtask ci                             # fmt, clippy, tests and the wasm check
-```
-
-## FlowApps Suite
-
-FlowApps installs the **FlowApps Suite**: free, open-source apps from the FlowApps team,
-each written from scratch in Rust and each able to stand on its own.
+## The FlowApps suite
 
 | App | What it's for | GitHub |
 |---|---|---|
 | **Flowgram** | Grammar and spell checker for Mac and Windows | [GitHub](https://github.com/reachneoagent-commits/flowgram) |
 | **Voxflow** | Offline speech-to-text app | [GitHub](https://github.com/reachneoagent-commits/voxflow) |
-| **Mailflow** | Mail, calendar, contacts and tasks app | [GitHub](https://github.com/UCS-Care-Group/mailcraft) |
+| **Mailflow** | Mail, calendar, contacts and tasks app | [GitHub](https://github.com/reachneoagent-commits/mailflow) |
 
 ## License and credits
 

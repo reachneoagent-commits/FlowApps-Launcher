@@ -1,5 +1,5 @@
 # FlowApps Launcher catalog
-# Source: reachneoagent-commits/Flow-launcher
+# Source: reachneoagent-commits/FlowApps-Launcher
 
 [[apps]]
 id = "flowgram"
@@ -9,6 +9,8 @@ color = [68, 152, 55]
 ink_light = [43, 43, 43]
 ink_dark = [235, 246, 108]
 repo = "reachneoagent-commits/flowgram"
+bundle = "com.flowgram.app"
+site = "https://github.com/reachneoagent-commits/flowgram"
 former_ids = []
 former_names = []
 former_bundles = []
@@ -35,6 +37,8 @@ color = [166, 149, 248]
 ink_light = [51, 45, 81]
 ink_dark = [229, 229, 229]
 repo = "reachneoagent-commits/voxflow"
+bundle = "com.voxflow.app"
+site = "https://github.com/reachneoagent-commits/voxflow"
 former_ids = []
 former_names = []
 former_bundles = []
@@ -56,8 +60,10 @@ tagline = "Open-source mail, calendar, contacts and tasks app"
 color = [71, 55, 255]
 ink_light = [43, 43, 43]
 ink_dark = [229, 229, 229]
-repo = "UCS-Care-Group/mailcraft"
-former_ids = []
+repo = "reachneoagent-commits/mailflow"
+bundle = "com.flowapps.mailflow"
+site = "https://github.com/reachneoagent-commits/mailflow"
+former_ids = ["mailcraft"]
 former_names = []
 former_bundles = []
 kind = "community"
@@ -65,7 +71,7 @@ publisher = "Reach Neo"
 [apps.details]
 headline = "An open-source mail, calendar, contacts and tasks program, written from scratch in Rust."
 about = "Mailflow is a clean-room reimplementation of the mail client people already know how to use: the ribbon, the folder pane, the message list with its reading pane, conversations, flags, categories, rules, a calendar with recurring meetings, people and to-dos. Native, GPU-rendered — no Electron, no web view."
-platforms = "macOS, Windows, Linux"
+platforms = "macOS, Windows"
 
 [[apps.details.features]]
 title = "Mail, calendar, contacts"

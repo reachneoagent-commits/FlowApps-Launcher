@@ -178,11 +178,11 @@ pub const LAUNCHER: CraftApp = app(
     "FlowApps",
     "Installs and updates your apps",
     [[0x0b, 0x0b, 0x0c], [0x0b, 0x0b, 0x0c], [0xf0, 0xee, 0xea]],
-    "reachneoagent-commits/Flow-launcher",
+    "reachneoagent-commits/FlowApps-Launcher",
 );
 
 /// The launcher's own repo, checked so it can say when a newer launcher is out.
-pub const LAUNCHER_REPO: &str = "reachneoagent-commits/Flow-launcher";
+pub const LAUNCHER_REPO: &str = "reachneoagent-commits/FlowApps-Launcher";
 /// The launcher's own asset stem.
 pub const LAUNCHER_ID: &str = "flowapps-launcher";
 
@@ -242,117 +242,34 @@ mod tests {
         ids.dedup();
         assert_eq!(ids.len(), SUITE.len());
         for a in &SUITE {
-            // `Craft Anything` is `craft-anything`.
-            assert_eq!(a.name.to_lowercase().replace(' ', "-"), a.id);
-            match a.kind {
-                AppKind::Official => assert_eq!(a.repo, format!("storytold/{}", a.id)),
-                AppKind::Community => assert!(!a.repo.starts_with("storytold/"), "{} is community", a.id),
-            }
+            assert_eq!(a.name.to_lowercase(), a.id);
+            assert!(a.repo.starts_with(&format!("{GITHUB_OWNER}/")), "{} must live under {GITHUB_OWNER}", a.id);
+            assert_eq!(a.website(), format!("https://github.com/{}", a.repo));
         }
     }
 
     #[test]
-    fn solidcraft_is_a_community_app_with_its_own_bundle_id() {
-        let sc = CraftApp::by_id("solidcraft").unwrap();
-        assert_eq!(sc.kind, AppKind::Community);
-        assert_eq!(sc.repo, "tangency-labs/solidcraft");
-        assert_eq!(sc.bundle_id(), "io.tangencylabs.solidcraft");
-        assert_eq!(sc.bundle_ids().collect::<Vec<_>>(), ["io.tangencylabs.solidcraft", "ai.storyteller.solidcraft", "ai.storyteller.solvecraft"]);
-        assert_eq!(CraftApp::by_id("gridcraft").unwrap().bundle_id(), "ai.storyteller.gridcraft");
-        assert_eq!(CraftApp::by_id("gridcraft").unwrap().kind, AppKind::Official);
-        assert_eq!(sc.website(), "https://solidcraft.io");
-        assert!(sc.installs(crate::PackageKind::Dmg) && sc.installs(crate::PackageKind::Msi) && sc.installs(crate::PackageKind::Flatpak));
-        assert_eq!(sc.mac_team, Some("G5QA5U5X2S"));
-        assert_eq!(CraftApp::by_id("gridcraft").unwrap().mac_team, Some(ARTCRAFT_TEAM_ID));
+    fn apps_point_at_their_own_repos_and_bundle_ids() {
+        let expected = [
+            ("flowgram", "reachneoagent-commits/flowgram", "com.flowgram.app"),
+            ("voxflow", "reachneoagent-commits/voxflow", "com.voxflow.app"),
+            ("mailflow", "reachneoagent-commits/mailflow", "com.flowapps.mailflow"),
+        ];
+        for (id, repo, bundle) in expected {
+            let app = CraftApp::by_id(id).unwrap();
+            assert_eq!((app.repo, app.bundle_id().as_str()), (repo, bundle));
+        }
     }
 
     #[test]
-    fn mailcraft_is_a_community_app_not_installed_on_mac() {
-        let mc = CraftApp::by_id("mailcraft").unwrap();
-        assert_eq!(mc.kind, AppKind::Community);
-        assert_eq!(mc.repo, "UCS-Care-Group/mailcraft");
-        assert_eq!(mc.bundle_id(), "io.github.billsecond.mailcraft");
-        assert_eq!(mc.website(), "https://mailcraft.work");
-        assert!(!mc.installs(crate::PackageKind::Dmg));
-        assert!(mc.installs(crate::PackageKind::Msi) && mc.installs(crate::PackageKind::Flatpak));
+    fn mailflow_also_answers_to_mailcraft_release_names() {
+        let mf = CraftApp::by_id("mailflow").unwrap();
+        assert_eq!(mf.stems().collect::<Vec<_>>(), ["mailflow", "mailcraft"]);
     }
 
     #[test]
-    fn texturecraft_is_an_official_app() {
-        let app = CraftApp::by_id("texturecraft").unwrap();
-        assert_eq!(app.kind, AppKind::Official);
-        assert_eq!(app.repo, "storytold/texturecraft");
-        assert_eq!(app.bundle_id(), "ai.storyteller.texturecraft");
-        assert_eq!(app.website(), "https://getartcraft.com/apps/texturecraft");
-        assert_eq!(app.mac_team, Some(ARTCRAFT_TEAM_ID));
-    }
-
-    #[test]
-    fn materialcraft_is_an_official_app() {
-        let app = CraftApp::by_id("materialcraft").unwrap();
-        assert_eq!(app.kind, AppKind::Official);
-        assert_eq!(app.repo, "storytold/materialcraft");
-        assert_eq!(app.bundle_id(), "ai.storyteller.materialcraft");
-        assert_eq!(app.website(), "https://github.com/storytold/materialcraft");
-        assert_eq!(app.mac_team, Some(ARTCRAFT_TEAM_ID));
-    }
-
-    #[test]
-    fn anicraft_is_an_official_app() {
-        let app = CraftApp::by_id("anicraft").expect("anicraft");
-        assert_eq!(
-            (app.kind, app.repo, app.bundle_id(), app.mac_team),
-            (AppKind::Official, "storytold/anicraft", "ai.storyteller.anicraft".into(), Some(ARTCRAFT_TEAM_ID))
-        );
-        assert_eq!(app.website(), "https://github.com/storytold/anicraft");
-    }
-
-    #[test]
-    fn craft_anything_is_an_official_app() {
-        let ca = CraftApp::by_id("craft-anything").unwrap();
-        assert_eq!(ca.kind, AppKind::Official);
-        assert_eq!(ca.repo, "storytold/craft-anything");
-        assert_eq!(ca.bundle_id(), "ai.storyteller.craft-anything");
-        assert_eq!(ca.website(), "https://getartcraft.com/apps/craft-anything");
-        assert_eq!(ca.mac_team, Some(ARTCRAFT_TEAM_ID));
-    }
-
-    #[test]
-    fn pdfcraft_also_answers_to_printcraft() {
-        let pdf = CraftApp::by_id("pdfcraft").unwrap();
-        assert_eq!(pdf.stems().collect::<Vec<_>>(), ["pdfcraft", "printcraft"]);
-        assert_eq!(pdf.names().collect::<Vec<_>>(), ["PdfCraft", "PrintCraft"]);
-        assert_eq!(pdf.website(), "https://getartcraft.com/apps/pdfcraft");
-        assert_eq!(CraftApp::by_id("wordcraft").unwrap().website(), "https://getartcraft.com/apps/wordcraft");
-    }
-
-    /// Apps can specify custom macOS bundle names and platform support.
-    #[test]
-    fn mac_bundle_names_and_platform_support() {
-        let photo = CraftApp::by_id("photocraft").unwrap();
-        assert_eq!(photo.mac_bundle_name(), "PhotoCraft");
-        assert_eq!(photo.mac_bundle_names().collect::<Vec<_>>(), ["PhotoCraft"]);
-        assert!(photo.runs_on(crate::Os::FreeBsd));
-        assert!(photo.runs_on(crate::Os::Linux));
-        assert!(photo.runs_on(crate::Os::MacOs));
-        assert!(photo.runs_on(crate::Os::Windows));
-
-        let custom = CraftApp {
-            former_names: &["ArtCraft"],
-            mac_bundle_name: Some("ArtCraft"),
-            ..app(
-                "artcraft",
-                "ArtCraft Studio",
-                "AI image and video creation",
-                [[47, 123, 245], [26, 91, 196], [127, 176, 255]],
-                "storytold/artcraft",
-            )
-        };
-        assert_eq!(custom.mac_bundle_name(), "ArtCraft");
-        assert_eq!(custom.mac_bundle_names().collect::<Vec<_>>(), ["ArtCraft", "ArtCraft Studio"]);
-        assert!(!custom.runs_on(crate::Os::FreeBsd));
-        assert!(custom.runs_on(crate::Os::Linux));
-        assert!(custom.runs_on(crate::Os::MacOs));
-        assert!(custom.runs_on(crate::Os::Windows));
+    fn the_launcher_lives_in_its_own_repo() {
+        assert_eq!(LAUNCHER_REPO, "reachneoagent-commits/FlowApps-Launcher");
+        assert_eq!(LAUNCHER.repo, LAUNCHER_REPO);
     }
 }
