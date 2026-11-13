@@ -45,34 +45,22 @@ you when an update is out. It is a small native app that can sit in your menu ba
 
 The web version shows the same catalog in the browser, with the latest download for each app.
 
-## Downloads
+## Download and install
 
-Download the build for your computer from the [latest release](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/latest), or browse [all releases](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases). Every release has a `SHA256SUMS.txt` to check the files against. `<ver>` is the version number, for example `0.1.0`.
+Download FlowApps for your system (latest version, 0.20.0), then open it to install Flowgram, Voxflow and Mailflow.
 
-**Windows** (10 and 11)
+| Platform | Installer |
+| --- | --- |
+| macOS (Apple silicon and Intel) | [DMG](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.20.0/flowapps-launcher-0.20.0-macos-universal.dmg) |
+| Windows x64 | [Installer](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.20.0/flowapps-launcher-0.20.0-windows-x64.msi) · [Portable](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.20.0/flowapps-launcher-0.20.0-windows-x64-portable.zip) |
+| Windows ARM64 | [Installer](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.20.0/flowapps-launcher-0.20.0-windows-arm64.msi) · [Portable](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.20.0/flowapps-launcher-0.20.0-windows-arm64-portable.zip) |
 
-| File | What it is |
-|---|---|
-| `flowapps-launcher-<ver>-windows-x64.msi` | Installer for most PCs (Intel and AMD, 64-bit) |
-| `flowapps-launcher-<ver>-windows-arm64.msi` | Installer for Windows on Arm |
-| `flowapps-launcher-<ver>-windows-x86.msi` | Installer for 32-bit Windows |
-| `flowapps-launcher-<ver>-windows-{x64,arm64,x86}-portable.zip` | No install: unzip and run `flowapps-launcher.exe` |
+Older versions are on the [Releases page](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases). Every release has a `SHA256SUMS.txt` to check the files against.
 
-**macOS** (11 Big Sur or later)
+FlowApps isn't signed with a paid Apple or Microsoft certificate, so your computer will warn you the first time you open it.
 
-| File | What it is |
-|---|---|
-| `flowapps-launcher-<ver>-macos-universal.dmg` | Universal app for Apple silicon and Intel Macs. Drag FlowApps to Applications |
-
-**Linux** (x86_64 and aarch64; glibc 2.35 or newer)
-
-| File | What it is |
-|---|---|
-| `flowapps-launcher-<ver>-linux-{x86_64,aarch64}.AppImage` | Runs on almost any distro without installing |
-| `flowapps-launcher-<ver>-linux-{x86_64,aarch64}.deb` | Debian, Ubuntu, Mint, Pop!_OS: `sudo apt install ./flowapps-launcher-…deb` |
-| `flowapps-launcher-<ver>-linux-{x86_64,aarch64}.rpm` | Fedora, openSUSE, RHEL: `sudo dnf install ./flowapps-launcher-…rpm` |
-| `flowapps-launcher-<ver>-linux-{x86_64,aarch64}.flatpak` | Flatpak bundle |
-| `flowapps-launcher-<ver>-linux-{x86_64,aarch64}.tar.gz` | Plain tree (`bin/`, `share/`) |
+- **Mac:** open the DMG and drag FlowApps to Applications. Then right-click FlowApps, choose Open, and click Open again.
+- **Windows:** if SmartScreen appears, click More info, then Run anyway.
 
 ## The FlowApps suite
 
