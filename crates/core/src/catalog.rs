@@ -113,6 +113,12 @@ impl CraftApp {
             .chain(self.former_names.iter().copied().filter(move |&n| n != primary && n != self.name))
     }
 
+    /// Whether this app's macOS build isn't Developer ID signed. Its download is still checked
+    /// against the release's SHA-256 and its bundle id and version are checked after copying.
+    pub fn mac_unsigned(&self) -> bool {
+        self.mac_team == Some(UNSIGNED_MAC_TEAM)
+    }
+
     pub fn by_id(id: &str) -> Option<&'static CraftApp> {
         crate::hosted_catalog::apps().iter().find(|a| a.id == id)
     }
@@ -151,6 +157,9 @@ include!(concat!(env!("OUT_DIR"), "/catalog.rs"));
 
 /// The Apple Developer team that signs every official Craft App and FlowApps (Learning
 /// Machines LLC): the macOS side of the Windows publisher check.
+/// Catalog `mac_team` value for an app whose Mac build carries no Developer ID signature.
+pub const UNSIGNED_MAC_TEAM: &str = "unsigned";
+
 pub const ARTCRAFT_TEAM_ID: &str = "DJ6XS33FX8";
 
 /// ArtCraft's website.
@@ -271,5 +280,12 @@ mod tests {
     fn the_launcher_lives_in_its_own_repo() {
         assert_eq!(LAUNCHER_REPO, "reachneoagent-commits/FlowApps-Launcher");
         assert_eq!(LAUNCHER.repo, LAUNCHER_REPO);
+    }
+
+    #[test]
+    fn our_apps_install_on_mac_checked_by_checksum_not_signature() {
+        for a in &SUITE {
+            assert!(a.mac_unsigned() && a.installs(crate::PackageKind::Dmg), "{}", a.id);
+        }
     }
 }

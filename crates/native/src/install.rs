@@ -1729,7 +1729,7 @@ pub mod macos {
     impl<'a> Expect<'a> {
         /// What `release` of `app` must prove: the app's own team's signature, and the version.
         pub fn release(app: &'a CraftApp, release: &'a Release) -> Self {
-            Self { team: app.mac_team, version: release.version.as_ref() }
+            Self { team: app.mac_team.filter(|_| !app.mac_unsigned()), version: release.version.as_ref() }
         }
     }
 
@@ -1862,7 +1862,7 @@ pub mod macos {
         expect: &Expect<'_>,
         run: impl FnMut(&str, &[&str], Duration) -> Result<process::RunOutput, String>,
     ) -> Result<(), String> {
-        if let Some(team) = required_team(expect.team, cfg!(test))? {
+        if let Some(team) = required_team(expect.team, cfg!(test) || app.mac_unsigned())? {
             super::macos_verify::verify_with(app, bundle, team, run)?;
         }
         if let Some(want) = expect.version

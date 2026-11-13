@@ -245,6 +245,11 @@ pub fn parse_asset_name(name: &str, stems: &[&str]) -> Option<AssetName> {
             if crate::version::parse(version).is_none() || !version.starts_with(|c: char| c.is_ascii_digit()) {
                 continue;
             }
+            // Tauri's Mac names: `<Name>_<ver>_Mac_Apple-Silicon.dmg` and `…_Mac_Intel.dmg`.
+            if kind == PackageKind::Dmg && matches!(suffix, "Mac_Apple-Silicon" | "Mac_Intel") {
+                let token = if suffix == "Mac_Intel" { "macos-x86_64" } else { "macos-aarch64" };
+                return Some(AssetName { stem: (*stem).to_string(), version: version.to_string(), token: token.into(), kind });
+            }
             let arch_token = if suffix == "x86_64" || suffix.starts_with("x86_64_") { "x86_64" } else { suffix.split('_').next().unwrap_or("") };
             let token = match (kind, arch_token) {
                 (PackageKind::Dmg, "universal") => Some("macos-universal".to_string()),
@@ -253,6 +258,8 @@ pub fn parse_asset_name(name: &str, stems: &[&str]) -> Option<AssetName> {
                 (PackageKind::Msi | PackageKind::PortableZip, "x86_64" | "x64") => Some("windows-x64".to_string()),
                 (PackageKind::Msi | PackageKind::PortableZip, "x86") => Some("windows-x86".to_string()),
                 (PackageKind::Msi | PackageKind::PortableZip, "arm64" | "aarch64") => Some("windows-arm64".to_string()),
+                (PackageKind::AppImage | PackageKind::Deb, "amd64" | "x86_64") => Some("linux-x86_64".to_string()),
+                (PackageKind::AppImage | PackageKind::Deb, "aarch64" | "arm64") => Some("linux-aarch64".to_string()),
                 _ => None,
             };
             if let Some(token) = token {
@@ -527,5 +534,26 @@ mod tests {
         for kind in [PackageKind::AppImage, PackageKind::Deb, PackageKind::Rpm, PackageKind::ArchPkg, PackageKind::Flatpak, PackageKind::TarGz] {
             assert_eq!(pick_asset(&arm_only_release, &["photocraft"], p_x64, &[kind]), None, "x86_64 must never match an aarch64 asset for {kind:?}");
         }
+    }
+
+    #[test]
+    fn reads_tauri_asset_names() {
+        let n = |name: &str| parse_asset_name(name, &["voxflow"]).map(|a| (a.token, a.kind));
+        assert_eq!(n("Voxflow_0.9.13_Mac_Apple-Silicon.dmg"), Some(("macos-aarch64".into(), PackageKind::Dmg)));
+        assert_eq!(n("Voxflow_0.9.13_Mac_Intel.dmg"), Some(("macos-x86_64".into(), PackageKind::Dmg)));
+        assert_eq!(n("Voxflow_0.9.13_x64_en-US.msi"), Some(("windows-x64".into(), PackageKind::Msi)));
+        assert_eq!(n("Voxflow_0.9.13_arm64_en-US.msi"), Some(("windows-arm64".into(), PackageKind::Msi)));
+        assert_eq!(n("Voxflow_0.9.13_amd64.AppImage"), Some(("linux-x86_64".into(), PackageKind::AppImage)));
+        assert_eq!(n("Voxflow_0.9.13_aarch64.AppImage"), Some(("linux-aarch64".into(), PackageKind::AppImage)));
+        assert_eq!(n("Voxflow_aarch64.app.tar.gz"), None);
+        assert_eq!(n("Voxflow_0.9.13_x64-setup.exe"), None);
+    }
+
+    #[test]
+    fn mac_picks_the_tauri_build_for_its_processor() {
+        let r = release(&["Voxflow_0.9.13_Mac_Apple-Silicon.dmg", "Voxflow_0.9.13_Mac_Intel.dmg"]);
+        let pick = |arch| pick_asset(&r, &["voxflow"], Platform { os: Os::MacOs, arch }, &[PackageKind::Dmg]).map(|(a, _)| a.name.clone());
+        assert_eq!(pick(Arch::Arm64).as_deref(), Some("Voxflow_0.9.13_Mac_Apple-Silicon.dmg"));
+        assert_eq!(pick(Arch::X64).as_deref(), Some("Voxflow_0.9.13_Mac_Intel.dmg"));
     }
 }

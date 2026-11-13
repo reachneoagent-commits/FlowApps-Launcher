@@ -121,7 +121,7 @@ fn suite_folders(app: &CraftApp, roots: &[PathBuf]) -> Vec<PathBuf> {
     if app.id != flowapps_launcher_core::catalog::LAUNCHER_ID {
         return Vec::new();
     }
-    roots.iter().map(|root| root.join("ArtCraft").join("Launcher")).collect()
+    roots.iter().map(|root| root.join("FlowApps").join("Launcher")).collect()
 }
 
 /// The registry keys an MSI records its install folder in (value `InstallDir`). The launcher's package
