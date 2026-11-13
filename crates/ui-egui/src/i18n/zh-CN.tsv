@@ -96,7 +96,7 @@
 	Show the window on the current desktop	在当前桌面显示窗口
 	Start FlowApps when I log in	登录时启动 FlowApps
 	Community	社区
-	Questions, ideas and news from the ArtCraft team	与 ArtCraft 团队交流问题、想法和动态
+	Questions, ideas and news from the FlowApps team	与 FlowApps 团队交流问题、想法和动态
 	Appearance	外观
 	Quit FlowApps	退出 FlowApps
 	Done	完成
@@ -129,8 +129,8 @@ month	Dec	12月
 	Installing for {platform}	安装平台：{platform}
 	Downloads for {platform}	下载平台：{platform}
 	No downloads for this system	此系统暂无可用下载
-	Join the ArtCraft community on Discord	加入 Discord 上的 ArtCraft 社区
-	ArtCraft on {name}	ArtCraft 的 {name} 主页
+	Join the FlowApps community on Discord	加入 Discord 上的 FlowApps 社区
+	FlowApps on {name}	FlowApps 的 {name} 主页
 	Available to install	可安装
 	Available	可用
 	Installed · up to date	已安装 · 已是最新
@@ -167,7 +167,6 @@ month	Dec	12月
 	Downloads the new version, replaces this one and opens it again	下载新版本，替换当前版本并重新打开
 	Couldn't check for updates: {f}	无法检查更新：{f}
 	GitHub repository	GitHub 仓库
-	ArtCraft	ArtCraft
 	Update 1 app	更新 1 个应用
 	Update all ({count})	全部更新（{count}）
 	⊞  Grid	⊞  网格
@@ -248,12 +247,15 @@ filter	Installed	已安装
 	Show FlowApps	显示 FlowApps
 	Check for Updates	检查更新
 	Visit getartcraft.com	访问 getartcraft.com
-	ArtCraft on GitHub	ArtCraft 的 GitHub 主页
-	Join the ArtCraft Discord	加入 ArtCraft Discord 社区
+	FlowApps on GitHub	FlowApps 的 GitHub 主页
+	Join the FlowApps Discord	加入 FlowApps Discord 社区
 @plural	FlowApps · {n} update available|FlowApps · {n} updates available	FlowApps · 有 {n} 个可用更新
 @plural	{n} app|{n} apps	{n} 个应用
 artcraft	AI image and video creation	AI 图像与视频创作
 photocraft	Image editing	图像编辑
+flowgram	Grammar and spell checker for Mac and Windows	适用于 Mac 和 Windows 的语法和拼写检查器
+voxflow	Offline speech-to-text app	离线语音转文字应用
+mailflow	Mail, calendar, contacts and tasks, with optional AI writing help	邮件、日历、联系人和任务，可选 AI 写作辅助
 vectorcraft	Vector illustration	矢量插画
 filmcraft	Video editing, color and sound	视频剪辑、调色和声音处理
 lightcraft	Photo library and raw development	照片管理与 RAW 处理
@@ -403,8 +405,8 @@ materialcraft	Combine noises, patterns and filters.	组合噪声、图案和滤�
 materialcraft	Live previews	实时预览
 materialcraft	Preview materials in 2D and on 3D models.	在二维视图和三维模型上预览材质。
 	Advanced	高级
-	Migrate Flatpak bundles to ArtCraft OCI (experimental)	将 Flatpak 软件包迁移到 ArtCraft OCI（实验性）
-	On update, switch first party apps when the matching package is available. Otherwise, keep using bundles.	更新时，如果有对应的软件包，则迁移 ArtCraft 官方应用；否则继续使用独立软件包。
+	Migrate Flatpak bundles to FlowApps OCI (experimental)	将 Flatpak 软件包迁移到 FlowApps OCI（实验性）
+	On update, switch first party apps when the matching package is available. Otherwise, keep using bundles.	更新时，如果有对应的软件包，则迁移 FlowApps 官方应用；否则继续使用独立软件包。
 	The OCI repository is a preview with GPG verification disabled.	OCI 仓库目前处于预览阶段，GPG 验证已禁用。
 anicraft	2D vector animation	二维矢量动画
 anicraft	Vector animation on a timeline you know.	在你熟悉的时间线上制作矢量动画。

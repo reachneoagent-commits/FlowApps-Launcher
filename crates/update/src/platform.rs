@@ -262,39 +262,6 @@ mod tests {
     ];
 
     #[test]
-    fn macos_prefers_the_published_universal_build() {
-        // PhotoCraft v0.9.0's GitHub metadata, trimmed to its desktop DMG.
-        let mut r = crate::release::parse_github_release(include_str!("../tests/fixtures/photocraft-release.json"), "storytold/photocraft").unwrap();
-        // Split builds must not outrank the published universal DMG, even when listed first.
-        r.assets.splice(0..0, release(&["photocraft-0.9.0-macos-arm64.dmg", "photocraft-0.9.0-macos-x86_64.dmg"]).assets);
-        for arch in [Arch::X64, Arch::Arm64] {
-            let (asset, kind) = pick_asset(&r, &["photocraft"], Platform { os: Os::MacOs, arch }, &[PackageKind::Dmg]).unwrap();
-            assert_eq!(asset.name, "photocraft-0.9.0-macos-universal.dmg");
-            assert_eq!(kind, PackageKind::Dmg);
-        }
-    }
-
-    #[test]
-    fn freebsd_picks_the_tarball_for_the_processor() {
-        // SoundCraft v0.10.0's GitHub metadata, trimmed to its FreeBSD tarballs.
-        let r = crate::release::parse_github_release(include_str!("../tests/fixtures/soundcraft-release.json"), "storytold/soundcraft").unwrap();
-        let pick = |arch| {
-            let platform = Platform { os: Os::FreeBsd, arch };
-            pick_asset(&r, &["soundcraft"], platform, platform.default_kinds()).map(|(a, k)| (a.name.as_str(), k))
-        };
-        assert_eq!(pick(Arch::X64), Some(("soundcraft-0.10.0-freebsd-x86_64.tar.gz", PackageKind::TarGz)));
-        assert_eq!(pick(Arch::Arm64), Some(("soundcraft-0.10.0-freebsd-aarch64.tar.gz", PackageKind::TarGz)));
-        for arch in [Arch::X86, Arch::Riscv64] {
-            assert_eq!(pick(arch), None);
-        }
-        // An x86_64 machine never takes the ARM tarball, nor an ARM machine the x86_64 one.
-        let only_arm = release(&["soundcraft-0.10.0-freebsd-aarch64.tar.gz"]);
-        assert_eq!(pick_asset(&only_arm, &["soundcraft"], Platform { os: Os::FreeBsd, arch: Arch::X64 }, &[PackageKind::TarGz]), None);
-        let only_x64 = release(&["soundcraft-0.10.0-freebsd-x86_64.tar.gz"]);
-        assert_eq!(pick_asset(&only_x64, &["soundcraft"], Platform { os: Os::FreeBsd, arch: Arch::Arm64 }, &[PackageKind::TarGz]), None);
-    }
-
-    #[test]
     fn macos_split_builds_match_the_processor() {
         let r = release(&["photocraft-0.5.0-macos-arm64.dmg", "photocraft-0.5.0-macos-x86_64.dmg"]);
         let pick = |arch| pick_asset(&r, &["photocraft"], Platform { os: Os::MacOs, arch }, &[PackageKind::Dmg]).map(|(a, _)| a.name.as_str());

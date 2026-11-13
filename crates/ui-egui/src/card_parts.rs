@@ -56,7 +56,7 @@ mod tests {
     use super::*;
 
     fn entry(installed: &str, latest: &str) -> AppEntry {
-        let mut e = AppEntry::new(CraftApp::by_id("photocraft").unwrap());
+        let mut e = AppEntry::new(CraftApp::by_id("voxflow").unwrap());
         e.installed = Some(Installed {
             version: version::parse(installed),
             source: InstallSource::Msi,

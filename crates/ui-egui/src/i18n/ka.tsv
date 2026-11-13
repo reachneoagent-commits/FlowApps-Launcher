@@ -110,7 +110,7 @@
 	Show the window on the current desktop	ფანჯრის ჩვენება მიმდინარე სამუშაო მაგიდაზე
 	Start FlowApps when I log in	FlowApps-ის გაშვება სისტემაში შესვლისას
 	Community	საზოგადოება
-	Questions, ideas and news from the ArtCraft team	კითხვები, იდეები და სიახლეები ArtCraft-ის გუნდისგან
+	Questions, ideas and news from the FlowApps team	კითხვები, იდეები და სიახლეები FlowApps-ის გუნდისგან
 	Appearance	იერსახე
 	Quit FlowApps	FlowApps-იდან გასვლა
 	Done	მზადაა
@@ -189,6 +189,9 @@
 # Contextual: each app's tagline, keyed by app id
 artcraft	AI image and video creation	სურათებისა და ვიდეოების შექმნა ხელოვნური ინტელექტით
 photocraft	Image editing	გამოსახულებების რედაქტირება
+flowgram	Grammar and spell checker for Mac and Windows	გრამატიკისა და მართლწერის შემმოწმებელი Mac-ისა და Windows-ისთვის
+voxflow	Offline speech-to-text app	ოფლაინ მეტყველება-ტექსტად აპი
+mailflow	Mail, calendar, contacts and tasks, with optional AI writing help	ფოსტა, კალენდარი, კონტაქტები და ამოცანები, არასავალდებულო AI წერის დახმარებით
 vectorcraft	Vector illustration	ვექტორული ილუსტრაცია
 filmcraft	Video editing, color and sound	ვიდეოს მონტაჟი, ფერი და ხმა
 lightcraft	Photo library and raw development	ფოტოთეკა და RAW-ის დამუშავება
@@ -224,8 +227,8 @@ month	Dec	დეკ
 	Installing for {platform}	ინსტალაცია პლატფორმისთვის: {platform}
 	Downloads for {platform}	ჩამოტვირთვები პლატფორმისთვის: {platform}
 	No downloads for this system	ამ სისტემისთვის ჩამოსატვირთი არაფერია
-	Join the ArtCraft community on Discord	შემოუერთდით ArtCraft-ის საზოგადოებას Discord-ზე
-	ArtCraft on {name}	ArtCraft {name}-ზე
+	Join the FlowApps community on Discord	შემოუერთდით FlowApps-ის საზოგადოებას Discord-ზე
+	FlowApps on {name}	FlowApps {name}-ზე
 	Couldn't open {name}: {e}	{name} ვერ გაიხსნა: {e}
 	Download cancelled	ჩამოტვირთვა გაუქმდა
 	Available to install	ხელმისაწვდომია
@@ -266,7 +269,6 @@ month	Dec	დეკ
 	Downloads the new version, replaces this one and opens it again	ჩამოტვირთავს ახალ ვერსიას, ჩაანაცვლებს ამას და ხელახლა გახსნის
 	Couldn't check for updates: {f}	განახლებების შემოწმება ვერ მოხერხდა: {f}
 	GitHub repository	GitHub-ის რეპოზიტორია
-	ArtCraft	ArtCraft
 	Update 1 app	1 აპლიკაციის განახლება
 	Update all ({count})	ყველას განახლება ({count})
 	⊞  Grid	⊞  ბადე
@@ -380,8 +382,8 @@ filter	Installed	დაინსტალირებული
 	Show FlowApps	FlowApps-ის ჩვენება
 	Check for Updates	განახლებების შემოწმება
 	Visit getartcraft.com	getartcraft.com-ის გახსნა
-	ArtCraft on GitHub	ArtCraft GitHub-ზე
-	Join the ArtCraft Discord	შემოუერთდით ArtCraft-ის Discord-ს
+	FlowApps on GitHub	FlowApps GitHub-ზე
+	Join the FlowApps Discord	შემოუერთდით FlowApps-ის Discord-ს
 @plural	FlowApps · {n} update available|FlowApps · {n} updates available	FlowApps · ხელმისაწვდომია {n} განახლება|FlowApps · ხელმისაწვდომია {n} განახლება
 	Install folder	ინსტალაციის საქაღალდე
 	Default install folder	ნაგულისხმევი ინსტალაციის საქაღალდე

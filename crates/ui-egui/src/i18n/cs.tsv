@@ -101,7 +101,7 @@
 	Show the window on the current desktop	Zobrazit okno na aktuální ploše
 	Start FlowApps when I log in	Spouštět FlowApps po přihlášení
 	Community	Komunita
-	Questions, ideas and news from the ArtCraft team	Dotazy, nápady a novinky od týmu ArtCraft
+	Questions, ideas and news from the FlowApps team	Dotazy, nápady a novinky od týmu FlowApps
 	Appearance	Vzhled
 	Quit FlowApps	Ukončit FlowApps
 	Done	Hotovo
@@ -167,6 +167,9 @@
 	Tarball (.tar.gz)	Archiv tar (.tar.gz)
 artcraft	AI image and video creation	Tvorba obrázků a videí pomocí AI
 photocraft	Image editing	Úpravy obrázků
+flowgram	Grammar and spell checker for Mac and Windows	Kontrola gramatiky a pravopisu pro Mac a Windows
+voxflow	Offline speech-to-text app	Offline převod řeči na text
+mailflow	Mail, calendar, contacts and tasks, with optional AI writing help	Pošta, kalendář, kontakty a úkoly s volitelnou pomocí AI při psaní
 vectorcraft	Vector illustration	Vektorová ilustrace
 filmcraft	Video editing, color and sound	Střih videa, barvy a zvuk
 lightcraft	Photo library and raw development	Katalog fotografií a vyvolávání RAW
@@ -200,8 +203,8 @@ month	Dec	12.
 	Installing for {platform}	Instalace pro {platform}
 	Downloads for {platform}	Stažení pro {platform}
 	No downloads for this system	Pro tento systém nejsou k dispozici žádné soubory ke stažení
-	Join the ArtCraft community on Discord	Připojit se ke komunitě ArtCraft na Discordu
-	ArtCraft on {name}	ArtCraft na {name}
+	Join the FlowApps community on Discord	Připojit se ke komunitě FlowApps na Discordu
+	FlowApps on {name}	FlowApps na {name}
 	Couldn't open {name}: {e}	{name} nelze otevřít: {e}
 	Download cancelled	Stahování zrušeno
 	Available to install	K dispozici k instalaci
@@ -243,7 +246,6 @@ month	Dec	12.
 	Couldn't check for updates: {f}	Aktualizace nelze zkontrolovat: {f}
 	Website (coming soon)	Web (již brzy)
 	GitHub repository	Repozitář na GitHubu
-	ArtCraft	ArtCraft
 	Update 1 app	Aktualizovat 1 aplikaci
 	Update all ({count})	Aktualizovat vše ({count})
 	⊞  Grid	⊞  Mřížka
@@ -344,8 +346,8 @@ filter	Installed	Nainstalováno
 	Show FlowApps	Zobrazit FlowApps
 	Check for Updates	Zkontrolovat aktualizace
 	Visit getartcraft.com	Navštívit getartcraft.com
-	ArtCraft on GitHub	ArtCraft na GitHubu
-	Join the ArtCraft Discord	Připojit se na ArtCraft Discord
+	FlowApps on GitHub	FlowApps na GitHubu
+	Join the FlowApps Discord	Připojit se na FlowApps Discord
 @plural	FlowApps · {n} update available|FlowApps · {n} updates available	FlowApps · {n} dostupná aktualizace|FlowApps · {n} dostupné aktualizace|FlowApps · {n} dostupných aktualizací
 
 	Download size: {size}	Velikost ke stažení: {size}
@@ -403,8 +405,8 @@ materialcraft	Combine noises, patterns and filters.	Kombinujte šumy, vzory a fi
 materialcraft	Live previews	Živé náhledy
 materialcraft	Preview materials in 2D and on 3D models.	Prohlížejte materiály ve 2D a na 3D modelech.
 	Advanced	Pokročilé
-	Migrate Flatpak bundles to ArtCraft OCI (experimental)	Převést balíčky Flatpak na ArtCraft OCI (experimentální)
-	On update, switch first party apps when the matching package is available. Otherwise, keep using bundles.	Při aktualizaci převést aplikace ArtCraft, pokud je dostupný odpovídající balíček. Jinak nadále používat samostatné balíčky.
+	Migrate Flatpak bundles to FlowApps OCI (experimental)	Převést balíčky Flatpak na FlowApps OCI (experimentální)
+	On update, switch first party apps when the matching package is available. Otherwise, keep using bundles.	Při aktualizaci převést aplikace FlowApps, pokud je dostupný odpovídající balíček. Jinak nadále používat samostatné balíčky.
 	The OCI repository is a preview with GPG verification disabled.	Repozitář OCI je předběžná verze s vypnutým ověřováním GPG.
 anicraft	2D vector animation	2D vektorová animace
 anicraft	Vector animation on a timeline you know.	Vektorová animace na známé časové ose.

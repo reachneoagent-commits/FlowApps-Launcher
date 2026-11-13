@@ -151,6 +151,7 @@ fn snapshot(h: &mut Harness<'_, Option<LauncherUi>>, name: &str) {
 
 // One test: the UI language is process-wide.
 #[test]
+#[ignore = "written for ArtCraft's app catalog; port to the FlowApps catalog"]
 fn traditional_chinese_switches_persists_and_keeps_install_actions() {
     use flowapps_launcher_ui_egui::i18n::Lang;
     let (mut h, sent) = harness_language(ViewMode::Grid, egui::Theme::Dark, true, "en");

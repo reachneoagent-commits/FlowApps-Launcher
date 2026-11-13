@@ -114,7 +114,7 @@
 	Show the window on the current desktop	Ablak megjelenítése az aktuális asztalon
 	Start FlowApps when I log in	FlowApps indítása bejelentkezéskor
 	Community	Közösség
-	Questions, ideas and news from the ArtCraft team	Kérdések, ötletek és hírek az ArtCraft csapatától
+	Questions, ideas and news from the FlowApps team	Kérdések, ötletek és hírek az FlowApps csapatától
 	Appearance	Megjelenés
 	Quit FlowApps	Kilépés az FlowAppsből
 	Done	Kész
@@ -185,6 +185,9 @@
 # Contextual: each app's tagline, keyed by app id
 artcraft	AI image and video creation	Képek és videók készítése MI-vel
 photocraft	Image editing	Képszerkesztés
+flowgram	Grammar and spell checker for Mac and Windows	Nyelvtan- és helyesírás-ellenőrző Machez és Windowshoz
+voxflow	Offline speech-to-text app	Offline beszédfelismerő alkalmazás
+mailflow	Mail, calendar, contacts and tasks, with optional AI writing help	Levelezés, naptár, névjegyek és feladatok, opcionális MI-írássegítővel
 vectorcraft	Vector illustration	Vektoros illusztráció
 filmcraft	Video editing, color and sound	Videószerkesztés, színkorrekció és hang
 lightcraft	Photo library and raw development	Fotók rendszerezése és RAW-előhívás
@@ -220,8 +223,8 @@ month	Dec	dec.
 	Installing for {platform}	Telepítés {platform} rendszerre
 	Downloads for {platform}	Letöltések {platform} rendszerre
 	No downloads for this system	Nincsenek letöltések ehhez a rendszerhez
-	Join the ArtCraft community on Discord	Csatlakozz az ArtCraft közösségéhez a Discordon
-	ArtCraft on {name}	ArtCraft – {name}
+	Join the FlowApps community on Discord	Csatlakozz az FlowApps közösségéhez a Discordon
+	FlowApps on {name}	FlowApps – {name}
 	Couldn't open {name}: {e}	{name} nem nyitható meg: {e}
 	Download cancelled	Letöltés megszakítva
 	Available to install	Telepíthető
@@ -263,7 +266,6 @@ month	Dec	dec.
 	Couldn't check for updates: {f}	Nem sikerült frissítéseket keresni: {f}
 	Website (coming soon)	Webhely (hamarosan)
 	GitHub repository	GitHub-tároló
-	ArtCraft	ArtCraft
 	Update 1 app	1 alkalmazás frissítése
 	Update all ({count})	Összes frissítése ({count})
 	⊞  Grid	⊞  Rács
@@ -377,8 +379,8 @@ filter	Installed	Telepítve
 	Show FlowApps	FlowApps megjelenítése
 	Check for Updates	Frissítések keresése
 	Visit getartcraft.com	getartcraft.com megnyitása
-	ArtCraft on GitHub	ArtCraft a GitHubon
-	Join the ArtCraft Discord	Csatlakozás az ArtCraft Discord-közösségéhez
+	FlowApps on GitHub	FlowApps a GitHubon
+	Join the FlowApps Discord	Csatlakozás az FlowApps Discord-közösségéhez
 @plural	FlowApps · {n} update available|FlowApps · {n} updates available	FlowApps · {n} frissítés elérhető|FlowApps · {n} frissítés elérhető
 
 	Download size: {size}	Letöltési méret: {size}
@@ -436,8 +438,8 @@ materialcraft	Combine noises, patterns and filters.	Kombinálj zajokat, mintáka
 materialcraft	Live previews	Élő előnézetek
 materialcraft	Preview materials in 2D and on 3D models.	Tekintsd meg az anyagokat 2D-ben és 3D modelleken.
 	Advanced	Haladó
-	Migrate Flatpak bundles to ArtCraft OCI (experimental)	Flatpak-csomagok átállítása ArtCraft OCI-ra (kísérleti)
-	On update, switch first party apps when the matching package is available. Otherwise, keep using bundles.	Frissítéskor állítsa át az ArtCraft alkalmazásait, ha elérhető a megfelelő csomag. Egyébként továbbra is önálló csomagokat használjon.
+	Migrate Flatpak bundles to FlowApps OCI (experimental)	Flatpak-csomagok átállítása FlowApps OCI-ra (kísérleti)
+	On update, switch first party apps when the matching package is available. Otherwise, keep using bundles.	Frissítéskor állítsa át az FlowApps alkalmazásait, ha elérhető a megfelelő csomag. Egyébként továbbra is önálló csomagokat használjon.
 	The OCI repository is a preview with GPG verification disabled.	Az OCI-tároló előzetes verzió, kikapcsolt GPG-ellenőrzéssel.
 anicraft	2D vector animation	2D vektoros animáció
 anicraft	Vector animation on a timeline you know.	Vektoranimáció egy ismerős idővonalon.

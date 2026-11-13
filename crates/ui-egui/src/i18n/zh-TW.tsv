@@ -90,7 +90,7 @@
 	Show the window on the current desktop	在目前的桌面顯示視窗
 	Start FlowApps when I log in	登入時啟動 FlowApps
 	Community	社群
-	Questions, ideas and news from the ArtCraft team	來自 ArtCraft 團隊的提問、想法與最新消息
+	Questions, ideas and news from the FlowApps team	來自 FlowApps 團隊的提問、想法與最新消息
 	Appearance	外觀
 	Quit FlowApps	結束 FlowApps
 	Done	完成
@@ -130,8 +130,8 @@ month	Dec	12月
 	Installing for {platform}	正在為 {platform} 安裝
 	Downloads for {platform}	{platform} 適用的下載項目
 	No downloads for this system	此系統沒有可下載的項目
-	Join the ArtCraft community on Discord	在 Discord 加入 ArtCraft 社群
-	ArtCraft on {name}	ArtCraft 在 {name}
+	Join the FlowApps community on Discord	在 Discord 加入 FlowApps 社群
+	FlowApps on {name}	FlowApps 在 {name}
 	Available to install	可安裝
 	Available	可用
 	Installed · up to date	已安裝 · 已是最新版本
@@ -168,7 +168,6 @@ month	Dec	12月
 	Downloads the new version, replaces this one and opens it again	下載新版本、取代目前版本並重新開啟
 	Couldn't check for updates: {f}	無法檢查更新：{f}
 	GitHub repository	GitHub 儲存庫
-	ArtCraft	ArtCraft
 	Update 1 app	更新 1 個應用程式
 	Update all ({count})	全部更新（{count}）
 	⊞  Grid	⊞  網格
@@ -249,12 +248,15 @@ filter	Installed	已安裝
 	Show FlowApps	顯示 FlowApps
 	Check for Updates	檢查更新
 	Visit getartcraft.com	前往 getartcraft.com
-	ArtCraft on GitHub	GitHub 上的 ArtCraft
-	Join the ArtCraft Discord	加入 ArtCraft Discord
+	FlowApps on GitHub	GitHub 上的 FlowApps
+	Join the FlowApps Discord	加入 FlowApps Discord
 @plural	FlowApps · {n} update available|FlowApps · {n} updates available	FlowApps · {n} 個更新可用
 @plural	{n} app|{n} apps	{n} 個應用程式
 artcraft	AI image and video creation	AI 影像與影片創作
 photocraft	Image editing	影像編輯
+flowgram	Grammar and spell checker for Mac and Windows	適用於 Mac 與 Windows 的文法與拼字檢查器
+voxflow	Offline speech-to-text app	離線語音轉文字應用程式
+mailflow	Mail, calendar, contacts and tasks, with optional AI writing help	郵件、行事曆、聯絡人與工作事項，可選用 AI 寫作輔助
 vectorcraft	Vector illustration	向量插畫
 filmcraft	Video editing, color and sound	影片剪輯、調色與音效
 lightcraft	Photo library and raw development	相片圖庫與 RAW 顯像

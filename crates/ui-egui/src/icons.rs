@@ -142,8 +142,8 @@ mod tests {
             assert!(p[0] == p[1] && p[1] == p[2], "{p:?}");
         }
         assert_eq!([px[3], px[7], px[11]], [200, 17, 255]);
-        // Pure red is darker than pure white and pure grey stays put.
-        assert!(px[0] < 255 && px[8] == 10);
+        // Pure red is darker than pure white, and even the darkest grey is lifted off the black window.
+        assert!(px[0] < 255 && px[8] >= 0x30);
     }
 }
 

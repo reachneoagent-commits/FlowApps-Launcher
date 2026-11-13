@@ -44,15 +44,15 @@ const fn feature(title: &'static str, text: &'static str) -> Feature {
     Feature { title, text }
 }
 
-/// Where the pictures live: one 1200 px wide, 8:5 JPEG per [`Shot`], at `<app>/<key>.jpg`.
+/// Where the pictures live: one 1200 px wide, 8:5 JPEG per [`Shot`], at `screenshots/<app>/<key>.jpg`.
 ///
 /// Pinned to a tag (`SCREENSHOTS_REV`) so that what a launcher fetches never changes under it, and
 /// so that a saved copy never goes stale. To change a picture, publish a new tag and bump the
 /// revision: older launchers keep working from the tag they know.
-pub const SCREENSHOTS_BASE: &str = "https://raw.githubusercontent.com/storytold/craft-launcher-assets";
+pub const SCREENSHOTS_BASE: &str = "https://raw.githubusercontent.com/reachneoagent-commits/FlowApps-Launcher";
 
 /// The tag of the pictures repository the launcher reads. Also part of the saved copies' path.
-pub const SCREENSHOTS_REV: &str = "v1";
+pub const SCREENSHOTS_REV: &str = "screenshots-v1";
 
 /// The largest picture the launcher accepts. The real ones are 60 to 150 KB.
 pub const MAX_SCREENSHOT_BYTES: usize = 2 << 20;
@@ -141,7 +141,7 @@ impl AppDetails {
     /// Where the picture `key` of this app is published, or `None` if the page has no such picture.
     /// The only way to turn a request into an address: callers never build one from their own text.
     pub fn screenshot_url(&self, key: &str) -> Option<String> {
-        self.shots.iter().find(|s| s.key == key).map(|s| format!("{SCREENSHOTS_BASE}/{SCREENSHOTS_REV}/{}/{}.jpg", self.id, s.key))
+        self.shots.iter().find(|s| s.key == key).map(|s| format!("{SCREENSHOTS_BASE}/{SCREENSHOTS_REV}/screenshots/{}/{}.jpg", self.id, s.key))
     }
 
     pub fn by_id(id: &str) -> Option<&'static AppDetails> {
@@ -178,10 +178,10 @@ mod tests {
 
     #[test]
     fn picture_addresses_come_only_from_the_pages_own_pictures() {
-        let page = AppDetails::by_id("photocraft").unwrap();
+        let page = AppDetails::by_id("mailflow").unwrap();
         assert_eq!(
-            page.screenshot_url("demo").as_deref(),
-            Some("https://raw.githubusercontent.com/storytold/craft-launcher-assets/v1/photocraft/demo.jpg")
+            page.screenshot_url("welcome").as_deref(),
+            Some("https://raw.githubusercontent.com/reachneoagent-commits/FlowApps-Launcher/screenshots-v1/screenshots/mailflow/welcome.jpg")
         );
         for key in ["", "nope", "../vectorcraft/neon", "demo/../masks", "demo.jpg", "/etc/passwd", "demo?x=1", "demo#"] {
             assert_eq!(page.screenshot_url(key), None, "{key:?}");
@@ -191,7 +191,7 @@ mod tests {
             for s in d.shots {
                 let url = d.screenshot_url(s.key).unwrap();
                 let path = url.strip_prefix(&format!("{SCREENSHOTS_BASE}/{SCREENSHOTS_REV}/")).unwrap();
-                assert_eq!(path, format!("{}/{}.jpg", d.id, s.key));
+                assert_eq!(path, format!("screenshots/{}/{}.jpg", d.id, s.key));
                 assert!(path.chars().all(|c| c.is_ascii_lowercase() || c.is_ascii_digit() || matches!(c, '/' | '-' | '.')), "{path}");
             }
         }

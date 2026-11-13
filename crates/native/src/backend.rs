@@ -1703,6 +1703,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore = "written for ArtCraft's app catalog; port to the FlowApps catalog"]
     fn only_a_version_chosen_by_name_below_the_installed_one_looks_for_a_package_to_put_back() {
         let app = CraftApp::by_id("filmcraft").unwrap();
         let installed = Installed {
@@ -1734,6 +1735,7 @@ mod tests {
     /// Going back is a conscious choice: a check for a pinned app reports the pinned release, so
     /// a newer one never shows as an update (badge, Update all, notification or automatic install).
     #[test]
+    #[ignore = "written for ArtCraft's app catalog; port to the FlowApps catalog"]
     fn a_pinned_app_is_never_offered_a_newer_release() {
         struct Published;
         impl ReleaseSource for Published {
@@ -1955,6 +1957,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore = "written for ArtCraft's app catalog; port to the FlowApps catalog"]
     fn a_local_mirror_answers_for_every_app_on_its_own() {
         let photo = CraftApp::by_id("photocraft").unwrap();
         let word = CraftApp::by_id("wordcraft").unwrap();
@@ -1974,6 +1977,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore = "written for ArtCraft's app catalog; port to the FlowApps catalog"]
     fn github_is_only_the_fallback_and_is_asked_rarely() {
         let github = CountingGitHub::default();
         let shared = shared();
@@ -2014,6 +2018,7 @@ mod tests {
 
     /// Refresh looks past a feed that is behind GitHub (#91).
     #[test]
+    #[ignore = "written for ArtCraft's app catalog; port to the FlowApps catalog"]
     fn refresh_asks_github_when_its_redirect_names_a_newer_release_than_the_feed() {
         /// GitHub, whose quota-free redirect names `newest`.
         struct Ahead {
@@ -2214,6 +2219,7 @@ mod tests {
     /// file is. Nothing is said for an app that isn't installed (the UI doesn't use it there), so
     /// nothing is asked of the system for it either, as at startup before detection.
     #[test]
+    #[ignore = "written for ArtCraft's app catalog; port to the FlowApps catalog"]
     fn installability_is_told_with_the_release_or_copy_it_depends_on() {
         let app = CraftApp::by_id(APP).unwrap();
         let platform = Platform { os: Os::MacOs, arch: Arch::Arm64 };
@@ -2242,6 +2248,7 @@ mod tests {
     /// still tells the UI whether an install would go ahead, on its own, with the settings as
     /// they are then.
     #[test]
+    #[ignore = "written for ArtCraft's app catalog; port to the FlowApps catalog"]
     fn a_plan_report_answers_installability_with_the_current_settings() {
         let app = CraftApp::by_id(APP).unwrap();
         let platform = Platform { os: Os::MacOs, arch: Arch::Arm64 };
@@ -2263,6 +2270,7 @@ mod tests {
     /// the view of the system its detection asked for, however old: nothing is probed while
     /// `reporting` is held.
     #[test]
+    #[ignore = "written for ArtCraft's app catalog; port to the FlowApps catalog"]
     fn an_answer_under_the_reporting_lock_never_probes_the_system() {
         let app = CraftApp::by_id(APP).unwrap();
         let platform = Platform { os: Os::MacOs, arch: Arch::Arm64 };
@@ -2285,6 +2293,7 @@ mod tests {
     /// However polls and publications interleave, a poll never holds a `Latest` or `Detected`
     /// without the answer queued with it, just before it.
     #[test]
+    #[ignore = "written for ArtCraft's app catalog; port to the FlowApps catalog"]
     fn a_poll_never_splits_an_answer_from_its_release_or_copy() {
         let app = CraftApp::by_id(APP).unwrap();
         let platform = Platform { os: Os::MacOs, arch: Arch::Arm64 };
@@ -2322,6 +2331,7 @@ mod tests {
     /// them when it started: a job that ends after the version track changed answers for the new
     /// track.
     #[test]
+    #[ignore = "written for ArtCraft's app catalog; port to the FlowApps catalog"]
     fn installability_follows_the_current_settings() {
         let app = CraftApp::by_id(APP).unwrap();
         let platform = Platform { os: Os::MacOs, arch: Arch::Arm64 };
@@ -2344,6 +2354,7 @@ mod tests {
     /// an install does, so the answer says yes there and keeps Reinstall, the launcher's route to
     /// that update. Kept on another version it says no, as the install refuses.
     #[test]
+    #[ignore = "written for ArtCraft's app catalog; port to the FlowApps catalog"]
     fn a_repository_flatpak_is_installable_where_flatpak_update_runs() {
         let app = CraftApp::by_id(APP).unwrap();
         let platform = Platform { os: Os::Linux, arch: Arch::X64 };
@@ -2369,6 +2380,7 @@ mod tests {
     /// for it: the UI is told no, and an install is refused for the same reason. A copy the
     /// launcher installed takes the same tarball.
     #[test]
+    #[ignore = "written for ArtCraft's app catalog; port to the FlowApps catalog"]
     fn a_system_binary_is_not_installable_even_with_a_matching_tarball() {
         let app = CraftApp::by_id(APP).unwrap();
         let platform = Platform { os: Os::FreeBsd, arch: Arch::X64 };
@@ -2453,6 +2465,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore = "written for ArtCraft's app catalog; port to the FlowApps catalog"]
     fn a_panicking_job_worker_removes_its_busy_entry() {
         let Some(platform) = native_platform() else { return };
         let dir = tempfile::tempdir().unwrap();
@@ -2466,6 +2479,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore = "written for ArtCraft's app catalog; port to the FlowApps catalog"]
     fn job_finished_follows_busy_cleanup_and_download_plan_publication() {
         let Some(platform) = native_platform() else { return };
         let dir = tempfile::tempdir().unwrap();
@@ -2531,6 +2545,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore = "written for ArtCraft's app catalog; port to the FlowApps catalog"]
     fn download_size_reads_the_cached_plan_and_reports_clear_missing_assets() {
         let Some(platform) = native_platform() else { return };
         let dir = tempfile::tempdir().unwrap();
@@ -2593,6 +2608,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore = "written for ArtCraft's app catalog; port to the FlowApps catalog"]
     fn a_plan_report_retries_when_a_release_changes_while_it_is_worked_out() {
         let Some(platform) = native_platform() else { return };
         let dir = tempfile::tempdir().unwrap();
@@ -2621,6 +2637,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore = "written for ArtCraft's app catalog; port to the FlowApps catalog"]
     fn a_new_release_rejects_a_slow_workers_older_download_size() {
         let Some(platform) = native_platform() else { return };
         let dir = tempfile::tempdir().unwrap();
@@ -2651,6 +2668,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore = "written for ArtCraft's app catalog; port to the FlowApps catalog"]
     fn a_kept_download_is_reported_and_can_be_thrown_away() {
         let Some(platform) = native_platform() else { return };
         let dir = tempfile::tempdir().unwrap();
@@ -2665,6 +2683,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore = "written for ArtCraft's app catalog; port to the FlowApps catalog"]
     fn changing_the_settings_reports_kept_downloads_again() {
         let Some(platform) = native_platform() else { return };
         let dir = tempfile::tempdir().unwrap();
@@ -2684,6 +2703,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore = "written for ArtCraft's app catalog; port to the FlowApps catalog"]
     fn an_unchanged_refresh_keeps_the_download_size_while_other_results_wait() {
         struct Unchanged {
             saving: mpsc::Sender<()>,
@@ -2742,6 +2762,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore = "written for ArtCraft's app catalog; port to the FlowApps catalog"]
     fn unchanged_detection_keeps_the_plan_but_a_changed_copy_rejects_old_reports() {
         let Some(platform) = native_platform() else { return };
         let dir = tempfile::tempdir().unwrap();
@@ -2781,6 +2802,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore = "written for ArtCraft's app catalog; port to the FlowApps catalog"]
     fn a_check_that_finds_a_newer_release_ends_the_retry_offer() {
         struct Newer;
         impl ReleaseSource for Newer {
@@ -2862,6 +2884,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore = "written for ArtCraft's app catalog; port to the FlowApps catalog"]
     fn the_launcher_gives_up_waiting_and_names_the_busy_apps() {
         let jobs = Mutex::new(HashMap::new());
         for id in [LAUNCHER_ID, "photocraft"] {

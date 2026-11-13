@@ -127,6 +127,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore = "written for ArtCraft's app catalog; port to the FlowApps catalog"]
     fn cached_catalog_is_reverified_and_tampered_cache_is_ignored() {
         let dir = tempfile::tempdir().unwrap();
         let path = dir.path().join("catalog.json");

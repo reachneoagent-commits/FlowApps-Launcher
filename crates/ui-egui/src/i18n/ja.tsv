@@ -116,7 +116,7 @@
 	Show the window on the current desktop	現在のデスクトップにウィンドウを表示
 	Start FlowApps when I log in	ログイン時に FlowApps を起動
 	Community	コミュニティ
-	Questions, ideas and news from the ArtCraft team	ArtCraft チームからの質問、アイデア、ニュース
+	Questions, ideas and news from the FlowApps team	FlowApps チームからの質問、アイデア、ニュース
 	Appearance	外観
 	Quit FlowApps	FlowApps を終了
 	Done	完了
@@ -187,6 +187,9 @@
 # Contextual: each app's tagline, keyed by app id
 artcraft	AI image and video creation	AI画像・動画生成
 photocraft	Image editing	画像編集
+flowgram	Grammar and spell checker for Mac and Windows	MacとWindows向けの文法・スペルチェッカー
+voxflow	Offline speech-to-text app	オフラインの音声文字起こしアプリ
+mailflow	Mail, calendar, contacts and tasks, with optional AI writing help	メール、カレンダー、連絡先、タスク。AIによる文章作成支援はオプション
 vectorcraft	Vector illustration	ベクターイラスト
 filmcraft	Video editing, color and sound	動画編集、カラー、サウンド
 lightcraft	Photo library and raw development	フォトライブラリと RAW 現像
@@ -222,8 +225,8 @@ month	Dec	12月
 	Installing for {platform}	{platform} にインストール
 	Downloads for {platform}	{platform} 用のダウンロード
 	No downloads for this system	このシステム用のダウンロードはありません
-	Join the ArtCraft community on Discord	Discord で ArtCraft コミュニティに参加
-	ArtCraft on {name}	{name} の ArtCraft
+	Join the FlowApps community on Discord	Discord で FlowApps コミュニティに参加
+	FlowApps on {name}	{name} の FlowApps
 	Couldn't open {name}: {e}	{name} を開けませんでした: {e}
 	Download cancelled	ダウンロードをキャンセルしました
 	Available to install	インストール可能
@@ -265,7 +268,6 @@ month	Dec	12月
 	Couldn't check for updates: {f}	更新を確認できませんでした: {f}
 	Website (coming soon)	ウェブサイト（近日公開）
 	GitHub repository	GitHub リポジトリ
-	ArtCraft	ArtCraft
 	Update 1 app	1 個のアプリを更新
 	Update all ({count})	すべて更新（{count}）
 	⊞  Grid	⊞  グリッド
@@ -379,8 +381,8 @@ filter	Installed	インストール済み
 	Show FlowApps	FlowApps を表示
 	Check for Updates	更新を確認
 	Visit getartcraft.com	getartcraft.com を開く
-	ArtCraft on GitHub	GitHub の ArtCraft
-	Join the ArtCraft Discord	ArtCraft Discord に参加
+	FlowApps on GitHub	GitHub の FlowApps
+	Join the FlowApps Discord	FlowApps Discord に参加
 @plural	FlowApps · {n} update available|FlowApps · {n} updates available	FlowApps · {n} 件の更新があります
 
 	Download size: {size}	ダウンロードサイズ: {size}
@@ -438,8 +440,8 @@ materialcraft	Combine noises, patterns and filters.	ノイズ、パターン、�
 materialcraft	Live previews	リアルタイムプレビュー
 materialcraft	Preview materials in 2D and on 3D models.	マテリアルを2Dと3Dモデル上でプレビューします。
 	Advanced	詳細設定
-	Migrate Flatpak bundles to ArtCraft OCI (experimental)	Flatpak バンドルを ArtCraft OCI に移行する（実験的）
-	On update, switch first party apps when the matching package is available. Otherwise, keep using bundles.	更新時に対応するパッケージがあれば ArtCraft 公式アプリを移行します。なければ引き続きバンドルを使用します。
+	Migrate Flatpak bundles to FlowApps OCI (experimental)	Flatpak バンドルを FlowApps OCI に移行する（実験的）
+	On update, switch first party apps when the matching package is available. Otherwise, keep using bundles.	更新時に対応するパッケージがあれば FlowApps 公式アプリを移行します。なければ引き続きバンドルを使用します。
 	The OCI repository is a preview with GPG verification disabled.	OCI リポジトリはプレビュー版で、GPG 検証は無効になっています。
 anicraft	2D vector animation	2Dベクターアニメーション
 anicraft	Vector animation on a timeline you know.	慣れ親しんだタイムラインでのベクターアニメーション。

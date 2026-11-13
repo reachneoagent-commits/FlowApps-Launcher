@@ -74,11 +74,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/download-artifact@v4
         with:
           path: dist
           merge-multiple: true
-      - name: Checksums and release
+      - name: Checksums, notes and release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -88,5 +90,21 @@ jobs:
           sha256sum * > SHA256SUMS.txt
           cat SHA256SUMS.txt
           cd ..
-          gh release create "v$VERSION" dist/* --title "FlowApps v$VERSION" \
-            --notes "FlowApps launcher $VERSION for macOS and Windows. Check downloads against SHA256SUMS.txt." --latest
+          PREV="$(git tag --list 'v*' --sort=-v:refname | grep -vx "v$VERSION" | head -1 || true)"
+          {
+            echo "FlowApps $VERSION for macOS and Windows."
+            echo
+            echo "## What's new"
+            if [ -n "$PREV" ]; then
+              git log --no-merges --pretty='- %s' "$PREV..HEAD" | grep -v -i '^- \(release:\|bump\)' | head -30
+            else
+              echo "- First release"
+            fi
+            echo
+            echo "## Downloads"
+            echo "- **macOS** (Apple silicon and Intel): flowapps-launcher-$VERSION-macos-universal.dmg"
+            echo "- **Windows** (x64 and ARM64): the .msi installer, or the -portable.zip with no install"
+            echo
+            echo "Check downloads against SHA256SUMS.txt. These builds aren't signed with a paid Apple or Microsoft certificate, so your computer will warn you the first time you open FlowApps. If FlowApps is already installed, use Update in the app instead."
+          } > notes.md
+          gh release create "v$VERSION" dist/* --title "FlowApps v$VERSION" --notes-file notes.md --latest

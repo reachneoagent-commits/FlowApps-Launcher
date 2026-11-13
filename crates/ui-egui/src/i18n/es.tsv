@@ -114,7 +114,7 @@
 	Show the window on the current desktop	Mostrar la ventana en el escritorio actual
 	Start FlowApps when I log in	Abrir FlowApps al iniciar sesión
 	Community	Comunidad
-	Questions, ideas and news from the ArtCraft team	Preguntas, ideas y noticias del equipo de ArtCraft
+	Questions, ideas and news from the FlowApps team	Preguntas, ideas y noticias del equipo de FlowApps
 	Appearance	Apariencia
 	Quit FlowApps	Salir de FlowApps
 	Done	Listo
@@ -180,6 +180,9 @@
 	Tarball (.tar.gz)	Archivo tar (.tar.gz)
 artcraft	AI image and video creation	Creación de imágenes y vídeos con IA
 photocraft	Image editing	Edición de imágenes
+flowgram	Grammar and spell checker for Mac and Windows	Corrector gramatical y ortográfico para Mac y Windows
+voxflow	Offline speech-to-text app	Dictado de voz a texto sin conexión
+mailflow	Mail, calendar, contacts and tasks, with optional AI writing help	Correo, calendario, contactos y tareas, con ayuda opcional de IA para escribir
 vectorcraft	Vector illustration	Ilustración vectorial
 filmcraft	Video editing, color and sound	Edición de video, color y sonido
 lightcraft	Photo library and raw development	Fototeca y revelado RAW
@@ -213,8 +216,8 @@ month	Dec	dic.
 	Installing for {platform}	Instalación para {platform}
 	Downloads for {platform}	Descargas para {platform}
 	No downloads for this system	No hay descargas para este sistema
-	Join the ArtCraft community on Discord	Únete a la comunidad de ArtCraft en Discord
-	ArtCraft on {name}	ArtCraft en {name}
+	Join the FlowApps community on Discord	Únete a la comunidad de FlowApps en Discord
+	FlowApps on {name}	FlowApps en {name}
 	Couldn't open {name}: {e}	No se pudo abrir {name}: {e}
 	Download cancelled	Descarga cancelada
 	Available to install	Disponible para instalar
@@ -256,7 +259,6 @@ month	Dec	dic.
 	Couldn't check for updates: {f}	No se pudieron buscar actualizaciones: {f}
 	Website (coming soon)	Sitio web (próximamente)
 	GitHub repository	Repositorio en GitHub
-	ArtCraft	ArtCraft
 	Update 1 app	Actualizar 1 aplicación
 	Update all ({count})	Actualizar todas ({count})
 	⊞  Grid	⊞  Cuadrícula
@@ -357,8 +359,8 @@ filter	Installed	Instaladas
 	Show FlowApps	Mostrar FlowApps
 	Check for Updates	Buscar actualizaciones
 	Visit getartcraft.com	Visitar getartcraft.com
-	ArtCraft on GitHub	ArtCraft en GitHub
-	Join the ArtCraft Discord	Únete al Discord de ArtCraft
+	FlowApps on GitHub	FlowApps en GitHub
+	Join the FlowApps Discord	Únete al Discord de FlowApps
 @plural	FlowApps · {n} update available|FlowApps · {n} updates available	FlowApps · {n} actualización disponible|FlowApps · {n} actualizaciones disponibles
 
 	Download size: {size}	Tamaño de descarga: {size}
@@ -416,8 +418,8 @@ materialcraft	Combine noises, patterns and filters.	Combina ruidos, patrones y f
 materialcraft	Live previews	Vistas previas en vivo
 materialcraft	Preview materials in 2D and on 3D models.	Previsualiza materiales en 2D y sobre modelos 3D.
 	Advanced	Avanzado
-	Migrate Flatpak bundles to ArtCraft OCI (experimental)	Migrar paquetes Flatpak a ArtCraft OCI (experimental)
-	On update, switch first party apps when the matching package is available. Otherwise, keep using bundles.	Al actualizar, migrar las aplicaciones de ArtCraft si está disponible el paquete correspondiente. De lo contrario, seguir usando paquetes independientes.
+	Migrate Flatpak bundles to FlowApps OCI (experimental)	Migrar paquetes Flatpak a FlowApps OCI (experimental)
+	On update, switch first party apps when the matching package is available. Otherwise, keep using bundles.	Al actualizar, migrar las aplicaciones de FlowApps si está disponible el paquete correspondiente. De lo contrario, seguir usando paquetes independientes.
 	The OCI repository is a preview with GPG verification disabled.	El repositorio OCI es una versión preliminar con la verificación GPG desactivada.
 anicraft	2D vector animation	Animación vectorial 2D
 anicraft	Vector animation on a timeline you know.	Animación vectorial en una línea de tiempo familiar.

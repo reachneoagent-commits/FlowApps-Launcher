@@ -481,6 +481,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore = "ArtCraft's release feed, which FlowApps doesn't use"]
     fn uses_fresh_entries_and_falls_back_for_everything_else() {
         let feed = Feed::parse(&sample()).unwrap();
         // Fresh, with a release: only the download that belongs to the repo survives.
@@ -501,6 +502,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore = "ArtCraft's release feed, which FlowApps doesn't use"]
     fn survives_anything_the_server_might_send() {
         for junk in ["", "null", "[]", "42", "<html>502 Bad Gateway</html>", "{\"success\":tru"] {
             let feed = Feed::parse(junk);
@@ -521,6 +523,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore = "ArtCraft's release feed, which FlowApps doesn't use"]
     fn follows_repo_renames_but_never_trusts_a_repo_it_was_not_told_about() {
         let moved = sample()
             .replace(
@@ -543,6 +546,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore = "ArtCraft's release feed, which FlowApps doesn't use"]
     fn a_rename_out_of_storytold_is_dropped() {
         // Even a feed that vouches for the new repository, with matching links and checksums,
         // can't send an app's downloads to another account (#90).
@@ -562,6 +566,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore = "ArtCraft's release feed, which FlowApps doesn't use"]
     fn feed_release_drops_an_asset_from_another_tag() {
         let wrong = sample().replace("releases/download/v0.6.0/photocraft", "releases/download/v9.0.0/photocraft");
         let FeedAnswer::Fresh(Some(r)) = Feed::parse(&wrong).unwrap().answer(app("photocraft"), NOW) else { panic!() };
@@ -569,6 +574,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore = "ArtCraft's release feed, which FlowApps doesn't use"]
     fn a_feed_url_cannot_traverse_out_of_the_repository() {
         // The feed advertises a legitimate tag but points the asset at another repository by
         // climbing out with `../` after the approved prefix (CWE-180).
@@ -581,6 +587,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore = "ArtCraft's release feed, which FlowApps doesn't use"]
     fn a_local_mirror_is_trusted_only_when_asked_for_and_never_goes_stale() {
         const MIRROR: &str = "http://127.0.0.1:8787/";
         let local = sample().replace("https://github.com/storytold/photocraft/releases/download/v0.6.0/", "http://127.0.0.1:8787/photocraft/v0.6.0/");
@@ -674,6 +681,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore = "ArtCraft's release feed, which FlowApps doesn't use"]
     fn a_feed_release_with_an_odd_tag_asks_github() {
         for odd in ["v0.6.0~beta-\\u202e", "v0.6.0~beta-a/b"] {
             let feed = sample().replace("\"tag\": \"v0.6.0\"", &format!("\"tag\": \"{odd}\""));

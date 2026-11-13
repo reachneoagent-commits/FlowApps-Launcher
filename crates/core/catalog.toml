@@ -25,11 +25,19 @@ platforms = "macOS, Windows"
 
 [[apps.details.features]]
 title = "Private and offline"
-text = "Everything runs locally on your machine. No cloud round-trips."
+text = "Everything runs on your computer. Your text never goes to a server."
 
 [[apps.details.features]]
-title = "Grammar and spelling"
-text = "Catches errors as you type, with suggestions you can apply in one click."
+title = "Grammar, spelling and style"
+text = "Underlines appear as you type, in Notes, Mail, Messages and any app you switch on. One click applies the fix."
+
+[[apps.details.features]]
+title = "Rules you control"
+text = "Per-app switches, a personal dictionary and per-rule settings, plus a browser extension for Chrome, Edge, Brave, Opera and Firefox."
+
+[[apps.details.shots]]
+key = "rules"
+caption = "Hundreds of rules, grouped by topic, each one adjustable"
 
 [[apps]]
 id = "voxflow"
@@ -50,12 +58,24 @@ publisher = "Reach Neo"
 msi_publisher = "Voxflow"
 [apps.details]
 headline = "Press a shortcut, speak, and your words appear in any text field."
-about = "A free, open source speech-to-text app that works completely offline."
+about = "A free, open source speech-to-text app that works completely offline. Started as a fork of Handy by CJ Pais."
 platforms = "macOS, Windows, Linux"
 
 [[apps.details.features]]
 title = "Offline voice input"
-text = "Continuous batching with SSD caching on Apple Silicon. Press a shortcut to dictate anywhere."
+text = "Press a shortcut, speak, and your words are pasted into whatever app you are using. Nothing leaves your computer."
+
+[[apps.details.features]]
+title = "Your choice of model"
+text = "Whisper models with GPU acceleration where available, or Parakeet for fast CPU transcription with automatic language detection."
+
+[[apps.details.features]]
+title = "Hold to talk or toggle"
+text = "Configurable shortcuts with hold, toggle or both, plus a dictionary, snippets and writing styles."
+
+[[apps.details.shots]]
+key = "settings"
+caption = "Shortcuts, languages and sound in Settings"
 
 [[apps]]
 id = "mailflow"
@@ -90,3 +110,19 @@ text = "Rewrite, shorten or tidy a draft with a model on your own computer, a fr
 [[apps.details.features]]
 title = "Yours to shape"
 text = "A guided setup you can skip section by section, and six colour themes in light and dark."
+
+[[apps.details.shots]]
+key = "welcome"
+caption = "A guided setup: connect your email, set up writing help, choose a look"
+
+[[apps.details.shots]]
+key = "writing-help"
+caption = "Writing Help: rewrite, humanize or fix grammar, only when you ask"
+
+[[apps.details.shots]]
+key = "inbox-dark"
+caption = "The inbox in the dark Mailflow theme"
+
+[[apps.details.shots]]
+key = "themes"
+caption = "Six colour themes, each in light and dark"
