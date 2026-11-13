@@ -68,6 +68,7 @@ former_names = []
 former_bundles = []
 kind = "community"
 publisher = "Reach Neo"
+msi_publisher = "Mailflow contributors"
 [apps.details]
 headline = "Mail, calendar, people and tasks in one native app, with help with writing when you ask for it."
 about = "A free, open source mail, calendar, contacts and tasks app for Mac and Windows. Help with writing is optional and runs only when you ask: on your own computer, or with a provider you choose. A fork of MailCraft."
