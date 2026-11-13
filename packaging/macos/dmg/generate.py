@@ -24,12 +24,12 @@ from PIL import Image, ImageCms
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 # Keep in sync with package.sh (volume name) and README.md (layout).
-VOLUME = "ArtCraft Launcher"
+VOLUME = "FlowApps"
 WIDTH, HEIGHT = 660, 400  # window content, pt; the background's 1x size
 TITLE_BAR = 32
 ICON_SIZE = 128
-PALETTE = 16  # colours in background.tiff
-ICONS = {"ArtCraft Launcher.app": (326, 205), "Applications": (574, 205)}
+PALETTE = 48  # colours in background.tiff
+ICONS = {"FlowApps.app": (326, 205), "Applications": (574, 205)}
 # A fixed date for the alias and the colour profile. Finder never matches it against the image
 # (each build is a new volume): it finds the background by volume name and path.
 FIXED_DATE = datetime.datetime(2026, 10, 11, tzinfo=datetime.timezone.utc)
@@ -39,7 +39,7 @@ def render(svg, width, out):
     # The SVG's text is already outlined and no fonts are loaded, so every machine draws the
     # same pixels.
     subprocess.run(
-        ["resvg", "--skip-system-fonts", "-w", str(width), svg, out],
+        ["rsvg-convert", "-w", str(width), svg, "-o", out],
         check=True,
     )
     with Image.open(out) as im:
@@ -148,8 +148,8 @@ def write_ds_store(out):
 
 
 def main():
-    if not shutil.which("resvg"):
-        sys.exit("error: resvg not found (brew install resvg / cargo install resvg --locked)")
+    if not shutil.which("rsvg-convert"):
+        sys.exit("error: rsvg-convert not found (brew install librsvg)")
     write_tiff(os.path.join(HERE, "background.svg"), os.path.join(HERE, "background.tiff"))
     write_ds_store(os.path.join(HERE, "dmg-layout.DS_Store"))
 

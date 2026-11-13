@@ -182,13 +182,17 @@ pub const DISCORD_APP_URL: &str = "discord://-/invite/artcraft";
 /// FlowApps itself, described like a Craft App so it can update itself with the same
 /// machinery (asset names `flowapps-launcher-<ver>-…`, bundle id `ai.reachneo.flowapps`,
 /// `FlowApps.app`). Not part of [`SUITE`].
-pub const LAUNCHER: CraftApp = app(
-    "flowapps-launcher",
-    "FlowApps",
-    "Installs and updates your apps",
-    [[0x0b, 0x0b, 0x0c], [0x0b, 0x0b, 0x0c], [0xf0, 0xee, 0xea]],
-    "reachneoagent-commits/FlowApps-Launcher",
-);
+pub const LAUNCHER: CraftApp = CraftApp {
+    mac_team: Some(UNSIGNED_MAC_TEAM),
+    bundle: Some("ai.reachneo.flowapps"),
+    ..app(
+        "flowapps-launcher",
+        "FlowApps",
+        "Installs and updates your apps",
+        [[0x0b, 0x0b, 0x0c], [0x0b, 0x0b, 0x0c], [0xf0, 0xee, 0xea]],
+        "reachneoagent-commits/FlowApps-Launcher",
+    )
+};
 
 /// The launcher's own repo, checked so it can say when a newer launcher is out.
 pub const LAUNCHER_REPO: &str = "reachneoagent-commits/FlowApps-Launcher";
