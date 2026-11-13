@@ -203,7 +203,7 @@ pub fn app_icon_png(id: &str) -> Option<&'static [u8]> {
         return Some(icon);
     }
     Some(match id {
-        "flowgram" => include_bytes!("../../../assets/app-icons/flowgram.png"),
+        "gramflow" => include_bytes!("../../../assets/app-icons/gramflow.png"),
         "voxflow" => include_bytes!("../../../assets/app-icons/voxflow.png"),
         "mailflow" => include_bytes!("../../../assets/app-icons/mailflow.png"),
         _ => return None,
@@ -241,7 +241,7 @@ mod tests {
     #[test]
     fn apps_point_at_their_own_repos_and_bundle_ids() {
         let expected = [
-            ("flowgram", "reachneoagent-commits/flowgram", "com.flowgram.app"),
+            ("gramflow", "reachneoagent-commits/gramflow", "com.gramflow.app"),
             ("voxflow", "reachneoagent-commits/voxflow", "com.voxflow.app"),
             ("mailflow", "reachneoagent-commits/mailflow", "com.flowapps.mailflow"),
         ];

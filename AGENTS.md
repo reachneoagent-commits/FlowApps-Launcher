@@ -1,6 +1,6 @@
 # AGENTS.md: guide for contributors
 
-FlowApps installs, updates and launches the FlowApps suite: **Flowgram**, **Voxflow** and **Mailflow**,
+FlowApps installs, updates and launches the FlowApps suite: **Gramflow**, **Voxflow** and **Mailflow**,
 each hosted in a repository under https://github.com/reachneoagent-commits. It is written in Rust
 only: the desktop app is native egui/eframe, and the web build is the same Rust compiled to
 WebAssembly. FlowApps is forked from ArtCraft Launcher

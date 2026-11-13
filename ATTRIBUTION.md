@@ -10,7 +10,7 @@ which are trademarks of Reach Neo. FlowApps is forked from
 |---|---|---|---|
 | `brand/`, `assets/app-icon/`, `assets/app-icons/flowapps-*`, `docs/brand/flowapps-*` | FlowApps icon, logo and symbol | Reach Neo | Trademark of Reach Neo |
 | `packaging/macos/dmg/` | macOS DMG window background and layout | ArtCraft Launcher contributors, reworked by Reach Neo | MIT OR Apache-2.0 |
-| `assets/app-icons/flowgram.png` | Flowgram icon | Reach Neo | MIT OR Apache-2.0 |
+| `assets/app-icons/gramflow.png` | Gramflow icon | Reach Neo | MIT OR Apache-2.0 |
 | `assets/app-icons/voxflow.png` | Voxflow icon | Reach Neo | MIT OR Apache-2.0 |
 | `assets/app-icons/mailflow.png` | Mailflow icon | Reach Neo, based on MailCraft | MIT OR Apache-2.0 |
 | `assets/fonts/` | Archivo, Inter, Geist Mono | their authors | SIL OFL 1.1 |

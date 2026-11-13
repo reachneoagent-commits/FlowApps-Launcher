@@ -112,7 +112,7 @@ function New-InstallerArt([string] $BannerOut, [string] $DialogOut) {
   $muted = [System.Drawing.Color]::FromArgb(153, 242, 241, 238)
   $line = [System.Drawing.Color]::FromArgb(38, 242, 241, 238)
   # The FlowApps suite, in the launcher's order (crates/core/src/catalog.rs).
-  $apps = 'flowgram', 'voxflow', 'mailflow'
+  $apps = 'gramflow', 'voxflow', 'mailflow'
   $mark = [System.Drawing.Image]::FromFile((Join-Path $Root 'assets\app-icon\hicolor\256x256\apps\ai.reachneo.flowapps.png'))
   $icons = $apps | ForEach-Object { [System.Drawing.Image]::FromFile((Join-Path $Root "assets\app-icons\$_.png")) }
   # The site's label face; GDI+ draws a variable font at its default instance (Regular).

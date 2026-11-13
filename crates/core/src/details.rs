@@ -52,7 +52,7 @@ const fn feature(title: &'static str, text: &'static str) -> Feature {
 pub const SCREENSHOTS_BASE: &str = "https://raw.githubusercontent.com/reachneoagent-commits/FlowApps-Launcher";
 
 /// The tag of the pictures repository the launcher reads. Also part of the saved copies' path.
-pub const SCREENSHOTS_REV: &str = "screenshots-v1";
+pub const SCREENSHOTS_REV: &str = "screenshots-v2";
 
 /// The largest picture the launcher accepts. The real ones are 60 to 150 KB.
 pub const MAX_SCREENSHOT_BYTES: usize = 2 << 20;
@@ -181,7 +181,7 @@ mod tests {
         let page = AppDetails::by_id("mailflow").unwrap();
         assert_eq!(
             page.screenshot_url("welcome").as_deref(),
-            Some("https://raw.githubusercontent.com/reachneoagent-commits/FlowApps-Launcher/screenshots-v1/screenshots/mailflow/welcome.jpg")
+            Some("https://raw.githubusercontent.com/reachneoagent-commits/FlowApps-Launcher/screenshots-v2/screenshots/mailflow/welcome.jpg")
         );
         for key in ["", "nope", "../vectorcraft/neon", "demo/../masks", "demo.jpg", "/etc/passwd", "demo?x=1", "demo#"] {
             assert_eq!(page.screenshot_url(key), None, "{key:?}");

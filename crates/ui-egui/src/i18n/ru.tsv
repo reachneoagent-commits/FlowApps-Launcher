@@ -183,7 +183,7 @@
 # Contextual: each app's tagline, keyed by app id
 artcraft	AI image and video creation	Создание изображений и видео с помощью ИИ
 photocraft	Image editing	Редактирование изображений
-flowgram	Grammar and spell checker for Mac and Windows	Проверка грамматики и орфографии для Mac и Windows
+gramflow	Grammar and spell checker for Mac and Windows	Проверка грамматики и орфографии для Mac и Windows
 voxflow	Offline speech-to-text app	Приложение для преобразования речи в текст офлайн
 mailflow	Mail, calendar, contacts and tasks, with optional AI writing help	Почта, календарь, контакты и задачи с необязательной помощью ИИ при письме
 vectorcraft	Vector illustration	Векторная иллюстрация

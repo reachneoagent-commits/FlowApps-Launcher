@@ -2,24 +2,24 @@
 # Source: reachneoagent-commits/FlowApps-Launcher
 
 [[apps]]
-id = "flowgram"
-name = "Flowgram"
+id = "gramflow"
+name = "Gramflow"
 tagline = "Grammar and spell checker for Mac and Windows"
 color = [68, 152, 55]
 ink_light = [43, 43, 43]
 ink_dark = [235, 246, 108]
-repo = "reachneoagent-commits/flowgram"
-bundle = "com.flowgram.app"
-site = "https://github.com/reachneoagent-commits/flowgram"
-former_ids = []
-former_names = []
-former_bundles = []
+repo = "reachneoagent-commits/gramflow"
+bundle = "com.gramflow.app"
+site = "https://github.com/reachneoagent-commits/gramflow"
+former_ids = ["flowgram"]
+former_names = ["Flowgram"]
+former_bundles = ["com.flowgram.app"]
 mac_team = "unsigned"
 kind = "community"
 publisher = "Reach Neo"
-msi_publisher = "Flowgram"
+msi_publisher = "Gramflow"
 [apps.details]
-headline = "Flowgram catches grammar and spelling mistakes as you type."
+headline = "Gramflow catches grammar and spelling mistakes as you type."
 about = "A free, open source, private grammar and spell checker for Mac and Windows. Works completely offline."
 platforms = "macOS, Windows"
 

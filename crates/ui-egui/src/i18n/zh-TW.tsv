@@ -254,7 +254,7 @@ filter	Installed	已安裝
 @plural	{n} app|{n} apps	{n} 個應用程式
 artcraft	AI image and video creation	AI 影像與影片創作
 photocraft	Image editing	影像編輯
-flowgram	Grammar and spell checker for Mac and Windows	適用於 Mac 與 Windows 的文法與拼字檢查器
+gramflow	Grammar and spell checker for Mac and Windows	適用於 Mac 與 Windows 的文法與拼字檢查器
 voxflow	Offline speech-to-text app	離線語音轉文字應用程式
 mailflow	Mail, calendar, contacts and tasks, with optional AI writing help	郵件、行事曆、聯絡人與工作事項，可選用 AI 寫作輔助
 vectorcraft	Vector illustration	向量插畫

@@ -185,7 +185,7 @@
 # Contextual: each app's tagline, keyed by app id
 artcraft	AI image and video creation	Képek és videók készítése MI-vel
 photocraft	Image editing	Képszerkesztés
-flowgram	Grammar and spell checker for Mac and Windows	Nyelvtan- és helyesírás-ellenőrző Machez és Windowshoz
+gramflow	Grammar and spell checker for Mac and Windows	Nyelvtan- és helyesírás-ellenőrző Machez és Windowshoz
 voxflow	Offline speech-to-text app	Offline beszédfelismerő alkalmazás
 mailflow	Mail, calendar, contacts and tasks, with optional AI writing help	Levelezés, naptár, névjegyek és feladatok, opcionális MI-írássegítővel
 vectorcraft	Vector illustration	Vektoros illusztráció

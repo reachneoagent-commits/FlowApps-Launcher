@@ -6,7 +6,7 @@
 
 <p align="center">
   <b>One place to install, update and open every app in the FlowApps suite.</b><br>
-  Flowgram, Voxflow and Mailflow: the right build for your computer, kept up to date.
+  Gramflow, Voxflow and Mailflow: the right build for your computer, kept up to date.
 </p>
 
 <p align="center">
@@ -47,13 +47,13 @@ The web version shows the same catalog in the browser, with the latest download 
 
 ## Download and install
 
-Download FlowApps for your system (latest version, 0.20.9), then open it to install Flowgram, Voxflow and Mailflow.
+Download FlowApps for your system (latest version, 0.20.10), then open it to install Gramflow, Voxflow and Mailflow.
 
 | Platform | Installer |
 | --- | --- |
-| macOS (Apple silicon and Intel) | [DMG](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.20.9/flowapps-launcher-0.20.9-macos-universal.dmg) |
-| Windows x64 | [Installer](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.20.9/flowapps-launcher-0.20.9-windows-x64.msi) · [Portable](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.20.9/flowapps-launcher-0.20.9-windows-x64-portable.zip) |
-| Windows ARM64 | [Installer](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.20.9/flowapps-launcher-0.20.9-windows-arm64.msi) · [Portable](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.20.9/flowapps-launcher-0.20.9-windows-arm64-portable.zip) |
+| macOS (Apple silicon and Intel) | [DMG](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.20.10/flowapps-launcher-0.20.10-macos-universal.dmg) |
+| Windows x64 | [Installer](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.20.10/flowapps-launcher-0.20.10-windows-x64.msi) · [Portable](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.20.10/flowapps-launcher-0.20.10-windows-x64-portable.zip) |
+| Windows ARM64 | [Installer](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.20.10/flowapps-launcher-0.20.10-windows-arm64.msi) · [Portable](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.20.10/flowapps-launcher-0.20.10-windows-arm64-portable.zip) |
 
 Older versions are on the [Releases page](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases). Every release has a `SHA256SUMS.txt` to check the files against.
 
@@ -66,7 +66,7 @@ FlowApps isn't signed with a paid Apple or Microsoft certificate, so your comput
 
 | App | What it's for | GitHub |
 |---|---|---|
-| **Flowgram** | Grammar and spell checker for Mac and Windows | [GitHub](https://github.com/reachneoagent-commits/flowgram) |
+| **Gramflow** | Grammar and spell checker for Mac and Windows | [GitHub](https://github.com/reachneoagent-commits/gramflow) |
 | **Voxflow** | Offline speech-to-text app | [GitHub](https://github.com/reachneoagent-commits/voxflow) |
 | **Mailflow** | Mail, calendar, contacts and tasks app, with optional AI writing help | [GitHub](https://github.com/reachneoagent-commits/mailflow) |
 

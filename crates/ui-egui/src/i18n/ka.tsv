@@ -189,7 +189,7 @@
 # Contextual: each app's tagline, keyed by app id
 artcraft	AI image and video creation	სურათებისა და ვიდეოების შექმნა ხელოვნური ინტელექტით
 photocraft	Image editing	გამოსახულებების რედაქტირება
-flowgram	Grammar and spell checker for Mac and Windows	გრამატიკისა და მართლწერის შემმოწმებელი Mac-ისა და Windows-ისთვის
+gramflow	Grammar and spell checker for Mac and Windows	გრამატიკისა და მართლწერის შემმოწმებელი Mac-ისა და Windows-ისთვის
 voxflow	Offline speech-to-text app	ოფლაინ მეტყველება-ტექსტად აპი
 mailflow	Mail, calendar, contacts and tasks, with optional AI writing help	ფოსტა, კალენდარი, კონტაქტები და ამოცანები, არასავალდებულო AI წერის დახმარებით
 vectorcraft	Vector illustration	ვექტორული ილუსტრაცია

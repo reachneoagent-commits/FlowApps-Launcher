@@ -185,7 +185,7 @@
 # Contextual: each app's tagline, keyed by app id
 artcraft	AI image and video creation	KI-Bild- und Videoerstellung
 photocraft	Image editing	Bildbearbeitung
-flowgram	Grammar and spell checker for Mac and Windows	Grammatik- und Rechtschreibprüfung für Mac und Windows
+gramflow	Grammar and spell checker for Mac and Windows	Grammatik- und Rechtschreibprüfung für Mac und Windows
 voxflow	Offline speech-to-text app	Spracherkennung offline: Sprache zu Text
 mailflow	Mail, calendar, contacts and tasks, with optional AI writing help	E-Mail, Kalender, Kontakte und Aufgaben, mit optionaler KI-Schreibhilfe
 vectorcraft	Vector illustration	Vektorillustration

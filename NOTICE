@@ -23,7 +23,7 @@ The logos are trademarks of their respective owners and are used only to link to
 Inter font (assets/fonts/Inter-Variable.ttf) — SIL Open Font License 1.1. See assets/fonts/OFL-Inter.txt.
 Archivo font (assets/fonts/Archivo-Variable.ttf) — SIL Open Font License 1.1. See assets/fonts/OFL-Archivo.txt.
 Geist Mono font (assets/fonts/GeistMono-Variable.ttf) — SIL Open Font License 1.1. See assets/fonts/OFL-GeistMono.txt.
-FlowApps suite app icons (assets/app-icons/{flowgram,voxflow,mailflow}.png) — copied from each app's
+FlowApps suite app icons (assets/app-icons/{gramflow,voxflow,mailflow}.png) — copied from each app's
 repository (github.com/reachneoagent-commits/<app>), MIT OR Apache-2.0. Mailflow is a fork of
 MailCraft (UCS Care Group), licensed under MIT OR Apache-2.0
 (assets/app-icons/LICENSE-*-MailCraft.txt).

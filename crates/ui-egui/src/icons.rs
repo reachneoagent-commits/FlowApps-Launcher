@@ -13,11 +13,11 @@ fn icon_revision(id: &str) -> &'static str {
     flowapps_launcher_core::hosted_catalog::metadata(id).map_or("bundled", |m| m.icon_sha256.as_str())
 }
 
-/// Brand tile for an app whose bundled icon is a plain white glyph on transparency (Flowgram,
+/// Brand tile for an app whose bundled icon is a plain white glyph on transparency (Gramflow,
 /// Voxflow): (app id, tile colour, glyph colour), from each app's brand folder. The installed card
 /// shows the glyph on its brand tile; the not-installed card keeps the same layout in greys.
 const BRAND_TILES: [(&str, [u8; 3], [u8; 3]); 2] =
-    [("flowgram", [0xeb, 0xf6, 0x6c], [0x2b, 0x2b, 0x2b]), ("voxflow", [0xa6, 0x95, 0xf8], [0x33, 0x2d, 0x51])];
+    [("gramflow", [0xeb, 0xf6, 0x6c], [0x2b, 0x2b, 0x2b]), ("voxflow", [0xa6, 0x95, 0xf8], [0x33, 0x2d, 0x51])];
 
 /// Not-installed tile and glyph: mid greys, a contrast of about 6:1 so the card reads as "not
 /// installed yet" rather than disabled.
@@ -154,7 +154,7 @@ mod preview_tests {
     fn write_previews() {
         let Ok(dir) = std::env::var("ICON_PREVIEW_DIR") else { return };
         let mut sheet = image::RgbaImage::from_pixel(128 * 6, 128, image::Rgba([10, 10, 12, 255]));
-        for (n, (id, colour)) in [("flowgram", true), ("flowgram", false), ("voxflow", true), ("voxflow", false), ("mailflow", true), ("mailflow", false)].into_iter().enumerate() {
+        for (n, (id, colour)) in [("gramflow", true), ("gramflow", false), ("voxflow", true), ("voxflow", false), ("mailflow", true), ("mailflow", false)].into_iter().enumerate() {
             let png = flowapps_launcher_core::catalog::app_icon_png(id).unwrap_or_default();
             let picture = image::load_from_memory(png).unwrap().to_rgba8();
             let tile = super::BRAND_TILES.iter().find(|t| t.0 == id);

@@ -43,7 +43,7 @@ fn main() {
             }
         }
         if checked && sent && matches!(args.len(), 0) {
-            for app in ["flowgram", "voxflow", "mailflow"] {
+            for app in ["gramflow", "voxflow", "mailflow"] {
                 println!("download_size {app}: {:?}", backend.download_size(app));
             }
             return;
