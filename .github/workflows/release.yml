@@ -18,7 +18,7 @@ jobs:
   macos:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Rust toolchain
         run: |
           rustup toolchain install stable --profile minimal
@@ -29,7 +29,7 @@ jobs:
           key: macos
       - name: Build universal DMG
         run: packaging/macos/package.sh --arch universal
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: macos
           path: dist/release/*.dmg
@@ -42,7 +42,7 @@ jobs:
       matrix:
         arch: [x64, arm64]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Rust toolchain
         shell: pwsh
         run: |
@@ -61,7 +61,7 @@ jobs:
       - name: Build MSI and portable zip
         shell: pwsh
         run: pwsh packaging/windows/package.ps1 -Arch ${{ matrix.arch }}
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: windows-${{ matrix.arch }}
           path: |
@@ -73,10 +73,10 @@ jobs:
     needs: [macos, windows]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           path: dist
           merge-multiple: true
