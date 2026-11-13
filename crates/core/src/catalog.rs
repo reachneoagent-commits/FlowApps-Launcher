@@ -170,9 +170,7 @@ pub const GITHUB_OWNER: &str = "reachneoagent-commits";
 /// FlowApps on GitHub: every app's source.
 pub const GITHUB_URL: &str = "https://github.com/reachneoagent-commits";
 /// FlowApps's social accounts: (service, URL). Shown as small icons.
-pub const SOCIAL: [(&str, &str); 1] = [
-    ("GitHub", "https://github.com/reachneoagent-commits"),
-];
+pub const SOCIAL: [(&str, &str); 0] = [];
 
 /// The ArtCraft community on Discord.
 pub const DISCORD_URL: &str = "https://discord.gg/artcraft";

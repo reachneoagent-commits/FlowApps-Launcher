@@ -72,9 +72,9 @@ pub fn social(service: &str) -> Option<ImageSource<'static>> {
     })
 }
 
-/// The ArtCraft "A" mark in blue, as supplied: the launcher's app icon and getartcraft.com's favicon.
+/// The FlowApps symbol, used in dialog headers.
 pub fn artcraft_mark() -> ImageSource<'static> {
-    egui::include_image!("../../../docs/brand/artcraft-mark.svg")
+    egui::include_image!("../../../brand/logo only.svg")
 }
 
 #[cfg(test)]
