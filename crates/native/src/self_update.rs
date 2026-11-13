@@ -95,7 +95,7 @@ pub fn update(
     let update_release = to_update_release(release);
     let update_platform = to_update_platform(platform);
     let update_paths = to_update_paths(paths);
-    let update_http = craft_update::Http::new("ArtCraft-Launcher/SelfUpdate")?;
+    let update_http = craft_update::Http::new("FlowApps/SelfUpdate")?;
     let mut update_phase = |p: craft_update::JobPhase| {
         phase(match p {
             craft_update::JobPhase::Downloading { done, total } => JobPhase::Downloading { done, total },

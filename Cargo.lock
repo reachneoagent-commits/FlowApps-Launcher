@@ -941,12 +941,13 @@ dependencies = [
 [[package]]
 name = "craft-update"
 version = "0.1.0"
-source = "git+https://github.com/storytold/craft-libs?rev=6e03f65bf45181db77ba6229716e6624db9eb25b#6e03f65bf45181db77ba6229716e6624db9eb25b"
 dependencies = [
  "chrono",
  "dunce",
+ "egui",
  "flate2",
  "getrandom 0.3.4",
+ "image",
  "log",
  "plist",
  "rustix 1.1.5",
@@ -1687,7 +1688,7 @@ checksum = "98de4bbd547a563b716d8dfa9aad1cb19bfab00f4fa09a6a4ed21dbcf44ce9c4"
 
 [[package]]
 name = "flowapps-launcher"
-version = "0.20.6"
+version = "0.20.7"
 dependencies = [
  "craft-quit",
  "eframe",
@@ -1713,7 +1714,7 @@ dependencies = [
 
 [[package]]
 name = "flowapps-launcher-core"
-version = "0.20.6"
+version = "0.20.7"
 dependencies = [
  "base64 0.22.1",
  "ed25519-dalek",
@@ -1727,7 +1728,7 @@ dependencies = [
 
 [[package]]
 name = "flowapps-launcher-native"
-version = "0.20.6"
+version = "0.20.7"
 dependencies = [
  "craft-update",
  "dirs 6.0.0",
@@ -1751,7 +1752,7 @@ dependencies = [
 
 [[package]]
 name = "flowapps-launcher-ui-egui"
-version = "0.20.6"
+version = "0.20.7"
 dependencies = [
  "craft-ui",
  "egui",
@@ -1771,7 +1772,7 @@ dependencies = [
 
 [[package]]
 name = "flowapps-launcher-web"
-version = "0.20.6"
+version = "0.20.7"
 dependencies = [
  "eframe",
  "egui",
@@ -6355,7 +6356,7 @@ checksum = "ec7a2a501ed189703dba8b08142f057e887dfc4b2cc4db2d343ac6376ba3e0b9"
 
 [[package]]
 name = "xtask"
-version = "0.20.6"
+version = "0.20.7"
 dependencies = [
  "jiff",
  "semver",
