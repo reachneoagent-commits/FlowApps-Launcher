@@ -511,6 +511,14 @@ impl LauncherUi {
         }
         let installed = rest.iter().take_while(|id| self.is_installed(id)).count();
         let (top, rest) = rest.split_at(installed);
+        if !top.is_empty() {
+            let t = Tokens::get(ui.ctx());
+            if !pinned.is_empty() {
+                ui.add_space(28.0);
+            }
+            widgets::hud(ui, tl!("Installed"), t.faint);
+            ui.add_space(12.0);
+        }
         self.grid_block(ui, top);
         if !top.is_empty() && !rest.is_empty() {
             let t = Tokens::get(ui.ctx());
