@@ -1115,11 +1115,10 @@ fn check_plan(http: &Http, mirror: Option<&String>, pre: bool, paths: &Paths, sh
     if let Some(base) = mirror {
         // A local mirror answers for everything: GitHub is never asked.
         (local_feed(http, base), Fallback { trust_feed: true, github_every: GITHUB_FALLBACK_EVERY })
-    } else if pre {
-        // The feed serves stable releases only; with pre-releases on, GitHub decides.
-        (None, Fallback { trust_feed: false, github_every: EARLY_GITHUB_EVERY })
     } else {
-        feed_and_fallback(http, paths, shared)
+        // FlowApps has no release feed: GitHub's releases decide, and ArtCraft's API is never asked.
+        let _ = (http, paths, shared, pre);
+        (None, Fallback { trust_feed: false, github_every: EARLY_GITHUB_EVERY })
     }
 }
 
@@ -1221,6 +1220,7 @@ struct Fallback {
 /// - After that: the feed's last answer stands in while it fails, and GitHub is asked only for
 ///   apps the feed doesn't list or hasn't refreshed in a day, or once the feed has seriously
 ///   failed (several checks in a row and an hour without an answer); then hourly per app.
+#[allow(dead_code)]
 fn feed_and_fallback(http: &Http, paths: &Paths, shared: &Shared) -> (Option<Feed>, Fallback) {
     let saved = load_feed(paths);
     let loaded = shared.loaded.load(Ordering::SeqCst);
