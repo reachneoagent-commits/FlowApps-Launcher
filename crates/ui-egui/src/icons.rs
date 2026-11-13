@@ -13,38 +13,91 @@ fn icon_revision(id: &str) -> &'static str {
     flowapps_launcher_core::hosted_catalog::metadata(id).map_or("bundled", |m| m.icon_sha256.as_str())
 }
 
-/// A Craft App's icon: in colour, or in greys for an app that is not installed. The grey copy is
-/// made once per app from the same bundled picture and kept in the context.
+/// Brand tile for an app whose bundled icon is a plain white glyph on transparency (Flowgram,
+/// Voxflow): (app id, tile colour, glyph colour), from each app's brand folder. The installed card
+/// shows the glyph on its brand tile; the not-installed card keeps the same layout in greys.
+const BRAND_TILES: [(&str, [u8; 3], [u8; 3]); 2] =
+    [("flowgram", [0xeb, 0xf6, 0x6c], [0x2b, 0x2b, 0x2b]), ("voxflow", [0xa6, 0x95, 0xf8], [0x33, 0x2d, 0x51])];
+
+/// Not-installed tile and glyph: mid greys, a contrast of about 6:1 so the card reads as "not
+/// installed yet" rather than disabled.
+const GREY_TILE: [u8; 3] = [0x4a, 0x4a, 0x52];
+const GREY_GLYPH: [u8; 3] = [0xd2, 0xd2, 0xd8];
+
+/// A Craft App's icon: in colour for an installed app, in greys for one that is not. Both are made
+/// once per app from the same bundled picture and kept in the context.
 pub fn app_image(ctx: &egui::Context, id: &str, in_colour: bool) -> Option<egui::Image<'static>> {
-    let colour = app(id).map(egui::Image::new);
-    if in_colour {
-        return colour;
+    let tile = BRAND_TILES.iter().find(|t| t.0 == id);
+    if in_colour && tile.is_none() {
+        return app(id).map(egui::Image::new);
     }
-    // The colour picture decodes on a background thread the first time it's asked for. Ask now,
-    // while the card is grey, so it is ready when the pointer comes over it (a cache hit after).
-    if let Some(colour) = &colour {
-        let _ = colour.load_for_size(ctx, egui::Vec2::splat(64.0));
-    }
-    let key = egui::Id::unique(("grey-app-icon", id, icon_revision(id)));
+    let key = egui::Id::unique(("app-icon", id, in_colour, icon_revision(id)));
     if let Some(texture) = ctx.data(|d| d.get_temp::<egui::TextureHandle>(key)) {
         return Some(egui::Image::new(&texture));
     }
     let ImageSource::Bytes { bytes, .. } = app(id)? else { return None };
     let picture = image::load_from_memory(bytes.as_ref()).ok()?.to_rgba8();
     let size = [picture.width() as usize, picture.height() as usize];
-    let mut pixels = picture.into_raw();
-    desaturate(&mut pixels);
-    let texture =
-        ctx.load_texture(format!("grey-app-icon-{id}"), egui::ColorImage::from_rgba_unmultiplied(size, &pixels), egui::TextureOptions::LINEAR);
+    let pixels = match (tile, in_colour) {
+        (Some(&(_, tile, glyph)), true) => on_tile(&picture, tile, glyph),
+        (Some(_), false) => on_tile(&picture, GREY_TILE, GREY_GLYPH),
+        (None, _) => {
+            let mut pixels = picture.into_raw();
+            desaturate(&mut pixels);
+            pixels
+        }
+    };
+    let name = format!("app-icon-{id}-{in_colour}");
+    let texture = ctx.load_texture(name, egui::ColorImage::from_rgba_unmultiplied(size, &pixels), egui::TextureOptions::LINEAR);
     ctx.data_mut(|d| d.insert_temp(key, texture.clone()));
     Some(egui::Image::new(&texture))
 }
 
-/// Turns RGBA pixels grey by their luminance, leaving the alpha as it was.
+/// Draws the white glyph of `picture`, recoloured, centred on a rounded square of `tile`.
+fn on_tile(picture: &image::RgbaImage, tile: [u8; 3], glyph: [u8; 3]) -> Vec<u8> {
+    let (w, h) = (picture.width(), picture.height());
+    let mut out = vec![0u8; (w * h * 4) as usize];
+    let radius = w as f32 * 0.22;
+    let half = (w as f32 / 2.0, h as f32 / 2.0);
+    // Tile: signed distance to a rounded square, with a one pixel soft edge.
+    for y in 0..h {
+        for x in 0..w {
+            let (dx, dy) = ((x as f32 + 0.5 - half.0).abs() - (half.0 - radius), (y as f32 + 0.5 - half.1).abs() - (half.1 - radius));
+            let dist = dx.max(0.0).hypot(dy.max(0.0)) + dx.max(dy).min(0.0) - radius;
+            let alpha = (0.5 - dist).clamp(0.0, 1.0);
+            let at = ((y * w + x) * 4) as usize;
+            out[at..at + 3].copy_from_slice(&tile);
+            out[at + 3] = (alpha * 255.0) as u8;
+        }
+    }
+    // Glyph: the picture's opaque area, scaled to 58 % of the tile.
+    let bounds = picture.enumerate_pixels().filter(|(_, _, p)| p[3] > 8).fold(None, |b: Option<(u32, u32, u32, u32)>, (x, y, _)| {
+        Some(b.map_or((x, y, x, y), |(x0, y0, x1, y1)| (x0.min(x), y0.min(y), x1.max(x), y1.max(y))))
+    });
+    let Some((x0, y0, x1, y1)) = bounds else { return out };
+    let (gw, gh) = (x1 - x0 + 1, y1 - y0 + 1);
+    let fit = (w as f32 * 0.58) / gw.max(gh) as f32;
+    let (tw, th) = (((gw as f32 * fit).round() as u32).max(1), ((gh as f32 * fit).round() as u32).max(1));
+    let cropped = image::imageops::crop_imm(picture, x0, y0, gw, gh).to_image();
+    let scaled = image::imageops::resize(&cropped, tw, th, image::imageops::FilterType::Lanczos3);
+    let (ox, oy) = ((w - tw) / 2, (h - th) / 2);
+    for (x, y, p) in scaled.enumerate_pixels() {
+        let a = f32::from(p[3]) / 255.0;
+        let at = (((oy + y) * w + ox + x) * 4) as usize;
+        for c in 0..3 {
+            out[at + c] = (f32::from(glyph[c]) * a + f32::from(out[at + c]) * (1.0 - a)).round() as u8;
+        }
+    }
+    out
+}
+
+/// Turns RGBA pixels grey by their luminance, leaving the alpha as it was, and lifts the darkest
+/// greys so a dark icon doesn't vanish on the dark window.
 fn desaturate(pixels: &mut [u8]) {
     let (pixels, _) = pixels.as_chunks_mut::<4>();
     for p in pixels {
-        let grey = (0.299 * f32::from(p[0]) + 0.587 * f32::from(p[1]) + 0.114 * f32::from(p[2])).round() as u8;
+        let lum = 0.299 * f32::from(p[0]) + 0.587 * f32::from(p[1]) + 0.114 * f32::from(p[2]);
+        let grey = (0x30 as f32 + lum * (255.0 - 0x30 as f32) / 255.0).round() as u8;
         p[..3].fill(grey);
     }
 }
@@ -91,5 +144,34 @@ mod tests {
         assert_eq!([px[3], px[7], px[11]], [200, 17, 255]);
         // Pure red is darker than pure white and pure grey stays put.
         assert!(px[0] < 255 && px[8] == 10);
+    }
+}
+
+#[cfg(test)]
+mod preview_tests {
+    #[test]
+    #[ignore = "writes preview PNGs to $ICON_PREVIEW_DIR"]
+    fn write_previews() {
+        let Ok(dir) = std::env::var("ICON_PREVIEW_DIR") else { return };
+        let mut sheet = image::RgbaImage::from_pixel(128 * 6, 128, image::Rgba([10, 10, 12, 255]));
+        for (n, (id, colour)) in [("flowgram", true), ("flowgram", false), ("voxflow", true), ("voxflow", false), ("mailflow", true), ("mailflow", false)].into_iter().enumerate() {
+            let png = flowapps_launcher_core::catalog::app_icon_png(id).unwrap_or_default();
+            let picture = image::load_from_memory(png).unwrap().to_rgba8();
+            let tile = super::BRAND_TILES.iter().find(|t| t.0 == id);
+            let px = match (tile, colour) {
+                (Some(&(_, t, g)), true) => super::on_tile(&picture, t, g),
+                (Some(_), false) => super::on_tile(&picture, super::GREY_TILE, super::GREY_GLYPH),
+                (None, true) => picture.clone().into_raw(),
+                (None, false) => {
+                    let mut p = picture.clone().into_raw();
+                    super::desaturate(&mut p);
+                    p
+                }
+            };
+            let icon = image::RgbaImage::from_raw(picture.width(), picture.height(), px).unwrap();
+            let icon = image::imageops::resize(&icon, 128, 128, image::imageops::FilterType::Lanczos3);
+            image::imageops::overlay(&mut sheet, &icon, (n as i64) * 128, 0);
+        }
+        sheet.save(format!("{dir}/icons.png")).unwrap();
     }
 }

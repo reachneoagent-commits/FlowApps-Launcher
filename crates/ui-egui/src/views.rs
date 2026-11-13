@@ -188,10 +188,11 @@ impl LauncherUi {
                 }
                 // The controls reserve their actual widths before the secondary text gets space.
                 ui.with_layout(egui::Layout::left_to_right(egui::Align::Center), |ui| {
-                    if ui.available_width() >= 17.0 + widgets::hud_galley(ui, tl!("FlowApps Suite"), t.muted).size().x {
+                    let title = format!("{} · v{}", tl!("FlowApps Suite"), env!("CARGO_PKG_VERSION"));
+                    if ui.available_width() >= 17.0 + widgets::hud_galley(ui, &title, t.muted).size().x {
                         widgets::rule(ui, h);
                         ui.add_space(16.0);
-                        widgets::hud(ui, tl!("FlowApps Suite"), t.muted);
+                        widgets::hud(ui, &title, t.muted);
                     }
                 });
             });
