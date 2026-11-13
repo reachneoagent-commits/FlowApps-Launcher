@@ -1,44 +1,92 @@
 name: Release
 
+# Builds the FlowApps launcher for macOS and Windows and publishes a GitHub release.
+# Run it from the Actions tab (Release > Run workflow). The version comes from Cargo.toml.
+# Installers are unsigned unless the signing secrets (see packaging/) are added to the repo.
+
 on:
-  push:
-    branches: [release]
   workflow_dispatch:
-    inputs:
-      version:
-        description: "Version override for a test run, e.g. 0.2.0-rc.1 (empty: Cargo.toml)"
-        type: string
-        default: ""
 
 permissions:
   contents: write
-  packages: write
 
 concurrency:
-  group: release-${{ github.ref }}
+  group: release
   cancel-in-progress: false
 
 jobs:
-  release:
-    # Intentionally tracked at @main (not SHA-pinned) so org-wide CI improvements, security fixes, and build optimizations propagate without PR churn across all craftapp repos.
-    uses: storytold/craft-common-actions/.github/workflows/release.yml@main
-    with:
-      app-name: craft-launcher
-      app-title: ArtCraft Launcher
-      version: ${{ inputs.version }}
-    secrets:
-      APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
-      APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
-      KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
-      APPLE_ID: ${{ secrets.APPLE_ID }}
-      APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
-      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-      WINDOWS_CERTIFICATE: ${{ secrets.WINDOWS_CERTIFICATE }}
-      WINDOWS_CERTIFICATE_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
-      AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-      AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-      AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-      AZURE_SIGNING_ENDPOINT: ${{ secrets.AZURE_SIGNING_ENDPOINT }}
-      AZURE_SIGNING_ACCOUNT: ${{ secrets.AZURE_SIGNING_ACCOUNT }}
-      AZURE_CERT_PROFILE: ${{ secrets.AZURE_CERT_PROFILE }}
-      LINUX_SIGNING_KEY: ${{ secrets.LINUX_SIGNING_KEY }}
+  macos:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rust toolchain
+        run: |
+          rustup toolchain install stable --profile minimal
+          rustup default stable
+          rustup target add aarch64-apple-darwin x86_64-apple-darwin
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: macos
+      - name: Build universal DMG
+        run: packaging/macos/package.sh --arch universal
+      - uses: actions/upload-artifact@v4
+        with:
+          name: macos
+          path: dist/release/*.dmg
+          if-no-files-found: error
+
+  windows:
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [x64, arm64]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rust toolchain
+        shell: pwsh
+        run: |
+          rustup toolchain install stable --profile minimal
+          rustup default stable
+          if ('${{ matrix.arch }}' -eq 'arm64') { rustup target add aarch64-pc-windows-msvc } else { rustup target add x86_64-pc-windows-msvc }
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: windows-${{ matrix.arch }}
+      - name: Install WiX
+        shell: pwsh
+        run: |
+          dotnet tool install --global wix --version 5.0.2
+          wix extension add -g WixToolset.UI.wixext/5.0.2
+          wix extension add -g WixToolset.Util.wixext/5.0.2
+      - name: Build MSI and portable zip
+        shell: pwsh
+        run: pwsh packaging/windows/package.ps1 -Arch ${{ matrix.arch }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-${{ matrix.arch }}
+          path: |
+            dist/release/*.msi
+            dist/release/*.zip
+          if-no-files-found: error
+
+  publish:
+    needs: [macos, windows]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+      - name: Checksums and release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          VERSION="$(awk '/^\[workspace.package\]/{p=1;next} /^\[/{p=0} p && /^version/{gsub(/"/,"",$3); print $3; exit}' Cargo.toml)"
+          cd dist
+          sha256sum * > SHA256SUMS.txt
+          cat SHA256SUMS.txt
+          cd ..
+          gh release create "v$VERSION" dist/* --title "FlowApps v$VERSION" \
+            --notes "FlowApps launcher $VERSION for macOS and Windows. Check downloads against SHA256SUMS.txt." --latest

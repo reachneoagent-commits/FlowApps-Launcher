@@ -28,13 +28,13 @@
      xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
   <Package
       Name="FlowApps"
-      Manufacturer="Learning Machines LLC"
+      Manufacturer="Reach Neo"
       Version="$(var.Version)"
       UpgradeCode="1AC08DBF-D4CF-4BA4-A81E-CAA5C1004974"
       Scope="perUser"
       Compressed="yes"
       Language="1033">
-    <SummaryInformation Description="FlowApps: install and update the Craft App Suite" Manufacturer="Learning Machines LLC" />
+    <SummaryInformation Description="FlowApps: install and update the FlowApps suite" Manufacturer="Reach Neo" />
     <!-- Same-version upgrades let successive pre-releases of one X.Y.Z replace each other
          (MSI versions are numeric, so 1.2.3-rc.1 and 1.2.3-rc.2 are both 1.2.3). -->
     <MajorUpgrade AllowSameVersionUpgrades="yes"
@@ -49,13 +49,13 @@
          (build.rs embeds it), at a path every update keeps. -->
     <Icon Id="ArtCraftLauncherIcon.exe" SourceFile="$(var.IconPath)" />
     <Property Id="ARPPRODUCTICON" Value="ArtCraftLauncherIcon.exe" />
-    <Property Id="ARPURLINFOABOUT" Value="https://getartcraft.com/apps" />
-    <Property Id="ARPURLUPDATEINFO" Value="https://github.com/storytold/craft-launcher/releases" />
-    <Property Id="ARPHELPLINK" Value="https://discord.gg/artcraft" />
+    <Property Id="ARPURLINFOABOUT" Value="https://github.com/reachneoagent-commits" />
+    <Property Id="ARPURLUPDATEINFO" Value="https://github.com/reachneoagent-commits/FlowApps-Launcher/releases" />
+    <Property Id="ARPHELPLINK" Value="https://github.com/reachneoagent-commits/FlowApps-Launcher/issues" />
 
     <StandardDirectory Id="LocalAppDataFolder">
       <Directory Id="LocalProgramsFolder" Name="Programs">
-        <Directory Id="CraftSuiteFolder" Name="ArtCraft">
+        <Directory Id="CraftSuiteFolder" Name="FlowApps">
           <Directory Id="INSTALLFOLDER" Name="Launcher" />
         </Directory>
       </Directory>
@@ -133,7 +133,7 @@
         <Control Id="DesktopShortcut" Type="CheckBox" X="20" Y="186" Width="330" Height="17" Property="INSTALLDESKTOPSHORTCUT" CheckBoxValue="1" Text="!(loc.ArtCraftDesktopShortcut)" />
       </Dialog>
     </UI>
-    <!-- Our own art, drawn by package.ps1 from the ArtCraft mark and the Craft apps' icons. -->
+    <!-- Our own art, drawn by package.ps1 from the FlowApps mark and the app icons. -->
     <WixVariable Id="WixUIBannerBmp" Value="$(var.BannerBmp)" />
     <WixVariable Id="WixUIDialogBmp" Value="$(var.DialogBmp)" />
 
@@ -142,7 +142,7 @@
     <Property Id="ArtCraftLauncherVersion" Value="$(var.DisplayVersion)" />
 
     <!-- Finish page: say where to find the launcher, and offer to start it (ticked by default). -->
-    <Property Id="WIXUI_EXITDIALOGOPTIONALTEXT" Value="FlowApps $(var.DisplayVersion) is installed. Start it any time from the Start menu to install and update the Craft App Suite." />
+    <Property Id="WIXUI_EXITDIALOGOPTIONALTEXT" Value="FlowApps $(var.DisplayVersion) is installed. Start it any time from the Start menu to install and update the FlowApps suite." />
     <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Launch FlowApps" />
     <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOX" Value="1" />
     <Property Id="WixShellExecTarget" Value="[#ArtCraftLauncherExe]" />
@@ -167,7 +167,7 @@
 
       <Component Id="ArtCraftLauncherShortcut" Directory="ProgramMenuFolder" Guid="870F3DFA-BC0F-497F-85D5-A361B04826AF">
         <Shortcut Id="StartMenuShortcut" Name="FlowApps"
-            Description="Install and update the Craft App Suite"
+            Description="Install and update the FlowApps suite"
             Target="[#ArtCraftLauncherExe]" WorkingDirectory="INSTALLFOLDER">
           <ShortcutProperty Key="System.AppUserModel.ID" Value="ai.reachneo.flowapps" />
         </Shortcut>
@@ -178,7 +178,7 @@
       <Component Id="ArtCraftLauncherDesktopShortcut" Directory="DesktopFolder" Guid="CF06DCF3-BE5A-4A2B-B3BF-F553CC6E5D60"
           Condition="INSTALLDESKTOPSHORTCUT = &quot;1&quot;">
         <Shortcut Id="DesktopShortcut" Name="FlowApps"
-            Description="Install and update the Craft App Suite"
+            Description="Install and update the FlowApps suite"
             Target="[#ArtCraftLauncherExe]" WorkingDirectory="INSTALLFOLDER">
           <ShortcutProperty Key="System.AppUserModel.ID" Value="ai.reachneo.flowapps" />
         </Shortcut>

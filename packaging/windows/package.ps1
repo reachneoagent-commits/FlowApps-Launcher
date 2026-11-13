@@ -108,14 +108,12 @@ Copy-Item (Join-Path $Bin $Exe) $Stage
 function New-InstallerArt([string] $BannerOut, [string] $DialogOut) {
   Add-Type -AssemblyName System.Drawing
   $ink = [System.Drawing.ColorTranslator]::FromHtml('#121316')
-  $accent = [System.Drawing.ColorTranslator]::FromHtml('#2d81ff')
+  $accent = [System.Drawing.ColorTranslator]::FromHtml('#e8650a')
   $muted = [System.Drawing.Color]::FromArgb(153, 242, 241, 238)
   $line = [System.Drawing.Color]::FromArgb(38, 242, 241, 238)
   # The Craft App Suite, in the launcher's order (crates/core/src/catalog.rs).
-  $apps = 'photocraft', 'vectorcraft', 'filmcraft', 'lightcraft', 'pdfcraft', 'effectcraft',
-    'anicraft', 'designcraft', 'figcraft', 'wordcraft', 'soundcraft', 'deckcraft', 'cadcraft', 'gridcraft', 'craft-anything', 'texturecraft', 'materialcraft'
+  $apps = 'flowgram', 'voxflow', 'mailflow'
   $mark = [System.Drawing.Image]::FromFile((Join-Path $Root 'assets\app-icon\hicolor\256x256\apps\ai.reachneo.flowapps.png'))
-  $wordmark = [System.Drawing.Image]::FromFile((Join-Path $Root 'docs\brand\artcraft-logo-white.png'))
   $icons = $apps | ForEach-Object { [System.Drawing.Image]::FromFile((Join-Path $Root "assets\app-icons\$_.png")) }
   # The site's label face; GDI+ draws a variable font at its default instance (Regular).
   $fonts = New-Object System.Drawing.Text.PrivateFontCollection
@@ -141,7 +139,9 @@ function New-InstallerArt([string] $BannerOut, [string] $DialogOut) {
           $g.FillRectangle($panel, 0, 0, 164, 312)
           $g.FillRectangle($stripe, 162, 0, 2, 312)
           $g.DrawImage($mark, 16, 18, 44, 44)
-          $g.DrawImage($wordmark, 22, 74, 120, [int](120 * $wordmark.Height / $wordmark.Width))
+          $titleFont = New-Object System.Drawing.Font 'Segoe UI', 18, ([System.Drawing.FontStyle]::Bold), ([System.Drawing.GraphicsUnit]::Pixel)
+          $g.DrawString('FlowApps', $titleFont, [System.Drawing.Brushes]::White, 20, 66)
+          $titleFont.Dispose()
           # "LAUNCHER" in mono capitals, spaced like the site's labels (0.15 em).
           $brush = New-Object System.Drawing.SolidBrush $muted
           $x = 22.0
@@ -150,7 +150,7 @@ function New-InstallerArt([string] $BannerOut, [string] $DialogOut) {
             $x += $g.MeasureString([string]$ch, $labelFont, 100, [System.Drawing.StringFormat]::GenericTypographic).Width + 1.35
           }
           $brush.Dispose()
-          # The seventeen apps in four columns of 30 px cells: x=22..142, y=118..268.
+          # The apps in four columns of 30 px cells: x=22..142, y=118..268.
           $pen = New-Object System.Drawing.Pen $line, 1
           $left = 22; $top = 118; $cell = 30; $columns = 4
           for ($i = 0; $i -lt $icons.Count; $i++) {
@@ -166,7 +166,7 @@ function New-InstallerArt([string] $BannerOut, [string] $DialogOut) {
       $bmp.Dispose()
     }
   } finally {
-    $labelFont.Dispose(); $fonts.Dispose(); $mark.Dispose(); $wordmark.Dispose()
+    $labelFont.Dispose(); $fonts.Dispose(); $mark.Dispose()
     $icons | ForEach-Object { $_.Dispose() }
   }
 }
@@ -202,7 +202,7 @@ foreach ($f in 'README.md', 'LICENSE-MIT', 'LICENSE-APACHE', 'NOTICE', 'ATTRIBUT
   if (Test-Path $p) { Copy-Item $p $Portable }
 }
 # portable.txt beside flowapps-launcher.exe switches on portable mode: settings and the download
-# cache go to ArtCraftLauncherData\ next to the exe instead of %APPDATA%.
+# cache go to FlowAppsData\ next to the exe instead of %APPDATA%.
 Copy-Item (Join-Path $PSScriptRoot 'portable.txt') $Portable
 $Zip = Join-Path $Dist "$Pkg-$Version-windows-$Arch-portable.zip"
 Remove-Item -Force $Zip -ErrorAction SilentlyContinue
