@@ -126,3 +126,37 @@ caption = "The inbox in the dark Mailflow theme"
 [[apps.details.shots]]
 key = "themes"
 caption = "Six colour themes, each in light and dark"
+
+[[apps]]
+id = "tvflow"
+name = "TVflow"
+tagline = "IPTV player for Mac, Windows and your TV"
+color = [245, 196, 0]
+ink_light = [8, 13, 15]
+ink_dark = [255, 224, 102]
+repo = "reachneoagent-commits/tvflow"
+bundle = "com.tvflow.app"
+site = "https://github.com/reachneoagent-commits/tvflow"
+former_ids = []
+former_names = []
+former_bundles = []
+mac_team = "unsigned"
+kind = "community"
+publisher = "Reach Neo"
+msi_publisher = "TVflow"
+[apps.details]
+headline = "Live TV, movies and series from your own playlist, on the big screen or your computer."
+about = "A free, local-first IPTV player for Mac, Windows, Android, Fire TV and Roku. Bring your own playlist: TVflow does not include any channels or content."
+platforms = "macOS, Windows"
+
+[[apps.details.features]]
+title = "Your playlist, your device"
+text = "Add an M3U link, Xtream Codes login or Stalker portal. Playlists, logins and history stay on your device."
+
+[[apps.details.features]]
+title = "Guide, favorites and resume"
+text = "A channel guide that stays up to date, favorites and custom groups, and resume where you stopped."
+
+[[apps.details.features]]
+title = "Cast and subtitles"
+text = "Send what you are watching to a Chromecast, smart TV, Roku or AirPlay device. Subtitle search and auto-skip of intros and credits."
