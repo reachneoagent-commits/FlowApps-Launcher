@@ -160,3 +160,37 @@ text = "A channel guide that stays up to date, favorites and custom groups, and 
 [[apps.details.features]]
 title = "Cast and subtitles"
 text = "Send what you are watching to a Chromecast, smart TV, Roku or AirPlay device. Subtitle search and auto-skip of intros and credits."
+
+[[apps]]
+id = "writeflow"
+name = "Writeflow"
+tagline = "Scan and rewrite AI-sounding text, privately"
+color = [229, 100, 88]
+ink_light = [94, 15, 49]
+ink_dark = [244, 150, 140]
+repo = "reachneoagent-commits/writeflow"
+bundle = "io.github.reachneoagent-commits.writeflow"
+site = "https://github.com/reachneoagent-commits/writeflow"
+former_ids = []
+former_names = []
+former_bundles = []
+mac_team = "unsigned"
+kind = "community"
+publisher = "Reach Neo"
+msi_publisher = "FlowApps"
+[apps.details]
+headline = "Find the parts of your writing that sound like AI, then rewrite them in your own voice."
+about = "A free, open source writing tool that runs on your own computer. It scores how AI-sounding a text is, points to the exact sentences, and rewrites them with a local model. A fork of humanizer-local-model."
+platforms = "macOS, Windows"
+
+[[apps.details.features]]
+title = "Scan first"
+text = "Paste your text and see a score, the most AI-sounding sentences and a plain explanation before you change anything."
+
+[[apps.details.features]]
+title = "Rewrite with a model on your computer"
+text = "Humanize the whole text or just a selection. Your text stays on your computer, with an optional cloud model if you add your own key."
+
+[[apps.details.features]]
+title = "Keeps your facts"
+text = "Checks that numbers, dates, names and quotes survive the rewrite, and shows reading level and how close the result sounds to you."
