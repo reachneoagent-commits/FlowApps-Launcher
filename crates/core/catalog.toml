@@ -194,3 +194,37 @@ text = "Humanize the whole text or just a selection. Your text stays on your com
 [[apps.details.features]]
 title = "Keeps your facts"
 text = "Checks that numbers, dates, names and quotes survive the rewrite, and shows reading level and how close the result sounds to you."
+
+[[apps]]
+id = "buildflow"
+name = "Buildflow"
+tagline = "See how software works, then build your own with AI"
+color = [209, 251, 140]
+ink_light = [58, 95, 0]
+ink_dark = [209, 251, 140]
+repo = "reachneoagent-commits/buildflow"
+bundle = "io.github.reachneoagent-commits.buildflow"
+site = "https://github.com/reachneoagent-commits/buildflow"
+former_ids = []
+former_names = []
+former_bundles = []
+mac_team = "unsigned"
+kind = "community"
+publisher = "Reach Neo"
+msi_publisher = "FlowApps"
+[apps.details]
+headline = "Point it at a website, app or game, and have AI build your own version."
+about = "A free, open source tool that studies how a piece of software works and then builds a new project from what it learned, using the AI you already have. Early alpha. A fork of Craft Anything."
+platforms = "macOS, Windows"
+
+[[apps.details.features]]
+title = "Study, build, check"
+text = "It looks at the original with real inspection tools, has an AI build a new project in the language you ask for, then compares the result with the original and refines it."
+
+[[apps.details.features]]
+title = "Use the AI you have"
+text = "Add a Claude, OpenAI, Gemini, OpenRouter or NVIDIA NIM key, point it at a model running on your own computer, or use a coding agent you already have installed."
+
+[[apps.details.features]]
+title = "Clean room by default"
+text = "It only looks at the original from the outside, the way a visitor or user would. Looking inside programs is off unless you turn it on."
