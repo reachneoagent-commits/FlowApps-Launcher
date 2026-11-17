@@ -96,7 +96,14 @@ pub struct GitHubSource {
 
 impl GitHubSource {
     pub fn new(http: Http, cache_path: std::path::PathBuf) -> Self {
-        let cache = std::fs::read(&cache_path).ok().and_then(|b| serde_json::from_slice::<CacheFile>(&b).ok()).unwrap_or_default();
+        let mut cache = std::fs::read(&cache_path).ok().and_then(|b| serde_json::from_slice::<CacheFile>(&b).ok()).unwrap_or_default();
+        // A release cached by a build that couldn't read its tag has no version, and GitHub's
+        // "not modified" answers keep it that way. Read the version again from the tag.
+        for release in cache.entries.values_mut().filter_map(|e| e.release.as_mut()) {
+            if release.version.is_none() {
+                release.version = flowapps_launcher_core::version::parse(&release.tag);
+            }
+        }
         Self {
             http,
             cache: Mutex::new(cache),
@@ -448,6 +455,19 @@ mod tests {
         ] {
             assert!(!is_release_list(elsewhere, REPO), "{elsewhere}");
         }
+    }
+
+    #[test]
+    fn a_cached_release_without_a_version_is_read_again_from_its_tag() {
+        let dir = tempfile::tempdir().unwrap();
+        let path = dir.path().join("releases.json");
+        let release = Release { tag: "app-v0.1.0".into(), version: None, ..Release::default() };
+        let mut file = CacheFile::default();
+        file.entries.insert("o/writeflow".into(), Entry { etag: Some("W/\"x\"".into()), release: Some(release), prereleases: false, fetched_at: 0 });
+        std::fs::write(&path, serde_json::to_vec(&file).unwrap()).unwrap();
+        let source = GitHubSource::new(Http::new().unwrap(), path);
+        let loaded = source.entry("o/writeflow", false).and_then(|e| e.release).unwrap();
+        assert_eq!(loaded.version, Some(flowapps_launcher_core::version::Version::new(0, 1, 0)));
     }
 
     #[test]
