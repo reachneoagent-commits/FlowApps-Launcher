@@ -60,24 +60,30 @@ pub fn view_toggle(ui: &mut Ui, view: &mut ViewMode, tips: [&str; 2]) {
     }
 }
 
-/// The refresh control: a square in the same hairline box as the grid/table switch, and lit the
-/// same way on hover (sunken; the switch keeps inverted for the chosen view). While `busy` it shows
-/// a spinner and ignores clicks.
-pub fn refresh_button(ui: &mut Ui, tip: &str, busy: bool) -> egui::Response {
+/// The refresh control: the icon in a square, then `label`, all in the same hairline box as the
+/// grid/table switch, and lit the same way on hover (sunken; the switch keeps inverted for the
+/// chosen view). While `busy` it shows a spinner and ignores clicks.
+pub fn refresh_button(ui: &mut Ui, label: &str, busy: bool) -> egui::Response {
     let t = Tokens::get(ui.ctx());
-    let (rect, resp) = ui.allocate_exact_size(vec2(theme::CONTROL_H, theme::CONTROL_H), if busy { Sense::hover() } else { Sense::click() });
+    let galley = crate::widgets::hud_galley(ui, label, t.muted);
+    let pad = 10.0;
+    let size = vec2(theme::CONTROL_H + galley.size().x + pad, theme::CONTROL_H);
+    let (rect, resp) = ui.allocate_exact_size(size, if busy { Sense::hover() } else { Sense::click() });
     let hovered = resp.hovered() && !busy;
+    let ink = if hovered { t.ink_strong } else { t.muted };
+    let icon = Rect::from_min_size(rect.min, vec2(theme::CONTROL_H, theme::CONTROL_H));
     let p = ui.painter();
     if hovered {
         p.rect_filled(rect, CornerRadius::ZERO, t.sunken);
     }
     p.rect_stroke(rect, CornerRadius::ZERO, t.hairline(), egui::StrokeKind::Inside);
     if busy {
-        egui::Spinner::new().size(16.0).color(t.muted).paint_at(ui, Rect::from_center_size(rect.center(), vec2(16.0, 16.0)));
+        egui::Spinner::new().size(16.0).color(t.muted).paint_at(ui, Rect::from_center_size(icon.center(), vec2(16.0, 16.0)));
     } else {
-        crate::widgets::paint_glyph(p, rect, crate::widgets::Glyph::Refresh, if hovered { t.ink_strong } else { t.muted });
+        crate::widgets::paint_glyph(p, icon, crate::widgets::Glyph::Refresh, ink);
     }
-    resp.widget_info(|| egui::WidgetInfo::labeled(egui::Role::Button, !busy, tip));
-    let resp = resp.on_hover_text(tip);
+    let text_pos = egui::pos2(icon.right(), rect.center().y - galley.size().y / 2.0);
+    ui.painter().galley_with_override_text_color(text_pos, galley, ink);
+    resp.widget_info(|| egui::WidgetInfo::labeled(egui::Role::Button, !busy, label));
     if busy { resp } else { resp.on_hover_cursor(egui::CursorIcon::PointingHand) }
 }
