@@ -69,6 +69,10 @@ FlowApps isn't signed with a paid Apple or Microsoft certificate, so your comput
 | **Gramflow** | Grammar and spell checker for Mac and Windows | [GitHub](https://github.com/reachneoagent-commits/gramflow) |
 | **Voxflow** | Offline speech-to-text app | [GitHub](https://github.com/reachneoagent-commits/voxflow) |
 | **Mailflow** | Mail, calendar, contacts and tasks app, with optional AI writing help | [GitHub](https://github.com/reachneoagent-commits/mailflow) |
+| **TVflow** | IPTV player for Mac, Windows and your TV | [GitHub](https://github.com/reachneoagent-commits/tvflow) |
+| **Writeflow** | Scan and rewrite AI-sounding text, privately | [GitHub](https://github.com/reachneoagent-commits/writeflow) |
+| **Buildflow** | See how software works, then build your own with AI | [GitHub](https://github.com/reachneoagent-commits/buildflow) |
+| **VPNFlow** | Free WireGuard VPN with leak checks (preview) | [GitHub](https://github.com/reachneoagent-commits/vpnflow) |
 
 ## License and credits
 
