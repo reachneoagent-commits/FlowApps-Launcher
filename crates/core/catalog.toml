@@ -228,3 +228,35 @@ text = "Add a Claude, OpenAI, Gemini, OpenRouter or NVIDIA NIM key, point it at 
 [[apps.details.features]]
 title = "Clean room by default"
 text = "It only looks at the original from the outside, the way a visitor or user would. Looking inside programs is off unless you turn it on."
+
+[[apps]]
+id = "vpnflow"
+name = "VPNFlow"
+tagline = "Free WireGuard VPN with leak checks"
+color = [86, 156, 214]
+ink_light = [18, 66, 110]
+ink_dark = [140, 190, 235]
+repo = "reachneoagent-commits/vpnflow"
+bundle = "org.vpnflow.desktop"
+site = "https://github.com/reachneoagent-commits/vpnflow"
+former_ids = []
+former_names = []
+former_bundles = []
+mac_team = "unsigned"
+kind = "community"
+publisher = "Reach Neo"
+msi_publisher = "FlowApps"
+[apps.details]
+headline = "A free VPN that shows you whether it is really protecting you."
+about = "A free, open source WireGuard VPN client that runs on your own computer, with built-in leak checks and plain-language help. A fork of Aegis VPN. Preview: unsigned, and Windows cannot connect yet."
+platforms = "macOS (preview), Windows (preview)"
+
+[[apps.details.features]]
+title = "Leak checks after you connect"
+text = "Checks run by themselves a few seconds after you connect and tell you what to fix if something is leaking."
+[[apps.details.features]]
+title = "Pick a country or Quick Connect"
+text = "Choose a location, favorite servers, or let Quick Connect pick one for you."
+[[apps.details.features]]
+title = "Help on every setting"
+text = "Every setting has a ? card that explains the options and recommends one."
