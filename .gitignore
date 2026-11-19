@@ -9,3 +9,6 @@ builds/
 /temp
 /craft-fonts
 result
+
+# Brand sources are kept outside the repo
+/brand/

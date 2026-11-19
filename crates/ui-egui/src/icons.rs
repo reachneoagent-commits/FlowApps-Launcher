@@ -104,7 +104,7 @@ fn desaturate(pixels: &mut [u8]) {
 
 /// The FlowApps symbol mark: white on dark backgrounds, used for the app icon and card logos.
 pub fn flowapps_logo(_dark_background: bool) -> ImageSource<'static> {
-    egui::include_image!("../../../brand/logo only.svg")
+    egui::include_image!("../../../assets/flowapps-logo-only.svg")
 }
 
 /// The FlowApps symbol mark's width / height (its SVG view box: 63.4 × 42.91).
@@ -127,7 +127,7 @@ pub fn social(service: &str) -> Option<ImageSource<'static>> {
 
 /// The FlowApps symbol, used in dialog headers.
 pub fn artcraft_mark() -> ImageSource<'static> {
-    egui::include_image!("../../../brand/logo only.svg")
+    egui::include_image!("../../../assets/flowapps-logo-only.svg")
 }
 
 #[cfg(test)]
