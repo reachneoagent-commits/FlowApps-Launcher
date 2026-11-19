@@ -2021,6 +2021,25 @@ fn table_view_and_light_theme() {
 }
 
 #[test]
+/// In the list view, installed apps come first under the default order, as in the card view.
+fn table_lists_installed_apps_first() {
+    let installed = Installed {
+        version: version::parse("1.0.0"),
+        source: InstallSource::MacApp,
+        location: "/Applications/Voxflow.app".into(),
+        package: None,
+        externally_managed: false,
+        origin: None,
+        installation: None,
+    };
+    let ev = vec![Event::Detected { app: "voxflow".into(), installed: Some(installed) }];
+    let (mut h, _) = harness_with(ev, ViewMode::Table, egui::Theme::Dark, true, 1.0);
+    h.run_steps(6);
+    let ids = h.state().as_ref().unwrap().visible_ids_for_test();
+    assert_eq!(ids.first().copied(), Some("voxflow"), "installed app leads the list: {ids:?}");
+}
+
+#[test]
 #[ignore = "written for ArtCraft's app catalog; port to the FlowApps catalog"]
 /// Pin floats an app above Name sort; reorder via settings is reflected; Hide clears the pin.
 fn pinning_an_app_keeps_it_on_top_until_unpinned() {

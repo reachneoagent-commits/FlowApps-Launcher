@@ -942,7 +942,7 @@ impl LauncherUi {
     }
 
     /// The ids to show, filtered and sorted. Pinned apps stay first in the user's pin order;
-    /// the active sort (and the grid's installed / not-installed split) applies only to the rest.
+    /// the active sort (and the installed / not-installed split in the grid and the default table order) applies only to the rest.
     pub(crate) fn visible_ids(&self) -> Vec<&'static str> {
         let needle = self.search.trim().to_lowercase();
         let mut list: Vec<(usize, &AppEntry)> = self
@@ -1003,8 +1003,9 @@ impl LauncherUi {
             ord.then(ia.cmp(ib))
         });
         // The grid shows installed apps first among the unpinned set, then the rest under
-        // "Not installed" (the sort holds within each group; the sort is stable).
-        if grid {
+        // "Not installed" (the sort holds within each group; the sort is stable). The table does
+        // the same until the user picks a column to sort by, so their choice is never overridden.
+        if grid || sort == SortKey::Suite {
             rest.sort_by_key(|(_, e)| !e.status(platform, manage).is_installed());
         }
         list = pinned;
