@@ -368,6 +368,10 @@ figcraft	Interface design and prototyping	界面设计与原型制作
 	Apps are placed inside this folder.	应用会放置在此文件夹内。
 	Replace what's there?	替换现有内容？
 	{path} already exists. Installing {name} will overwrite it.	{path} 已存在。安装 {name} 将覆盖它。
+	{name} is running	{name} 正在运行
+	{name} has to be closed before it can be updated. Want FlowApps to quit it for you? If it has unsaved work, it will ask you first.	更新前需要先关闭 {name}。要让 FlowApps 替你退出吗？如果有未保存的内容，它会先询问你。
+	Quit and update	退出并更新
+	I'll do it myself	我自己来
 	Replace	替换
 	Recently updated	最近更新
 	Name (A–Z)	名称 (A–Z)

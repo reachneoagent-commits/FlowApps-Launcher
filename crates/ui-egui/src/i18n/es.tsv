@@ -381,6 +381,10 @@ filter	Installed	Instaladas
 	Apps are placed inside this folder.	Las aplicaciones se guardan dentro de esta carpeta.
 	Replace what's there?	¿Reemplazar lo que hay?
 	{path} already exists. Installing {name} will overwrite it.	{path} ya existe. Instalar {name} lo sobrescribirá.
+	{name} is running	{name} se está ejecutando
+	{name} has to be closed before it can be updated. Want FlowApps to quit it for you? If it has unsaved work, it will ask you first.	{name} debe cerrarse antes de poder actualizarse. ¿Quieres que FlowApps lo cierre por ti? Si tiene trabajo sin guardar, te preguntará antes.
+	Quit and update	Cerrar y actualizar
+	I'll do it myself	Lo haré yo
 	Replace	Reemplazar
 	Recently updated	Actualizadas recientemente
 	Name (A–Z)	Nombre (A–Z)

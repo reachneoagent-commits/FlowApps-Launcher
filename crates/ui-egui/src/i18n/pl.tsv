@@ -402,6 +402,10 @@ filter	Installed	Zainstalowane
 	Apps are placed inside this folder.	Aplikacje są umieszczane w tym folderze.
 	Replace what's there?	Zastąpić to, co tam jest?
 	{path} already exists. Installing {name} will overwrite it.	{path} już istnieje. Instalacja {name} go nadpisze.
+	{name} is running	{name} jest uruchomiony
+	{name} has to be closed before it can be updated. Want FlowApps to quit it for you? If it has unsaved work, it will ask you first.	Aplikację {name} trzeba zamknąć przed aktualizacją. Czy FlowApps ma ją zamknąć za Ciebie? Jeśli są niezapisane zmiany, najpierw o nie zapyta.
+	Quit and update	Zamknij i zaktualizuj
+	I'll do it myself	Zrobię to sam
 	Replace	Zastąp
 	Recently updated	Ostatnio zaktualizowane
 	Name (A–Z)	Nazwa (A–Z)

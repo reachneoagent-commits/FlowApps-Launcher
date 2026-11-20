@@ -367,7 +367,7 @@ impl NativeBackend {
     fn check(&self, force: bool) {
         let (Some(source), Some(http)) = (self.source.clone(), self.http.clone()) else {
             // Hosted catalog disabled: this launcher ships only its own compiled app list.
-    // crate::hosted_catalog::load_once(None, &self.paths);
+            // crate::hosted_catalog::load_once(None, &self.paths);
             self.shared.emit(Event::CatalogUpdated);
             for app in flowapps_launcher_core::hosted_catalog::apps().iter().filter(|a| self.platform.is_none_or(|p| a.runs_on(p.os))) {
                 self.shared.emit(Event::Latest {
@@ -487,28 +487,37 @@ impl NativeBackend {
                 let (approved, batch) = match &work {
                     Work::Replace(path) => (Some(path.as_str()), None),
                     Work::Install(batch) => (None, batch.clone()),
-                    Work::Uninstall => (None, None),
+                    Work::Uninstall | Work::QuitInstall => (None, None),
                 };
-                let r = run_install(
-                    app,
-                    &shared,
-                    &paths,
-                    http.as_ref(),
-                    platform,
-                    &options,
-                    existing.as_ref(),
-                    record.as_ref(),
-                    &stop,
-                    approved,
-                    source.as_deref(),
-                    batch,
-                );
-                // Stopped by the connection rather than by the user: say so, and how to go on.
-                match r {
-                    Err(e) if e == PAUSED && stop.check().is_ok() => {
-                        Err("The download paused because the connection keeps dropping. Press Resume to continue where it stopped.".into())
+                let still_running = matches!(work, Work::QuitInstall)
+                    && existing.as_ref().is_some_and(|inst| {
+                        shared.emit(Event::Progress { app: app.id.to_string(), phase: JobPhase::Waiting });
+                        !crate::process::quit_and_wait(std::path::Path::new(&inst.location), Duration::from_secs(20))
+                    });
+                if still_running {
+                    Err(format!("{} didn't quit. It may be asking you to save. Close it yourself, then try again.", app.name))
+                } else {
+                    let r = run_install(
+                        app,
+                        &shared,
+                        &paths,
+                        http.as_ref(),
+                        platform,
+                        &options,
+                        existing.as_ref(),
+                        record.as_ref(),
+                        &stop,
+                        approved,
+                        source.as_deref(),
+                        batch,
+                    );
+                    // Stopped by the connection rather than by the user: say so, and how to go on.
+                    match r {
+                        Err(e) if e == PAUSED && stop.check().is_ok() => {
+                            Err("The download paused because the connection keeps dropping. Press Resume to continue where it stopped.".into())
+                        }
+                        other => other,
                     }
-                    other => other,
                 }
             };
             // Look again: the result is whatever is on disk now.
@@ -632,6 +641,8 @@ enum Work {
     Install(Option<crate::queue::Gather>),
     /// Install over the path the user agreed to overwrite (see [`Command::Replace`]).
     Replace(String),
+    /// Quit the running app, then install (see [`Command::QuitAndInstall`]).
+    QuitInstall,
     Uninstall,
 }
 
@@ -800,6 +811,13 @@ fn run_install(
             let _ = inst;
             return Err(flatpak_unsupported(app));
         }
+    }
+    if let Some(inst) = existing
+        && inst.source.launcher_can_update()
+        && crate::process::is_running(std::path::Path::new(&inst.location))
+    {
+        shared.emit(Event::Running { app: app.id.to_string() });
+        return Err(format!("{} is running. Quit it, then try again.", app.name));
     }
     let latest = shared.latest.lock().unwrap_or_else(PoisonError::into_inner).get(app.id).cloned();
     let InstallPlan { release, platform, asset, kind } = install_plan(app, latest, platform, options, (existing, record), Asking::Install)?;
@@ -1532,6 +1550,9 @@ impl Backend for NativeBackend {
             Command::InstallAll { apps } => self.install_all(&apps),
             Command::Replace { app, path } => {
                 self.start_job(&app, Work::Replace(path));
+            }
+            Command::QuitAndInstall { app } => {
+                self.start_job(&app, Work::QuitInstall);
             }
             Command::Uninstall { app } => {
                 self.start_job(&app, Work::Uninstall);

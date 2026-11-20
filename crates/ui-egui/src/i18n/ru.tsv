@@ -396,6 +396,10 @@ filter	Installed	Установлены
 	Apps are placed inside this folder.	Приложения размещаются внутри этой папки.
 	Replace what's there?	Заменить существующее?
 	{path} already exists. Installing {name} will overwrite it.	{path} уже существует. Установка {name} перезапишет его.
+	{name} is running	{name} запущен
+	{name} has to be closed before it can be updated. Want FlowApps to quit it for you? If it has unsaved work, it will ask you first.	{name} нужно закрыть перед обновлением. Закрыть его за вас через FlowApps? Если есть несохранённая работа, приложение сначала спросит вас.
+	Quit and update	Закрыть и обновить
+	I'll do it myself	Сделаю сам
 	Replace	Заменить
 	Recently updated	Недавно обновлённые
 	Name (A–Z)	Имя (А–Я)

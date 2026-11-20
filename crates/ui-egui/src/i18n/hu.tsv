@@ -401,6 +401,10 @@ filter	Installed	Telepítve
 	Apps are placed inside this folder.	Az alkalmazások ebbe a mappába kerülnek.
 	Replace what's there?	Lecseréli, ami ott van?
 	{path} already exists. Installing {name} will overwrite it.	{path} már létezik. A(z) {name} telepítése felülírja.
+	{name} is running	A(z) {name} fut
+	{name} has to be closed before it can be updated. Want FlowApps to quit it for you? If it has unsaved work, it will ask you first.	A(z) {name} alkalmazást frissítés előtt be kell zárni. Bezárja helyetted a FlowApps? Ha van mentetlen munka, előbb rákérdez.
+	Quit and update	Bezárás és frissítés
+	I'll do it myself	Majd én megcsinálom
 	Replace	Csere
 	Recently updated	Nemrég frissítve
 	Name (A–Z)	Név (A–Z)

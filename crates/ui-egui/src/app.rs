@@ -111,13 +111,27 @@ pub(crate) enum UiAction {
 pub(crate) enum Dialog {
     Notes(String),
     ConfirmUninstall(String),
-    UnlockVersion { app: String, tag: String },
-    Install { app: String, folder: String },
-    Replace { app: String, path: String },
+    UnlockVersion {
+        app: String,
+        tag: String,
+    },
+    Install {
+        app: String,
+        folder: String,
+    },
+    Replace {
+        app: String,
+        path: String,
+    },
+    /// The app is running: offers to quit it and carry on with the update.
+    QuitFirst(String),
     Settings,
     LauncherUpdate(flowapps_launcher_core::Release),
     Versions(String),
-    LaunchFlags { app: String, flags: String },
+    LaunchFlags {
+        app: String,
+        flags: String,
+    },
 }
 
 impl Dialog {
@@ -130,6 +144,7 @@ impl Dialog {
             Dialog::UnlockVersion { app, .. } => ("unlock-version", app),
             Dialog::Install { app, .. } => ("install", app),
             Dialog::Replace { app, .. } => ("replace", app),
+            Dialog::QuitFirst(app) => ("quit-first", app),
             Dialog::Settings => ("settings", ""),
             Dialog::LauncherUpdate(r) => ("launcher-update", &r.tag),
             Dialog::Versions(id) => ("versions", id),
@@ -628,6 +643,10 @@ impl LauncherUi {
                 self.dialog = Some(Dialog::Replace { app, path });
                 false
             }
+            Event::Running { app } => {
+                self.dialog = Some(Dialog::QuitFirst(app));
+                false
+            }
             Event::JobFinished { app, result } => {
                 self.on_job_finished(app, result);
                 true
@@ -695,6 +714,8 @@ impl LauncherUi {
             Err(e) if e == INSTALL_CANCELLED => self.toast(tl!("Install cancelled"), false),
             // The Replace dialog says it all.
             Err(_) if matches!(&self.dialog, Some(Dialog::Replace { app: a, .. }) if *a == app) => {}
+            // The Quit dialog asks about it.
+            Err(_) if matches!(&self.dialog, Some(Dialog::QuitFirst(a)) if *a == app) => {}
             Err(e) => self.toast(e, true),
         }
     }

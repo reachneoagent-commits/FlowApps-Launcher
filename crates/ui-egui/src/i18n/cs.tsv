@@ -368,6 +368,10 @@ filter	Installed	Nainstalováno
 	Apps are placed inside this folder.	Aplikace se umístí do této složky.
 	Replace what's there?	Nahradit, co tam je?
 	{path} already exists. Installing {name} will overwrite it.	{path} už existuje. Instalace aplikace {name} ho přepíše.
+	{name} is running	{name} běží
+	{name} has to be closed before it can be updated. Want FlowApps to quit it for you? If it has unsaved work, it will ask you first.	Aplikaci {name} je před aktualizací nutné zavřít. Má ji FlowApps zavřít za vás? Pokud máte neuloženou práci, nejdřív se zeptá.
+	Quit and update	Zavřít a aktualizovat
+	I'll do it myself	Udělám to sám
 	Replace	Nahradit
 	Recently updated	Nedávno aktualizované
 	Name (A–Z)	Název (A–Z)

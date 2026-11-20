@@ -1,9 +1,9 @@
 //! Modal dialogs: release notes, uninstall confirmation, settings.
 
 use crate::i18n::fmt;
+use egui::{RichText, vec2};
 use flowapps_launcher_core::Os;
 use flowapps_launcher_core::protocol::Command;
-use egui::{RichText, vec2};
 
 use crate::app::{Dialog, Host, LauncherUi};
 use crate::theme::{self, Tokens};
@@ -36,6 +36,7 @@ impl LauncherUi {
             Dialog::UnlockVersion { app, tag } => modal.show(ctx, |ui| close = self.unlock_version_dialog(ui, app, tag)),
             Dialog::Install { app, folder } => modal.show(ctx, |ui| close = self.install_dialog(ui, app, folder, host)),
             Dialog::Replace { app, path } => modal.show(ctx, |ui| close = self.replace_dialog(ui, app, path)),
+            Dialog::QuitFirst(app) => modal.show(ctx, |ui| close = self.quit_first_dialog(ui, app)),
             Dialog::Settings => modal.show(ctx, |ui| close = self.settings_dialog(ui, host)),
             Dialog::LauncherUpdate(r) => modal.show(ctx, |ui| close = self.launcher_update_dialog(ui, r)),
             Dialog::Versions(id) => modal.show(ctx, |ui| close = self.version_dialog(ui, id)),
@@ -293,6 +294,35 @@ impl LauncherUi {
                     close = true;
                 }
                 if widgets::button(ui, tl!("Cancel"), Kind::Secondary, 90.0).clicked() {
+                    close = true;
+                }
+            });
+        });
+        close
+    }
+
+    /// Says the app is running and offers to quit it so the update can install. `true` closes it.
+    fn quit_first_dialog(&mut self, ui: &mut egui::Ui, id: &str) -> bool {
+        let Some(app) = self.entry(id).map(|e| e.app) else { return true };
+        let t = Tokens::get(ui.ctx());
+        ui.set_width(440.0f32.min(ui.ctx().content_rect().width() - 80.0));
+        Self::title(ui, crate::icons::app(id), fmt(tl!("{name} is running"), &[("name", app.name)]).as_str(), "");
+        ui.label(
+            RichText::new(fmt(
+                tl!("{name} has to be closed before it can be updated. Want FlowApps to quit it for you? If it has unsaved work, it will ask you first."),
+                &[("name", app.name)],
+            ))
+            .color(t.muted),
+        );
+        ui.add_space(20.0);
+        let mut close = false;
+        ui.horizontal(|ui| {
+            ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
+                if widgets::button(ui, tl!("Quit and update"), Kind::Primary, 140.0).clicked() {
+                    self.act_command(Command::QuitAndInstall { app: id.to_string() });
+                    close = true;
+                }
+                if widgets::button(ui, tl!("I'll do it myself"), Kind::Secondary, 140.0).clicked() {
                     close = true;
                 }
             });

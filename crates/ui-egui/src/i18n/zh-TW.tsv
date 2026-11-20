@@ -362,6 +362,10 @@ figcraft	Interface design and prototyping	介面設計與原型製作
 	Apps are placed inside this folder.	應用程式會放在此資料夾內。
 	Replace what's there?	要取代現有內容嗎？
 	{path} already exists. Installing {name} will overwrite it.	{path} 已存在。安裝 {name} 將會覆寫它。
+	{name} is running	{name} 正在執行
+	{name} has to be closed before it can be updated. Want FlowApps to quit it for you? If it has unsaved work, it will ask you first.	更新前需要先關閉 {name}。要讓 FlowApps 幫你結束嗎？如果有未儲存的內容，它會先詢問你。
+	Quit and update	結束並更新
+	I'll do it myself	我自己來
 	Replace	取代
 	Recently updated	最近更新
 	Name (A–Z)	名稱（A–Z）

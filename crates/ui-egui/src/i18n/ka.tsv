@@ -402,6 +402,10 @@ filter	Installed	დაინსტალირებული
 	Apps are placed inside this folder.	აპლიკაციები ამ საქაღალდეში განთავსდება.
 	Replace what's there?	ჩანაცვლდეს არსებული?
 	{path} already exists. Installing {name} will overwrite it.	{path} უკვე არსებობს. {name}-ის ინსტალაცია მას გადააწერს.
+	{name} is running	{name} გაშვებულია
+	{name} has to be closed before it can be updated. Want FlowApps to quit it for you? If it has unsaved work, it will ask you first.	განახლებამდე {name} უნდა დაიხუროს. გსურთ, FlowApps-მა დახუროს თქვენთვის? თუ შეუნახავი სამუშაო გაქვთ, ჯერ გკითხავთ.
+	Quit and update	დახურვა და განახლება
+	I'll do it myself	თვითონ გავაკეთებ
 	Replace	ჩანაცვლება
 	Recently updated	ბოლოს განახლებული
 	Name (A–Z)	სახელი (A–Z)

@@ -526,6 +526,42 @@ pub fn is_running(path: &Path) -> bool {
     }
 }
 
+/// Asks the app at `path` to quit the way its own Quit does (it may ask about unsaved work),
+/// then waits up to `timeout` for it to exit. `true` once it is no longer running.
+pub fn quit_and_wait(path: &Path, timeout: Duration) -> bool {
+    request_quit(path);
+    let end = std::time::Instant::now() + timeout;
+    while std::time::Instant::now() < end {
+        if !is_running(path) {
+            return true;
+        }
+        std::thread::sleep(Duration::from_millis(300));
+    }
+    !is_running(path)
+}
+
+fn request_quit(path: &Path) {
+    let Some(p) = path.to_str() else { return };
+    if cfg!(windows) {
+        // No /F: the app gets a normal close request, so it can ask to save first.
+        let Some(name) = path.file_name().and_then(OsStr::to_str) else { return };
+        let Ok(taskkill) = windows_system_program(r"System32\taskkill.exe") else { return };
+        let mut cmd = command(taskkill);
+        cmd.args(["/IM", name]);
+        let _ = run_command(cmd, "taskkill", Duration::from_secs(5));
+    } else if cfg!(target_os = "macos") && !p.contains(['"', '\\']) {
+        let script = format!("tell application \"{p}\" to quit");
+        let _ = capture("osascript", &["-e", &script], Duration::from_secs(10));
+    } else {
+        let pattern = pgrep_pattern(p);
+        if in_sandbox() {
+            let _ = capture("flatpak-spawn", &["--host", "pkill", "-TERM", "-f", "--", &pattern], Duration::from_secs(5));
+        } else {
+            let _ = capture("pkill", &["-TERM", "-f", "--", &pattern], Duration::from_secs(5));
+        }
+    }
+}
+
 fn windows_system_program(relative: &str) -> Result<PathBuf, String> {
     let root = std::env::var_os("SystemRoot")
         .filter(|root| !root.is_empty())

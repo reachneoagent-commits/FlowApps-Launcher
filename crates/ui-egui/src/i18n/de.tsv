@@ -400,6 +400,10 @@ filter	Installed	Installiert
 	Apps are placed inside this folder.	Apps werden in diesem Ordner abgelegt.
 	Replace what's there?	Vorhandenes ersetzen?
 	{path} already exists. Installing {name} will overwrite it.	{path} existiert bereits. Die Installation von {name} überschreibt es.
+	{name} is running	{name} läuft
+	{name} has to be closed before it can be updated. Want FlowApps to quit it for you? If it has unsaved work, it will ask you first.	{name} muss geschlossen werden, bevor es aktualisiert werden kann. Soll FlowApps es für Sie beenden? Bei ungespeicherter Arbeit werden Sie zuvor gefragt.
+	Quit and update	Beenden und aktualisieren
+	I'll do it myself	Ich mache es selbst
 	Replace	Ersetzen
 	Recently updated	Zuletzt aktualisiert
 	Name (A–Z)	Name (A–Z)

@@ -42,6 +42,11 @@ pub enum Command {
         app: String,
         path: String,
     },
+    /// `Install`, after asking the running app to quit the way its own Quit does (so it can ask
+    /// about unsaved work). Sent when the user agrees to [`Event::Running`]'s question.
+    QuitAndInstall {
+        app: String,
+    },
     Uninstall {
         app: String,
     },
@@ -264,6 +269,11 @@ pub enum Event {
     Occupied {
         app: String,
         path: String,
+    },
+    /// An install or update stopped before starting because the installed copy is running.
+    /// `Command::QuitAndInstall` quits it and goes on.
+    Running {
+        app: String,
     },
     /// A job ended: `Ok` carries a short success message, `Err` what went wrong.
     JobFinished {
