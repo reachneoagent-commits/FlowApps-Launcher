@@ -73,6 +73,7 @@ FlowApps isn't signed with a paid Apple or Microsoft certificate, so your comput
 | **Writeflow** | Scan and rewrite AI-sounding text, privately | [GitHub](https://github.com/reachneoagent-commits/writeflow) |
 | **Buildflow** | See how software works, then build your own with AI | [GitHub](https://github.com/reachneoagent-commits/buildflow) |
 | **VPNFlow** | Free WireGuard VPN with leak checks (preview) | [GitHub](https://github.com/reachneoagent-commits/vpnflow) |
+| **Irisflow** | Free, open source video meetings (preview) | [GitHub](https://github.com/reachneoagent-commits/irisflow) |
 
 ## License and credits
 

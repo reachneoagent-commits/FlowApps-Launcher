@@ -260,3 +260,35 @@ text = "Choose a location, favorite servers, or let Quick Connect pick one for y
 [[apps.details.features]]
 title = "Help on every setting"
 text = "Every setting has a ? card that explains the options and recommends one."
+
+[[apps]]
+id = "irisflow"
+name = "Irisflow"
+tagline = "Free, open source video meetings"
+color = [229, 254, 83]
+ink_light = [74, 90, 0]
+ink_dark = [229, 254, 83]
+repo = "reachneoagent-commits/irisflow"
+bundle = "app.irisflow.desktop"
+site = "https://github.com/reachneoagent-commits/irisflow"
+former_ids = []
+former_names = []
+former_bundles = []
+mac_team = "unsigned"
+kind = "community"
+publisher = "Reach Neo"
+msi_publisher = "FlowApps"
+[apps.details]
+headline = "Share a link, talk, share your screen, draw on it."
+about = "A free, open source video meeting app, like Google Meet. Preview: unsigned, and the installer points at a local test server (localhost:5173) until a hosting address is set, so it cannot join real meetings yet."
+platforms = "macOS (preview)"
+
+[[apps.details.features]]
+title = "Meet from a link"
+text = "Start a meeting and share the link. Anyone can join from the app or a browser."
+[[apps.details.features]]
+title = "Share your screen and draw on it"
+text = "Show your screen and mark it up while you talk."
+[[apps.details.features]]
+title = "Free and open source"
+text = "No account fees and no lock-in. Video and audio run through LiveKit."

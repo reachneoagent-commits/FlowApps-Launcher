@@ -210,6 +210,7 @@ pub fn app_icon_png(id: &str) -> Option<&'static [u8]> {
         "writeflow" => include_bytes!("../../../assets/app-icons/writeflow.png"),
         "buildflow" => include_bytes!("../../../assets/app-icons/buildflow.png"),
         "vpnflow" => include_bytes!("../../../assets/app-icons/vpnflow.png"),
+        "irisflow" => include_bytes!("../../../assets/app-icons/irisflow.png"),
         _ => return None,
     })
 }
@@ -229,8 +230,8 @@ mod tests {
 
     /// Every catalog entry must have a distinct lookup key.
     #[test]
-    fn suite_has_seven_apps_with_unique_ids() {
-        assert_eq!(SUITE.len(), 7);
+    fn suite_has_eight_apps_with_unique_ids() {
+        assert_eq!(SUITE.len(), 8);
         let mut ids: Vec<_> = SUITE.iter().map(|a| a.id).collect();
         ids.sort_unstable();
         ids.dedup();
@@ -252,6 +253,7 @@ mod tests {
             ("writeflow", "reachneoagent-commits/writeflow", "io.github.reachneoagent-commits.writeflow"),
             ("buildflow", "reachneoagent-commits/buildflow", "io.github.reachneoagent-commits.buildflow"),
             ("vpnflow", "reachneoagent-commits/vpnflow", "org.vpnflow.desktop"),
+            ("irisflow", "reachneoagent-commits/irisflow", "app.irisflow.desktop"),
         ];
         for (id, repo, bundle) in expected {
             let app = CraftApp::by_id(id).unwrap();
