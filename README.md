@@ -1,9 +1,9 @@
-<table align="center">
-  <tr>
-    <td><img src="assets/app-icons/flowapps-symbol.png" width="128" height="128" alt="FlowApps logo"></td>
-    <td><h1>FlowApps</h1></td>
-  </tr>
-</table>
+<p align="left">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/header-dark.png">
+    <img src="assets/header-light.png" width="600" height="160" alt="FlowApps logo and name">
+  </picture>
+</p>
 
 <p align="center">
   <b>One place to install, update and open every app in the FlowApps suite.</b><br>
