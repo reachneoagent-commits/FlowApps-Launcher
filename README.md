@@ -1,8 +1,9 @@
-<p align="center">
-  <img src="assets/app-icons/flowapps-symbol.png" width="128" height="128" alt="FlowApps">
-</p>
-
-<h1 align="center">FlowApps</h1>
+<table align="center">
+  <tr>
+    <td><img src="assets/app-icons/flowapps-symbol.png" width="128" height="128" alt="FlowApps logo"></td>
+    <td><h1>FlowApps</h1></td>
+  </tr>
+</table>
 
 <p align="center">
   <b>One place to install, update and open every app in the FlowApps suite.</b><br>
@@ -13,11 +14,7 @@
   <a href="https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/latest"><b>Download FlowApps</b></a>
 </p>
 
-<p align="center">
-  <img src="docs/screenshots/flowapps-launcher-grid.png" alt="FlowApps on macOS: a card for each app with its icon, version and an Install or Open button" width="900">
-</p>
-
-## What it does
+## Why FlowApps?
 
 The FlowApps apps each ship their own builds for every platform. FlowApps saves you from
 hunting through release pages: it lists every app in the suite, shows which ones you have
@@ -75,20 +72,36 @@ FlowApps isn't signed with a paid Apple or Microsoft certificate, so your comput
 | **VPNFlow** | Free WireGuard VPN with leak checks (preview) | [GitHub](https://github.com/reachneoagent-commits/vpnflow) |
 | **Irisflow** | Free, open source video meetings (preview) | [GitHub](https://github.com/reachneoagent-commits/irisflow) |
 
-## License and credits
+## Supported platforms
+
+- **Desktop:** macOS (Apple silicon and Intel) and Windows (x64 and ARM64)
+- **Web:** the same catalog runs in a browser
+
+## Build it yourself
+
+You need [Rust](https://rustup.rs/). Then run:
+
+```bash
+cargo build --release -p flowapps-launcher
+```
+
+## About this fork
 
 FlowApps is forked from [ArtCraft Launcher](https://github.com/storytold/craft-launcher) by the ArtCraft team.
 The install/update/uninstall engine, catalog format and UI patterns are adapted from ArtCraft Launcher,
-which is dual-licensed under MIT or Apache-2.0. FlowApps is itself dual-licensed under
-[MIT](LICENSE-MIT) or [Apache-2.0](LICENSE-APACHE), at your option.
+which is dual-licensed under MIT or Apache-2.0. Required notices are in [NOTICE](NOTICE).
 
-**Copyright (c) 2026 Reach Neo.** Required notices are in [NOTICE](NOTICE).
+### Credits
 
-Bundled fonts, icons, images and other assets keep their own open licenses; each one is listed
-with its author, source and license in [ATTRIBUTION.md](ATTRIBUTION.md).
+- **[ArtCraft Launcher](https://github.com/storytold/craft-launcher)** by the ArtCraft team: the install, update and uninstall engine, catalog format and UI patterns (MIT or Apache-2.0).
+- **App icons** in `assets/app-icons/` are each app's own icon, copied from its repository and licensed like that app (MIT OR Apache-2.0).
+- **Bundled fonts, icons, images and other assets** keep their own open licenses; each one is listed with its author, source and license in [ATTRIBUTION.md](ATTRIBUTION.md).
 
-The app icons of the FlowApps apps (`assets/app-icons/`) are each app's own icon, copied from its
-repository and licensed like that app (MIT OR Apache-2.0).
+## License
+
+FlowApps is dual-licensed under [MIT](LICENSE-MIT) or [Apache-2.0](LICENSE-APACHE), at your option.
+
+**Copyright (c) 2026 Reach Neo.**
 
 **The FlowApps name, logo and symbol are trademarks of Reach Neo.** They may not be used without
 permission. The ArtCraft name, logo and "A" mark remain trademarks of the ArtCraft Team and are
