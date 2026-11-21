@@ -281,7 +281,7 @@ msi_publisher = "FlowApps"
 [apps.details]
 headline = "Share a link, talk, share your screen, draw on it."
 about = "A free, open source video meeting app, like Google Meet. Preview: unsigned, and the installer points at a local test server (localhost:5173) until a hosting address is set, so it cannot join real meetings yet."
-platforms = "macOS (preview)"
+platforms = "macOS, Windows (preview)"
 
 [[apps.details.features]]
 title = "Meet from a link"
