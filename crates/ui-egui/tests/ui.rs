@@ -2040,6 +2040,35 @@ fn table_lists_installed_apps_first() {
 }
 
 #[test]
+/// An installed app that is already open shows "Running" and Stop instead of Open, so the user can
+/// tell it is running and can't start a second copy; once it has quit, Open is back.
+fn a_running_app_shows_running_and_stop_instead_of_open() {
+    let installed = Installed {
+        version: version::parse("1.0.0"),
+        source: InstallSource::MacApp,
+        location: "/Applications/Voxflow.app".into(),
+        package: None,
+        externally_managed: false,
+        origin: None,
+        installation: None,
+    };
+    let ev = vec![Event::Detected { app: "voxflow".into(), installed: Some(installed) }];
+    let (mut h, sent) = harness_with(ev, ViewMode::Grid, egui::Theme::Dark, true, 1.0);
+    h.run_steps(6);
+    assert!(h.query_by_label("Running").is_none(), "an app that isn't running offers Open");
+    h.state_mut().as_mut().unwrap().set_running_for_test("voxflow", true);
+    h.run_steps(4);
+    h.get_by_label("Running");
+    h.get_by_label("Stop").click();
+    h.run_steps(3);
+    assert!(sent.borrow().contains(&Command::Stop { app: "voxflow".into() }));
+    assert!(!sent.borrow().iter().any(|c| matches!(c, Command::Launch { .. })), "a running app is never launched again");
+    h.state_mut().as_mut().unwrap().set_running_for_test("voxflow", false);
+    h.run_steps(4);
+    assert!(h.query_by_label("Running").is_none(), "once it has quit, Open is back");
+}
+
+#[test]
 #[ignore = "written for ArtCraft's app catalog; port to the FlowApps catalog"]
 /// Pin floats an app above Name sort; reorder via settings is reflected; Hide clears the pin.
 fn pinning_an_app_keeps_it_on_top_until_unpinned() {

@@ -208,6 +208,8 @@ pub struct LauncherUi {
     sent_options: Option<BackendOptions>,
     /// Unix seconds of the last look at what's installed (startup counts).
     last_detect: i64,
+    /// Unix seconds of the last [`Command::CheckRunning`].
+    last_running_check: i64,
     /// Whether the window had focus last frame, to re-check when the user comes back to it.
     was_focused: bool,
     /// Versions of apps or the launcher already queued for auto-update during this session,
@@ -248,6 +250,8 @@ pub(crate) fn drawable_lang(pref: &str, installed: Option<crate::i18n::Lang>) ->
 /// How often to look again at what's installed, to notice apps installed or removed outside
 /// the launcher. A detection pass lists packages and reads a few files: cheap, but not free.
 const RESCAN_EVERY: i64 = 5 * 60;
+/// How often, while the window is in front, the launcher asks which apps are running.
+const RUNNING_EVERY: i64 = 4;
 /// Coming back to the window re-checks, but not more often than this.
 const RESCAN_ON_FOCUS_AFTER: i64 = 30;
 
@@ -313,6 +317,7 @@ impl LauncherUi {
             cjk_font,
             sent_options: None,
             last_detect: 0,
+            last_running_check: 0,
             was_focused: true,
             auto_update_attempted: std::collections::BTreeSet::new(),
             discord_url: flowapps_launcher_core::catalog::DISCORD_URL,
@@ -547,6 +552,14 @@ impl LauncherUi {
             self.last_detect = now;
             self.backend.send(Command::Detect);
         }
+        // Only while the window is in front: nobody sees the cards otherwise. Coming back asks at once.
+        if focused && self.caps.manage_apps && self.entries.iter().any(|e| e.installed.is_some()) {
+            if now.saturating_sub(self.last_running_check) >= RUNNING_EVERY {
+                self.last_running_check = now;
+                self.backend.send(Command::CheckRunning);
+            }
+            ctx.request_repaint_after(Duration::from_secs(RUNNING_EVERY as u64));
+        }
         if let Some(every) = self.settings.check_every.seconds()
             && !self.checking
             && update_check_due(self.settings.last_check, now, every)
@@ -638,6 +651,15 @@ impl LauncherUi {
                     e.installable = Some(installable);
                 }
                 true
+            }
+            Event::RunningApps { apps } => {
+                let mut changed = false;
+                for e in &mut self.entries {
+                    let running = apps.iter().any(|a| a == e.app.id);
+                    changed |= e.running != running;
+                    e.running = running;
+                }
+                changed
             }
             Event::Occupied { app, path } => {
                 self.dialog = Some(Dialog::Replace { app, path });
@@ -945,6 +967,13 @@ impl LauncherUi {
     /// Test hook for the filtered/sorted catalog ids currently shown.
     pub fn visible_ids_for_test(&self) -> Vec<&'static str> {
         self.visible_ids()
+    }
+
+    /// Test hook: mark an app as running (or not), as an [`Event::RunningApps`] would.
+    pub fn set_running_for_test(&mut self, id: &str, running: bool) {
+        if let Some(e) = self.entries.iter_mut().find(|e| e.app.id == id) {
+            e.running = running;
+        }
     }
 
     /// Test hook: start a pin drag as if the grip had just been grabbed (stores a restore snapshot).

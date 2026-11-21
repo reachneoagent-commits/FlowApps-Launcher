@@ -929,6 +929,22 @@ fn replace_consent<'a>(occupied: Option<&'a std::path::Path>, approved: Option<&
     }
 }
 
+/// The installed apps (not the launcher itself) that are running now.
+fn running_apps(shared: &Shared) -> Vec<String> {
+    let installed: Vec<(String, String)> = shared
+        .installed
+        .lock()
+        .unwrap_or_else(PoisonError::into_inner)
+        .iter()
+        .filter(|(id, _)| id.as_str() != flowapps_launcher_core::catalog::LAUNCHER_ID)
+        .map(|(id, inst)| (id.clone(), inst.location.clone()))
+        .collect();
+    let mut running: Vec<String> =
+        installed.into_iter().filter(|(_, location)| crate::process::is_running(std::path::Path::new(location))).map(|(id, _)| id).collect();
+    running.sort();
+    running
+}
+
 /// What a finished install tells the user.
 fn installed_text(app: &CraftApp, update: bool, release: &Release) -> String {
     let verb = if update { "updated to" } else { "installed:" };
@@ -1587,6 +1603,26 @@ impl Backend for NativeBackend {
                 if let Err(e) = result {
                     self.shared.emit(Event::JobFinished { app, result: Err(e) });
                 }
+            }
+            Command::CheckRunning => {
+                let shared = self.shared.clone();
+                std::thread::spawn(move || shared.emit(Event::RunningApps { apps: running_apps(&shared) }));
+            }
+            Command::Stop { app } => {
+                let Some(def) = CraftApp::by_id(&app) else { return };
+                // Never the launcher itself: stopping it would close the window the user pressed Stop in.
+                let Some(inst) = self.installed(&app).filter(|_| app != flowapps_launcher_core::catalog::LAUNCHER_ID) else { return };
+                let shared = self.shared.clone();
+                std::thread::spawn(move || {
+                    let quit = crate::process::quit_and_wait(std::path::Path::new(&inst.location), Duration::from_secs(15));
+                    shared.emit(Event::RunningApps { apps: running_apps(&shared) });
+                    let result = if quit {
+                        Ok(format!("{} was stopped", def.name))
+                    } else {
+                        Err(format!("{} didn't quit. It may be asking you to save. Close it yourself.", def.name))
+                    };
+                    shared.emit(Event::JobFinished { app, result });
+                });
             }
             Command::Reveal { app } => {
                 if let Some(inst) = self.installed(&app) {

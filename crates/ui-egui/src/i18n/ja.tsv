@@ -458,3 +458,6 @@ anicraft	Classic tweens with eight easing presets and custom ease curves, plus s
 	Unlock version?	バージョンの固定を解除しますか？
 	{app} is pinned to {version}. Follow the latest release instead?	{app} は {version} に固定されています。代わりに最新リリースを使用しますか？
 	Unlock	固定を解除
+	Running	実行中
+	Stop	停止
+	It's already open. Stop it to open it again.	すでに開いています。もう一度開くには停止してください。

@@ -55,6 +55,13 @@ pub enum Command {
         app: String,
         args: Vec<String>,
     },
+    /// Ask which installed apps are running right now. Answered with [`Event::RunningApps`].
+    CheckRunning,
+    /// Ask the running app to quit the way its own Quit does (it may ask about unsaved work), and
+    /// wait for it to exit. Answered with [`Event::RunningApps`], and a failure if it stayed up.
+    Stop {
+        app: String,
+    },
     /// Show the installed app in the file manager.
     Reveal {
         app: String,
@@ -274,6 +281,11 @@ pub enum Event {
     /// `Command::QuitAndInstall` quits it and goes on.
     Running {
         app: String,
+    },
+    /// The installed apps that are running now (ids). Every answer to [`Command::CheckRunning`] or
+    /// [`Command::Stop`] carries the full list, so an app missing from it has quit.
+    RunningApps {
+        apps: Vec<String>,
     },
     /// A job ended: `Ok` carries a short success message, `Err` what went wrong.
     JobFinished {

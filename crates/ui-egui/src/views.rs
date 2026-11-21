@@ -1248,6 +1248,9 @@ impl LauncherUi {
                     self.install_app(id);
                 }
             }
+            Primary::Open if entry.running && self.caps.manage_apps && id != flowapps_launcher_core::catalog::LAUNCHER_ID => {
+                self.running_buttons(ui, id, main_w, place);
+            }
             Primary::Open => {
                 if widgets::button(ui, tl!("Open"), Kind::Secondary, main_w).clicked() {
                     self.launch_app(id);
@@ -1303,6 +1306,28 @@ impl LauncherUi {
         };
         if self.size_hint(resp, entry).clicked() {
             self.install_app(id);
+        }
+    }
+
+    /// An installed app that is already open: a "Running" label beside Stop, so Open can't start a
+    /// second copy. Stop asks the app to quit the way its own Quit does; once it has, Open is back.
+    fn running_buttons(&mut self, ui: &mut Ui, id: &str, main_w: f32, place: Place) {
+        let tip = tl!("It's already open. Stop it to open it again.");
+        let stop = match widgets::split_layout(ui, main_w, &[tl!("Running")], &[tl!("Stop")], place == Place::Row) {
+            Some(split) => {
+                let (running, stop) = widgets::split_button(
+                    ui,
+                    widgets::Half { label: tl!("Running"), kind: Kind::Secondary },
+                    widgets::Half { label: tl!("Stop"), kind: Kind::Secondary },
+                    split,
+                );
+                running.on_hover_text(tip);
+                stop
+            }
+            None => widgets::button(ui, tl!("Stop"), Kind::Secondary, main_w).on_hover_text(tip),
+        };
+        if stop.clicked() {
+            self.act_command(Command::Stop { app: id.to_string() });
         }
     }
 
@@ -1392,7 +1417,12 @@ impl LauncherUi {
     /// reinstall (where an install would go ahead), and uninstall (which asks first).
     fn menu_installed(&mut self, ui: &mut Ui, entry: &AppEntry, status: &AppStatus, reveal: &'static str) {
         let id = entry.app.id;
-        if ui.button(tl!("Open")).clicked() {
+        if entry.running && self.caps.manage_apps && id != flowapps_launcher_core::catalog::LAUNCHER_ID {
+            if ui.button(tl!("Stop")).clicked() {
+                self.act_command(Command::Stop { app: id.to_string() });
+                ui.close();
+            }
+        } else if ui.button(tl!("Open")).clicked() {
             self.launch_app(id);
             ui.close();
         }
