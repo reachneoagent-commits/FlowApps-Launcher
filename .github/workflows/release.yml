@@ -108,3 +108,20 @@ jobs:
             echo "Check downloads against SHA256SUMS.txt. These builds aren't signed with a paid Apple or Microsoft certificate, so your computer will warn you the first time you open FlowApps. If FlowApps is already installed, use Update in the app instead."
           } > notes.md
           gh release create "v$VERSION" dist/* --title "FlowApps v$VERSION" --notes-file notes.md --latest
+      - name: Point the README downloads at this release
+        run: |
+          set -euo pipefail
+          VERSION="$(awk '/^\[workspace.package\]/{p=1;next} /^\[/{p=0} p && /^version/{gsub(/"/,"",$3); print $3; exit}' Cargo.toml)"
+          sed -i -E \
+            -e "s#releases/download/v[0-9][0-9.]*/flowapps-launcher-[0-9][0-9.]*-#releases/download/v$VERSION/flowapps-launcher-$VERSION-#g" \
+            -e "s#latest version, [0-9][0-9.]*#latest version, $VERSION#" \
+            README.md
+          if git diff --quiet README.md; then
+            echo "README already points at $VERSION"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "README: point downloads at $VERSION" README.md
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
