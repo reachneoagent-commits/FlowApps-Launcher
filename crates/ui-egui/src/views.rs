@@ -651,7 +651,13 @@ impl LauncherUi {
         });
         ui.add_space(14.0);
         // Installed and up to date needs no badge: the strip has the version, and the group says the rest.
-        if !matches!(status, AppStatus::UpToDate | AppStatus::Installed) {
+        let running = entry.running && self.caps.manage_apps && id != flowapps_launcher_core::catalog::LAUNCHER_ID && status.is_installed();
+        if running {
+            // A running app says so in its own colour; it replaces Open with Stop below.
+            let ink = if t.dark { Color32::from_rgb(10, 10, 10) } else { Color32::WHITE };
+            widgets::tag(ui, tl!("Running"), app_color, ink);
+            ui.add_space(8.0);
+        } else if !matches!(status, AppStatus::UpToDate | AppStatus::Installed) {
             ui.horizontal(|ui| {
                 let (text, tone) = model::entry_status_text(&entry, &status, self.caps.manage_apps);
                 let r = widgets::badge(ui, &text, widgets::tone_color(&t, tone));
@@ -1249,7 +1255,7 @@ impl LauncherUi {
                 }
             }
             Primary::Open if entry.running && self.caps.manage_apps && id != flowapps_launcher_core::catalog::LAUNCHER_ID => {
-                self.running_buttons(ui, id, main_w, place);
+                self.running_buttons(ui, id, main_w);
             }
             Primary::Open => {
                 if widgets::button(ui, tl!("Open"), Kind::Secondary, main_w).clicked() {
@@ -1309,24 +1315,12 @@ impl LauncherUi {
         }
     }
 
-    /// An installed app that is already open: a "Running" label beside Stop, so Open can't start a
-    /// second copy. Stop asks the app to quit the way its own Quit does; once it has, Open is back.
-    fn running_buttons(&mut self, ui: &mut Ui, id: &str, main_w: f32, place: Place) {
+    /// An installed app that is already open: a full-width Stop, so Open can't start a second copy.
+    /// "Running" is a status, shown as a pill on the card. Stop asks the app to quit the way its own
+    /// Quit does; once it has, Open is back.
+    fn running_buttons(&mut self, ui: &mut Ui, id: &str, main_w: f32) {
         let tip = tl!("It's already open. Stop it to open it again.");
-        let stop = match widgets::split_layout(ui, main_w, &[tl!("Running")], &[tl!("Stop")], place == Place::Row) {
-            Some(split) => {
-                let (running, stop) = widgets::split_button(
-                    ui,
-                    widgets::Half { label: tl!("Running"), kind: Kind::Secondary },
-                    widgets::Half { label: tl!("Stop"), kind: Kind::Secondary },
-                    split,
-                );
-                running.on_hover_text(tip);
-                stop
-            }
-            None => widgets::button(ui, tl!("Stop"), Kind::Secondary, main_w).on_hover_text(tip),
-        };
-        if stop.clicked() {
+        if widgets::button(ui, tl!("Stop"), Kind::Secondary, main_w).on_hover_text(tip).clicked() {
             self.act_command(Command::Stop { app: id.to_string() });
         }
     }
