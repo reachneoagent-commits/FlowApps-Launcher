@@ -292,3 +292,139 @@ text = "Show your screen and mark it up while you talk."
 [[apps.details.features]]
 title = "Free and open source"
 text = "No account fees and no lock-in. Video and audio run through LiveKit."
+
+[[apps]]
+id = "wordflow"
+name = "Wordflow"
+tagline = "Word processor for Mac and Windows"
+color = [43, 101, 232]
+ink_light = [30, 30, 30]
+ink_dark = [240, 240, 240]
+repo = "reachneoagent-commits/wordflow"
+bundle = "com.wordflow.app"
+site = "https://github.com/reachneoagent-commits/wordflow"
+former_ids = []
+former_names = []
+former_bundles = []
+mac_team = "unsigned"
+kind = "community"
+publisher = "Reach Neo"
+msi_publisher = "Wordflow"
+[apps.details]
+headline = "Write and design documents; open and save Word files."
+about = "A free, open source word processor for Mac and Windows. Reads and writes .docx, with styles, track changes, references and mail merge."
+platforms = "macOS, Windows"
+
+[[apps.details.features]]
+title = "Familiar word processing"
+text = "Ribbon, styles gallery, track changes, comments and mail merge — everything where you expect it."
+
+[[apps.details.features]]
+title = "Your files, your format"
+text = ".docx is the native format. Also opens and saves .odt, .rtf, .html, .md and .txt."
+
+[[apps.details.shots]]
+key = "wordflow"
+caption = "Wordflow document editing"
+
+[[apps]]
+id = "excelflow"
+name = "Excelflow"
+tagline = "Spreadsheet for Mac and Windows"
+color = [84, 185, 119]
+ink_light = [30, 30, 30]
+ink_dark = [240, 240, 240]
+repo = "reachneoagent-commits/excelflow"
+bundle = "com.excelflow.app"
+site = "https://github.com/reachneoagent-commits/excelflow"
+former_ids = []
+former_names = []
+former_bundles = []
+mac_team = "unsigned"
+kind = "community"
+publisher = "Reach Neo"
+msi_publisher = "Excelflow"
+[apps.details]
+headline = "Build workbooks, charts and pivot tables."
+about = "A free, open source spreadsheet for Mac and Windows. .xlsx is the native format, with 500+ functions, dynamic arrays, pivot tables and charts."
+platforms = "macOS, Windows"
+
+[[apps.details.features]]
+title = "500+ functions"
+text = "Dynamic arrays, LET, LAMBDA, structured table references and a full formula library."
+
+[[apps.details.features]]
+title = "Pivot tables and charts"
+text = "17 chart types, conditional formatting, sparklines and print-ready layouts."
+
+[[apps.details.shots]]
+key = "excelflow"
+caption = "Excelflow spreadsheet"
+
+[[apps]]
+id = "pdfflow"
+name = "PDFflow"
+tagline = "PDF reader and editor for Mac and Windows"
+color = [216, 53, 53]
+ink_light = [30, 30, 30]
+ink_dark = [240, 240, 240]
+repo = "reachneoagent-commits/pdfflow"
+bundle = "com.pdfflow.app"
+site = "https://github.com/reachneoagent-commits/pdfflow"
+former_ids = []
+former_names = []
+former_bundles = []
+mac_team = "unsigned"
+kind = "community"
+publisher = "Reach Neo"
+msi_publisher = "PDFflow"
+[apps.details]
+headline = "Read, organize, combine and secure PDFs."
+about = "A free, open source PDF reader and editor for Mac and Windows. Organize pages, combine and split files, fill forms and protect documents with passwords."
+platforms = "macOS, Windows"
+
+[[apps.details.features]]
+title = "Read and annotate"
+text = "Deep zoom, dark mode, threaded comments and form filling."
+
+[[apps.details.features]]
+title = "Organize and protect"
+text = "Rotate, delete and insert pages; password encryption and permissions."
+
+[[apps.details.shots]]
+key = "pdfflow"
+caption = "PDFflow document view"
+
+[[apps]]
+id = "slideflow"
+name = "Slideflow"
+tagline = "Presentation app for Mac and Windows"
+color = [94, 205, 247]
+ink_light = [30, 30, 30]
+ink_dark = [240, 240, 240]
+repo = "reachneoagent-commits/slideflow"
+bundle = "com.slideflow.app"
+site = "https://github.com/reachneoagent-commits/slideflow"
+former_ids = []
+former_names = []
+former_bundles = []
+mac_team = "unsigned"
+kind = "community"
+publisher = "Reach Neo"
+msi_publisher = "Slideflow"
+[apps.details]
+headline = "Build and present slide decks."
+about = "A free, open source presentation app for Mac and Windows. Themes, layouts, shapes, charts, transitions and animations. Opens and saves .pptx."
+platforms = "macOS, Windows"
+
+[[apps.details.features]]
+title = "Build decks"
+text = "Slide masters, eleven layouts, eight themes, shapes, pictures, tables and charts."
+
+[[apps.details.features]]
+title = "Present and animate"
+text = "Transitions including Morph, entrance and exit animations, presenter view and rehearse timings."
+
+[[apps.details.shots]]
+key = "slideflow"
+caption = "Slideflow deck editor"
