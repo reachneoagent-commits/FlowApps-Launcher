@@ -44,13 +44,12 @@ The web version shows the same catalog in the browser, with the latest download 
 
 ## Download and install
 
-Download FlowApps for your system (latest version, 0.26.0), then open it to install Gramflow, Voxflow and Mailflow.
+Download FlowApps for your Mac (latest version, 0.27.2), then open it to install the apps in the suite.
 
 | Platform | Installer |
 | --- | --- |
-| macOS (Apple silicon and Intel) | [DMG](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.26.0/flowapps-launcher-0.26.0-macos-universal.dmg) |
-| Windows x64 | [Installer](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.26.0/flowapps-launcher-0.26.0-windows-x64.msi) · [Portable](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.26.0/flowapps-launcher-0.26.0-windows-x64-portable.zip) |
-| Windows ARM64 | [Installer](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.26.0/flowapps-launcher-0.26.0-windows-arm64.msi) · [Portable](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.26.0/flowapps-launcher-0.26.0-windows-arm64-portable.zip) |
+| macOS (Apple silicon and Intel) | [DMG](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.27.2/flowapps-launcher-0.27.2-macos-universal.dmg) |
+| Windows | Coming soon. The older 0.26.0 Windows installers are on the Releases page. |
 
 Older versions are on the [Releases page](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases). Every release has a `SHA256SUMS.txt` to check the files against.
 
@@ -78,7 +77,7 @@ FlowApps isn't signed with a paid Apple or Microsoft certificate, so your comput
 
 ## Supported platforms
 
-- **Desktop:** macOS (Apple silicon and Intel) and Windows (x64 and ARM64)
+- **Desktop:** macOS (Apple silicon and Intel). Windows builds are coming back in the next release.
 - **Web:** the same catalog runs in a browser
 
 ## Build it yourself
