@@ -7,7 +7,7 @@
 
 <p align="center">
   <b>One place to install, update and open every app in the FlowApps suite.</b><br>
-  Gramflow, Voxflow and Mailflow: the right build for your computer, kept up to date.
+  Grammar, dictation, mail, office apps and more: the right build for your computer, kept up to date.
 </p>
 
 <p align="center">
@@ -27,7 +27,7 @@ you when an update is out. It is a small native app that can sit in your menu ba
   <tr>
     <td width="33%" valign="top">
       <h3>📦 Install in one click</h3>
-      Picks the right download for your OS and CPU (DMG, MSI, AppImage, .deb, .rpm and more), checks it against the release's SHA-256 checksums and installs it.
+      Picks the right download for your OS and CPU (DMG, MSI, portable zip, AppImage, .deb, .rpm and more), checks it against the release's SHA-256 checksums and installs it.
     </td>
     <td width="33%" valign="top">
       <h3>🔄 Stay up to date</h3>
