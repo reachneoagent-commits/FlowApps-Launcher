@@ -211,6 +211,10 @@ pub fn app_icon_png(id: &str) -> Option<&'static [u8]> {
         "buildflow" => include_bytes!("../../../assets/app-icons/buildflow.png"),
         "vpnflow" => include_bytes!("../../../assets/app-icons/vpnflow.png"),
         "irisflow" => include_bytes!("../../../assets/app-icons/irisflow.png"),
+        "wordflow" => include_bytes!("../../../assets/app-icons/wordflow.png"),
+        "excelflow" => include_bytes!("../../../assets/app-icons/excelflow.png"),
+        "pdfflow" => include_bytes!("../../../assets/app-icons/pdfflow.png"),
+        "slideflow" => include_bytes!("../../../assets/app-icons/slideflow.png"),
         _ => return None,
     })
 }
