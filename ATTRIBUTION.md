@@ -19,6 +19,10 @@ which are trademarks of Reach Neo. FlowApps is forked from
 | `assets/app-icons/buildflow.png` | Buildflow icon | Reach Neo | MIT OR Apache-2.0 |
 | `assets/app-icons/vpnflow.png` | VPNFlow icon | Reach Neo | MIT OR Apache-2.0 |
 | `assets/app-icons/irisflow.png` | Irisflow icon | Reach Neo | MIT OR Apache-2.0 |
+| `assets/app-icons/wordflow.png` | Wordflow icon | Reach Neo, based on WordCraft | MIT OR Apache-2.0 |
+| `assets/app-icons/excelflow.png` | Excelflow icon | Reach Neo, based on GridCraft | MIT OR Apache-2.0 |
+| `assets/app-icons/pdfflow.png` | PDFflow icon | Reach Neo, based on PdfCraft | MIT OR Apache-2.0 |
+| `assets/app-icons/slideflow.png` | Slideflow icon | Reach Neo, based on DeckCraft | MIT OR Apache-2.0 |
 | `assets/fonts/` | Archivo, Inter, Geist Mono | their authors | SIL OFL 1.1 |
 | `assets/social/` | Social and GitHub service logos | Simple Icons, Font Awesome | CC0 1.0 / CC BY 4.0 |
 | `crates/update/` | Self-update engine, vendored from craft-update with FlowApps changes | ArtCraft Team, Reach Neo | MIT OR Apache-2.0 |
