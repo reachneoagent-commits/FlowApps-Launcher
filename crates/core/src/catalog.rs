@@ -113,6 +113,12 @@ impl CraftApp {
             .chain(self.former_names.iter().copied().filter(move |&n| n != primary && n != self.name))
     }
 
+    /// Whether this app's only releases are release candidates (`0.1.0-rc.1`), so the stable track
+    /// must offer them without the user turning on pre-releases.
+    pub fn ships_release_candidates(&self) -> bool {
+        matches!(self.id, "wordflow" | "excelflow" | "pdfflow" | "slideflow")
+    }
+
     /// Whether this app's macOS build isn't Developer ID signed. Its download is still checked
     /// against the release's SHA-256 and its bundle id and version are checked after copying.
     pub fn mac_unsigned(&self) -> bool {

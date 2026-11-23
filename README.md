@@ -44,11 +44,11 @@ The web version shows the same catalog in the browser, with the latest download 
 
 ## Download and install
 
-Download FlowApps for your Mac (latest version, 0.27.3), then open it to install the apps in the suite.
+Download FlowApps for your Mac (latest version, 0.27.4), then open it to install the apps in the suite.
 
 | Platform | Installer |
 | --- | --- |
-| macOS (Apple silicon and Intel) | [DMG](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.27.3/flowapps-launcher-0.27.3-macos-universal.dmg) |
+| macOS (Apple silicon and Intel) | [DMG](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.27.4/flowapps-launcher-0.27.4-macos-universal.dmg) |
 | Windows | Coming soon. The older 0.26.0 Windows installers are on the Releases page. |
 
 Older versions are on the [Releases page](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases). Every release has a `SHA256SUMS.txt` to check the files against.

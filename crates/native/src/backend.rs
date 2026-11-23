@@ -744,7 +744,7 @@ fn install_plan(
     let platform = platform.ok_or("this system isn't supported")?;
     let release = latest.ok_or("the selected release hasn't been found yet. Check for updates first.")?;
     let track = options.versions.get(app.id).unwrap_or(&VersionTrack::Stable);
-    if !release_matches_track(&release, track, options.prereleases) {
+    if !release_matches_track(&release, track, options.prereleases || app.ships_release_candidates()) {
         return Err("the selected version isn't available yet. Check for updates before installing.".into());
     }
     let system = match asking {
