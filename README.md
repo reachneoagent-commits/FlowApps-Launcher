@@ -44,13 +44,13 @@ The web version shows the same catalog in the browser, with the latest download 
 
 ## Download and install
 
-Download FlowApps for your computer (latest version, 0.27.5), then open it to install the apps in the suite.
+Download FlowApps for your computer (latest version, 0.27.6), then open it to install the apps in the suite.
 
 | Platform | Installer |
 | --- | --- |
-| macOS (Apple silicon and Intel) | [DMG](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.27.5/flowapps-launcher-0.27.5-macos-universal.dmg) |
-| Windows x64 | [Installer](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.27.5/flowapps-launcher-0.27.5-windows-x64.msi) · [portable zip](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.27.5/flowapps-launcher-0.27.5-windows-x64-portable.zip) |
-| Windows ARM64 | [Installer](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.27.5/flowapps-launcher-0.27.5-windows-arm64.msi) · [portable zip](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.27.5/flowapps-launcher-0.27.5-windows-arm64-portable.zip) |
+| macOS (Apple silicon and Intel) | [DMG](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.27.6/flowapps-launcher-0.27.6-macos-universal.dmg) |
+| Windows x64 | [Installer](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.27.6/flowapps-launcher-0.27.6-windows-x64.msi) · [portable zip](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.27.6/flowapps-launcher-0.27.6-windows-x64-portable.zip) |
+| Windows ARM64 | [Installer](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.27.6/flowapps-launcher-0.27.6-windows-arm64.msi) · [portable zip](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.27.6/flowapps-launcher-0.27.6-windows-arm64-portable.zip) |
 
 Older versions are on the [Releases page](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases). Every release has a `SHA256SUMS.txt` to check the files against.
 
