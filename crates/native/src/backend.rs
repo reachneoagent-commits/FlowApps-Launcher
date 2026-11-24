@@ -1306,7 +1306,10 @@ fn latest_for(
     now: i64,
 ) -> (Option<LatestRelease>, Origin, Option<Source>) {
     let repo = feed_repo(feed, app);
-    if fallback.trust_feed {
+    // Apps whose only releases are release candidates need GitHub's full release list: the
+    // feed and `/releases/latest` both leave pre-releases out.
+    let pre = pre || app.ships_release_candidates();
+    if fallback.trust_feed && !pre {
         match feed.map(|f| f.answer(app, now)) {
             // The feed can lag GitHub by some minutes after a release. A check the user pressed
             // looks past it when GitHub's quota-free redirect names something newer (#91).
