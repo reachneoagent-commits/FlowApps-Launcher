@@ -44,12 +44,13 @@ The web version shows the same catalog in the browser, with the latest download 
 
 ## Download and install
 
-Download FlowApps for your Mac (latest version, 0.27.4), then open it to install the apps in the suite.
+Download FlowApps for your computer (latest version, 0.27.5), then open it to install the apps in the suite.
 
 | Platform | Installer |
 | --- | --- |
-| macOS (Apple silicon and Intel) | [DMG](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.27.4/flowapps-launcher-0.27.4-macos-universal.dmg) |
-| Windows | Coming soon. The older 0.26.0 Windows installers are on the Releases page. |
+| macOS (Apple silicon and Intel) | [DMG](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.27.5/flowapps-launcher-0.27.5-macos-universal.dmg) |
+| Windows x64 | [Installer](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.27.5/flowapps-launcher-0.27.5-windows-x64.msi) · [portable zip](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.27.5/flowapps-launcher-0.27.5-windows-x64-portable.zip) |
+| Windows ARM64 | [Installer](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.27.5/flowapps-launcher-0.27.5-windows-arm64.msi) · [portable zip](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases/download/v0.27.5/flowapps-launcher-0.27.5-windows-arm64-portable.zip) |
 
 Older versions are on the [Releases page](https://github.com/reachneoagent-commits/FlowApps-Launcher/releases). Every release has a `SHA256SUMS.txt` to check the files against.
 
@@ -70,14 +71,14 @@ FlowApps isn't signed with a paid Apple or Microsoft certificate, so your comput
 | **Buildflow** | See how software works, then build your own with AI | [GitHub](https://github.com/reachneoagent-commits/buildflow) |
 | **VPNFlow** | Free WireGuard VPN with leak checks (preview) | [GitHub](https://github.com/reachneoagent-commits/vpnflow) |
 | **Irisflow** | Free, open source video meetings (preview) | [GitHub](https://github.com/reachneoagent-commits/irisflow) |
-| **Wordflow** | Word processor (release candidate, Mac first; Windows coming) | [GitHub](https://github.com/reachneoagent-commits/wordflow) |
-| **Excelflow** | Spreadsheet app (release candidate, Mac first; Windows coming) | [GitHub](https://github.com/reachneoagent-commits/excelflow) |
-| **PDFflow** | PDF reader and editor (release candidate, Mac first; Windows coming) | [GitHub](https://github.com/reachneoagent-commits/pdfflow) |
-| **Slideflow** | Presentation app (release candidate, Mac first; Windows coming) | [GitHub](https://github.com/reachneoagent-commits/slideflow) |
+| **Wordflow** | Word processor (release candidate for Mac and Windows) | [GitHub](https://github.com/reachneoagent-commits/wordflow) |
+| **Excelflow** | Spreadsheet app (release candidate for Mac and Windows) | [GitHub](https://github.com/reachneoagent-commits/excelflow) |
+| **PDFflow** | PDF reader and editor (release candidate for Mac and Windows) | [GitHub](https://github.com/reachneoagent-commits/pdfflow) |
+| **Slideflow** | Presentation app (release candidate for Mac and Windows) | [GitHub](https://github.com/reachneoagent-commits/slideflow) |
 
 ## Supported platforms
 
-- **Desktop:** macOS (Apple silicon and Intel). Windows builds are coming back in the next release.
+- **Desktop:** macOS (Apple silicon and Intel), Windows (x64 and ARM64).
 - **Web:** the same catalog runs in a browser
 
 ## Build it yourself
