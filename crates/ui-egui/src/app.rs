@@ -58,6 +58,11 @@ pub trait Host {
     fn reduce_motion(&self) -> bool {
         false
     }
+    /// Settings → Maintainer: running the FlowApps repositories' upstream and release workflows.
+    /// Desktop only.
+    fn maintainer(&mut self) -> Option<&mut dyn flowapps_launcher_core::maintainer::Maintainer> {
+        None
+    }
     fn pick_folder(&mut self, _initial: Option<&str>) -> Option<String> {
         None
     }

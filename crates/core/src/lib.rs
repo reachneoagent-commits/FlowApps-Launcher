@@ -12,6 +12,7 @@ pub mod details;
 pub mod distro;
 pub mod feed;
 pub mod hosted_catalog;
+pub mod maintainer;
 pub mod platform;
 pub mod protocol;
 pub mod release;

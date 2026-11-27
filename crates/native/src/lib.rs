@@ -15,6 +15,7 @@ pub mod hosted_catalog;
 pub mod http;
 pub mod install;
 pub mod login;
+pub mod maintainer;
 pub mod manifest;
 #[cfg(any(windows, test))]
 mod msi_context;

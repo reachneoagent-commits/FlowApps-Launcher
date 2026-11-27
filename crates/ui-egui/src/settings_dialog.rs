@@ -123,6 +123,7 @@ impl LauncherUi {
                 this.settings_install(ui, &mut **host);
                 this.settings_background(ui, &mut **host);
                 this.settings_community(ui);
+                crate::maintainer::settings_maintainer(ui, &mut **host);
             },
         );
     }
