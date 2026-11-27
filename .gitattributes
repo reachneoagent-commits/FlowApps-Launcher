@@ -1,2 +1,12 @@
 # Signatures verify exact bytes; checkout must not convert signed TOML to CRLF.
 /crates/core/tests/fixtures/hosted-catalog.toml -text
+
+# FlowApps Launcher (rebrand/apply.py): files we replace whole keep our version in a merge.
+# Needs `git config merge.ours.driver true` once per clone (docs/UPSTREAM.md).
+README.md merge=ours
+NOTICE merge=ours
+AGENTS.md merge=ours
+ATTRIBUTION.md merge=ours
+crates/core/catalog.toml merge=ours
+assets/app-icon/** merge=ours
+assets/app-icons/** merge=ours
