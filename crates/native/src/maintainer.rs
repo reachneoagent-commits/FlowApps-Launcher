@@ -200,7 +200,11 @@ impl m::Maintainer for NativeMaintainer {
                 });
             }
             Action::Refresh => {
-                let session = shared.lock().session;
+                let session = {
+                    let mut s = shared.lock();
+                    s.view.message = None;
+                    s.session
+                };
                 refresh_all(&shared, session);
             }
             Action::Check(repo) => dispatch_named(&shared, repo, Workflow::Check, None),
@@ -368,6 +372,7 @@ fn finish_sign_in(shared: &Arc<Shared>, session: u64, outcome: Result<String, St
                 s.view.account = Account::Verifying;
             }
             if let Err(e) = keychain::save(&token) {
+                log::warn!("maintainer: keychain save: {e}");
                 shared.say(format!("Signed in for now; the keychain didn't keep it ({e})."), true);
             }
             verify(shared, session);
@@ -447,7 +452,6 @@ fn refresh_all(shared: &Arc<Shared>, session: u64) {
         if !matches!(s.view.account, Account::SignedIn { can_write: true, .. }) {
             return;
         }
-        s.view.message = None;
     }
     for i in 0..REPOS.len() {
         refresh_one(shared, session, i, Duration::ZERO);
