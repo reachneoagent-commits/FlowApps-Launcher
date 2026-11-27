@@ -16,10 +16,12 @@ pub const ORG: &str = "reachneoagent-commits";
 /// Write access to this repository is what makes an account a maintainer.
 pub const ACCESS_REPO: &str = "reachneoagent-commits/FlowApps-Launcher";
 /// The GitHub OAuth App (or GitHub App) that the device-code sign-in uses. A client ID is not a
-/// secret. Empty means sign-in isn't set up in this build, and Settings shows nothing.
+/// secret: it is the "FlowApps Launcher Maintainer" OAuth App of reachneoagent-commits, with
+/// device flow on. A build can point at another app with `FLOWAPPS_LAUNCHER_GITHUB_CLIENT_ID`;
+/// set it empty to leave the Maintainer section out.
 pub const CLIENT_ID: &str = match option_env!("FLOWAPPS_LAUNCHER_GITHUB_CLIENT_ID") {
     Some(id) => id,
-    None => "",
+    None => "Ov23liRU7wiG9wvCthY9",
 };
 /// OAuth scope: running workflows and reading issues and pull requests of private repositories.
 /// Ignored when [`CLIENT_ID`] is a GitHub App, whose own permissions apply instead.
