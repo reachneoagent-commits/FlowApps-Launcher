@@ -663,6 +663,8 @@ struct DesktopHost {
     /// Settings asks once per app's package, and the macOS answer probes the disk. There are
     /// only a handful of distinct questions (format and architecture).
     default_folders: Vec<DefaultFolderAnswer>,
+    /// Settings → Maintainer.
+    maintainer: flowapps_launcher_native::maintainer::NativeMaintainer,
 }
 
 impl Host for DesktopHost {
@@ -690,6 +692,10 @@ impl Host for DesktopHost {
 
     fn has_tray(&self) -> bool {
         self.tray
+    }
+
+    fn maintainer(&mut self) -> Option<&mut dyn flowapps_launcher_core::maintainer::Maintainer> {
+        Some(&mut self.maintainer)
     }
 
     fn has_desktops(&self) -> bool {
@@ -772,7 +778,7 @@ impl Launcher {
             system_theme: system_theme::Monitor::default(),
             ui: LauncherUi::new(&windowless, backend, Settings::default()),
             tray: None,
-            host: DesktopHost { tray: false, quit: false, default_folders: Vec::new() },
+            host: DesktopHost { tray: false, quit: false, default_folders: Vec::new(), maintainer: flowapps_launcher_native::maintainer::NativeMaintainer::new() },
             starts,
             windowless,
             run_again,

@@ -604,7 +604,7 @@ pub fn is_unreachable(error: &str) -> bool {
 /// reader with `take` instead, one byte past the cap, and refuse an oversized answer outright —
 /// before it is parsed — instead of truncating it into something that merely fails to parse
 /// (CWE-409). Invalid UTF-8 stays an error, as before.
-fn read_text_capped(resp: &mut ureq::http::Response<ureq::Body>, max: u64) -> Result<String, String> {
+pub(crate) fn read_text_capped(resp: &mut ureq::http::Response<ureq::Body>, max: u64) -> Result<String, String> {
     let mut reader = resp.body_mut().with_config().reader().take(max.saturating_add(1));
     let mut text = String::new();
     reader.read_to_string(&mut text).map_err(|e| e.to_string())?;
