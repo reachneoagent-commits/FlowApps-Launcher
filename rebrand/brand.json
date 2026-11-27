@@ -1,0 +1,2653 @@
+{
+  "name": "FlowApps Launcher",
+  "bundle": "ai.reachneo.flowapps",
+  "repo": "reachneoagent-commits/FlowApps-Launcher",
+  "upstream_name": "ArtCraft Launcher",
+  "_comment": "Branding only. The crate, id and variable renames are 'tokens'; names, links and ids on single lines are 'edits'. The FlowApps catalog, Settings and other features are ordinary commits; see docs/UPSTREAM.md.",
+  "tokens": [
+    {
+      "find": "artcraft_launcher",
+      "replace": "flowapps_launcher",
+      "files": [
+        "*.rs",
+        "*.toml",
+        "*.sh",
+        "*.ps1",
+        "*.yml",
+        "*.html"
+      ],
+      "exclude": [
+        "crates/update/*",
+        "crates/i18n/*",
+        "*.tsv",
+        "*.po",
+        "*.lock",
+        "rebrand/*",
+        "README.md",
+        "docs/UPSTREAM.md"
+      ]
+    },
+    {
+      "find": "ARTCRAFT_LAUNCHER_",
+      "replace": "FLOWAPPS_LAUNCHER_",
+      "files": [
+        "*"
+      ],
+      "exclude": [
+        "crates/update/*",
+        "crates/i18n/*",
+        "*.tsv",
+        "*.po",
+        "*.lock",
+        "rebrand/*",
+        "README.md",
+        "docs/UPSTREAM.md"
+      ]
+    }
+  ],
+  "edits": [
+    {
+      "file": "Cargo.toml",
+      "find": "craft-update = { version = \"=0.1.0\", git = \"https://github.com/storytold/craft-libs\", rev = \"6e03f65bf45181db77ba6229716e6624db9eb25b\" }",
+      "replace": "craft-update = { path = \"crates/update\" }"
+    },
+    {
+      "file": "Cargo.toml",
+      "find": "repository = \"https://github.com/storytold/craft-launcher\"",
+      "replace": "repository = \"https://github.com/reachneoagent-commits/FlowApps-Launcher\""
+    },
+    {
+      "file": "Cargo.toml",
+      "find": "artcraft-launcher-ui-egui = { path = \"crates/ui-egui\" }",
+      "replace": "flowapps-launcher-ui-egui = { path = \"crates/ui-egui\" }"
+    },
+    {
+      "file": "Cargo.toml",
+      "find": "artcraft-launcher-native = { path = \"crates/native\" }",
+      "replace": "flowapps-launcher-native = { path = \"crates/native\" }"
+    },
+    {
+      "file": "Cargo.toml",
+      "find": "artcraft-launcher-core = { path = \"crates/core\" }",
+      "replace": "flowapps-launcher-core = { path = \"crates/core\" }"
+    },
+    {
+      "file": "apps/flowapps-launcher-web/Cargo.toml",
+      "find": "description = \"ArtCraft Launcher in the browser: the Craft App Suite's latest releases, with downloads for the visitor's system\"",
+      "replace": "description = \"FlowApps in the browser: the FlowApps suite's latest releases, with downloads for the visitor's system\""
+    },
+    {
+      "file": "apps/flowapps-launcher-web/Cargo.toml",
+      "find": "artcraft-launcher-ui-egui = { workspace = true }",
+      "replace": "flowapps-launcher-ui-egui = { workspace = true }"
+    },
+    {
+      "file": "apps/flowapps-launcher-web/Cargo.toml",
+      "find": "artcraft-launcher-core = { workspace = true }",
+      "replace": "flowapps-launcher-core = { workspace = true }"
+    },
+    {
+      "file": "apps/flowapps-launcher-web/Cargo.toml",
+      "find": "name = \"artcraft-launcher-web\"",
+      "replace": "name = \"flowapps-launcher-web\""
+    },
+    {
+      "file": "apps/flowapps-launcher-web/Trunk.toml",
+      "find": "# Build with: trunk build --release --cargo-profile wasm-release   (from apps/artcraft-launcher-web)",
+      "replace": "# Build with: trunk build --release --cargo-profile wasm-release   (from apps/flowapps-launcher-web)"
+    },
+    {
+      "file": "apps/flowapps-launcher-web/index.html",
+      "find": "<link data-trunk rel=\"rust\" data-bin=\"artcraft-launcher-web\" data-cargo-profile=\"wasm-release\" data-wasm-opt=\"z\" data-weak-refs />",
+      "replace": "<link data-trunk rel=\"rust\" data-bin=\"flowapps-launcher-web\" data-cargo-profile=\"wasm-release\" data-wasm-opt=\"z\" data-weak-refs />"
+    },
+    {
+      "file": "apps/flowapps-launcher-web/index.html",
+      "find": "<link data-trunk rel=\"icon\" href=\"../../assets/app-icon/hicolor/64x64/apps/ai.storyteller.artcraft-launcher.png\" />",
+      "replace": "<link data-trunk rel=\"icon\" href=\"../../assets/app-icon/hicolor/64x64/apps/ai.reachneo.flowapps.png\" />"
+    },
+    {
+      "file": "apps/flowapps-launcher-web/index.html",
+      "find": "<div id=\"launcher_loading\">Loading ArtCraft Launcher&hellip;</div>",
+      "replace": "<div id=\"launcher_loading\">Loading FlowApps&hellip;</div>"
+    },
+    {
+      "file": "apps/flowapps-launcher-web/index.html",
+      "find": "<title>ArtCraft Launcher</title>",
+      "replace": "<title>FlowApps</title>"
+    },
+    {
+      "file": "apps/flowapps-launcher-web/src/hosted_catalog.rs",
+      "find": "const CACHE_KEY: &str = \"artcraft-launcher.signed-catalog.v1\";",
+      "replace": "const CACHE_KEY: &str = \"flowapps-launcher.signed-catalog.v1\";"
+    },
+    {
+      "file": "apps/flowapps-launcher-web/src/main.rs",
+      "find": "eprintln!(\"artcraft-launcher-web is the browser build: run `trunk serve` in apps/artcraft-launcher-web.\");",
+      "replace": "eprintln!(\"flowapps-launcher-web is the browser build: run `trunk serve` in apps/flowapps-launcher-web.\");"
+    },
+    {
+      "file": "apps/flowapps-launcher-web/src/main.rs",
+      "find": "//! A browser can't install apps, so this build lists the Craft App Suite with each app's latest",
+      "replace": "//! A browser can't install apps, so this build lists the FlowApps suite with each app's latest"
+    },
+    {
+      "file": "apps/flowapps-launcher-web/src/main.rs",
+      "find": "//! ArtCraft Launcher in the browser.",
+      "replace": "//! FlowApps in the browser."
+    },
+    {
+      "file": "apps/flowapps-launcher-web/src/web.rs",
+      "find": "el.set_text_content(Some(i18n::tr(i18n::system_lang(), \"Loading ArtCraft Launcher…\")));",
+      "replace": "el.set_text_content(Some(i18n::tr(i18n::system_lang(), \"Loading FlowApps…\")));"
+    },
+    {
+      "file": "apps/flowapps-launcher-web/src/web.rs",
+      "find": "crate::hosted_catalog::refresh_once().await;",
+      "replace": "// FlowApps has no hosted catalog: the compiled app list is used."
+    },
+    {
+      "file": "apps/flowapps-launcher/Cargo.toml",
+      "find": "# Icon + VERSIONINFO for artcraft-launcher.exe; build.rs only uses it when targeting Windows.",
+      "replace": "# Icon + VERSIONINFO for flowapps-launcher.exe; build.rs only uses it when targeting Windows."
+    },
+    {
+      "file": "apps/flowapps-launcher/Cargo.toml",
+      "find": "description = \"ArtCraft Launcher: install, update and open the Craft App Suite\"",
+      "replace": "description = \"FlowApps: install, update and open the FlowApps suite\""
+    },
+    {
+      "file": "apps/flowapps-launcher/Cargo.toml",
+      "find": "local-mirror = [\"artcraft-launcher-native/local-mirror\"]",
+      "replace": "local-mirror = [\"flowapps-launcher-native/local-mirror\"]"
+    },
+    {
+      "file": "apps/flowapps-launcher/Cargo.toml",
+      "find": "artcraft-launcher-ui-egui = { workspace = true }",
+      "replace": "flowapps-launcher-ui-egui = { workspace = true }"
+    },
+    {
+      "file": "apps/flowapps-launcher/Cargo.toml",
+      "find": "artcraft-launcher-native = { workspace = true }",
+      "replace": "flowapps-launcher-native = { workspace = true }"
+    },
+    {
+      "file": "apps/flowapps-launcher/Cargo.toml",
+      "find": "artcraft-launcher-core = { workspace = true }",
+      "replace": "flowapps-launcher-core = { workspace = true }"
+    },
+    {
+      "file": "apps/flowapps-launcher/Cargo.toml",
+      "find": "default-run = \"artcraft-launcher\"",
+      "replace": "default-run = \"flowapps-launcher\""
+    },
+    {
+      "file": "apps/flowapps-launcher/Cargo.toml",
+      "find": "# artcraft-launcher-native.",
+      "replace": "# flowapps-launcher-native."
+    },
+    {
+      "file": "apps/flowapps-launcher/Cargo.toml",
+      "find": "name = \"artcraft-launcher\"",
+      "replace": "name = \"flowapps-launcher\""
+    },
+    {
+      "file": "apps/flowapps-launcher/src/logging.rs",
+      "find": "let d = std::env::temp_dir().join(format!(\"artcraft-launcher-logging-{tag}-{}-{}\", std::process::id(), N.fetch_add(1, Ordering::Relaxed)));",
+      "replace": "let d = std::env::temp_dir().join(format!(\"flowapps-launcher-logging-{tag}-{}-{}\", std::process::id(), N.fetch_add(1, Ordering::Relaxed)));"
+    },
+    {
+      "file": "apps/flowapps-launcher/src/logging.rs",
+      "find": "//! error and to `logs/artcraft-launcher.log` in the launcher's data folder (`Paths::logs`). Each",
+      "replace": "//! error and to `logs/flowapps-launcher.log` in the launcher's data folder (`Paths::logs`). Each"
+    },
+    {
+      "file": "apps/flowapps-launcher/src/logging.rs",
+      "find": "/// How many previous logs are kept (`artcraft-launcher.1.log` … `artcraft-launcher.<KEEP>.log`).",
+      "replace": "/// How many previous logs are kept (`flowapps-launcher.1.log` … `flowapps-launcher.<KEEP>.log`)."
+    },
+    {
+      "file": "apps/flowapps-launcher/src/logging.rs",
+      "find": "//! start moves the previous log to `artcraft-launcher.1.log` (and that one to `.2`), so the log",
+      "replace": "//! start moves the previous log to `flowapps-launcher.1.log` (and that one to `.2`), so the log"
+    },
+    {
+      "file": "apps/flowapps-launcher/src/logging.rs",
+      "find": "if n == 0 { dir.join(LOG_FILE) } else { dir.join(format!(\"artcraft-launcher.{n}.log\")) }",
+      "replace": "if n == 0 { dir.join(LOG_FILE) } else { dir.join(format!(\"flowapps-launcher.{n}.log\")) }"
+    },
+    {
+      "file": "apps/flowapps-launcher/src/logging.rs",
+      "find": "assert!(!dir.join(\"artcraft-launcher.3.log\").exists(), \"only {KEEP} old logs are kept\");",
+      "replace": "assert!(!dir.join(\"flowapps-launcher.3.log\").exists(), \"only {KEEP} old logs are kept\");"
+    },
+    {
+      "file": "apps/flowapps-launcher/src/logging.rs",
+      "find": "let _ = writeln!(std::io::stderr(), \"artcraft-launcher: {report}\");",
+      "replace": "let _ = writeln!(std::io::stderr(), \"flowapps-launcher: {report}\");"
+    },
+    {
+      "file": "apps/flowapps-launcher/src/logging.rs",
+      "find": "assert_eq!(read(&dir.join(\"artcraft-launcher.1.log\")), \"run 3\");",
+      "replace": "assert_eq!(read(&dir.join(\"flowapps-launcher.1.log\")), \"run 3\");"
+    },
+    {
+      "file": "apps/flowapps-launcher/src/logging.rs",
+      "find": "assert_eq!(read(&dir.join(\"artcraft-launcher.2.log\")), \"run 2\");",
+      "replace": "assert_eq!(read(&dir.join(\"flowapps-launcher.2.log\")), \"run 2\");"
+    },
+    {
+      "file": "apps/flowapps-launcher/src/logging.rs",
+      "find": "pub const LOG_FILE: &str = \"artcraft-launcher.log\";",
+      "replace": "pub const LOG_FILE: &str = \"flowapps-launcher.log\";"
+    },
+    {
+      "file": "apps/flowapps-launcher/src/main.rs",
+      "find": "eframe::icon_data::from_png_bytes(include_bytes!(\"../../../assets/app-icon/hicolor/256x256/apps/ai.storyteller.artcraft-launcher.png\")).ok();",
+      "replace": "eframe::icon_data::from_png_bytes(include_bytes!(\"../../../assets/app-icon/hicolor/256x256/apps/ai.reachneo.flowapps.png\")).ok();"
+    },
+    {
+      "file": "apps/flowapps-launcher/src/main.rs",
+      "find": "\"ArtCraft Launcher konnte sein Fenster auf Direct3D 12 nicht starten: The parameter is incorrect. (0x80070057)\"",
+      "replace": "\"FlowApps konnte sein Fenster auf Direct3D 12 nicht starten: The parameter is incorrect. (0x80070057)\""
+    },
+    {
+      "file": "apps/flowapps-launcher/src/main.rs",
+      "find": "Ok(path) => log::info!(\"ArtCraft Launcher {}, log file {}\", env!(\"CARGO_PKG_VERSION\"), path.display()),",
+      "replace": "Ok(path) => log::info!(\"FlowApps {}, log file {}\", env!(\"CARGO_PKG_VERSION\"), path.display()),"
+    },
+    {
+      "file": "apps/flowapps-launcher/src/main.rs",
+      "find": "\"ArtCraft Launcher couldn't start its window on Direct3D 12: The parameter is incorrect. (0x80070057)\"",
+      "replace": "\"FlowApps couldn't start its window on Direct3D 12: The parameter is incorrect. (0x80070057)\""
+    },
+    {
+      "file": "apps/flowapps-launcher/src/main.rs",
+      "find": "let dir = std::env::temp_dir().join(format!(\"artcraft-launcher-tray-nosave-{}\", std::process::id()));",
+      "replace": "let dir = std::env::temp_dir().join(format!(\"flowapps-launcher-tray-nosave-{}\", std::process::id()));"
+    },
+    {
+      "file": "apps/flowapps-launcher/src/main.rs",
+      "find": "let dir = std::env::temp_dir().join(format!(\"artcraft-launcher-tray-save-{}\", std::process::id()));",
+      "replace": "let dir = std::env::temp_dir().join(format!(\"flowapps-launcher-tray-save-{}\", std::process::id()));"
+    },
+    {
+      "file": "apps/flowapps-launcher/src/main.rs",
+      "find": "let english = format!(\"ArtCraft Launcher couldn't start its window on {backend}: {error}\");",
+      "replace": "let english = format!(\"FlowApps couldn't start its window on {backend}: {error}\");"
+    },
+    {
+      "file": "apps/flowapps-launcher/src/main.rs",
+      "find": "\"ArtCraft Launcher のウィンドウを OpenGL で起動できませんでした: The parameter is incorrect. (0x80070057)\"",
+      "replace": "\"FlowApps のウィンドウを OpenGL で起動できませんでした: The parameter is incorrect. (0x80070057)\""
+    },
+    {
+      "file": "apps/flowapps-launcher/src/main.rs",
+      "find": "// A default like `Program Files\\ArtCraft` is often created only by the first install:",
+      "replace": "// A default like `Program Files\\FlowApps` is often created only by the first install:"
+    },
+    {
+      "file": "apps/flowapps-launcher/src/main.rs",
+      "find": "/// often created only by the first install (`Program Files\\ArtCraft`).",
+      "replace": "/// often created only by the first install (`Program Files\\FlowApps`)."
+    },
+    {
+      "file": "apps/flowapps-launcher/src/main.rs",
+      "find": "//! ArtCraft Launcher: install, update and open the Craft App Suite.",
+      "replace": "//! FlowApps: install, update and open the FlowApps suite."
+    },
+    {
+      "file": "apps/flowapps-launcher/src/main.rs",
+      "find": "let missing = existing.join(\"artcraft-launcher-does-not-exist-yet\");",
+      "replace": "let missing = existing.join(\"flowapps-launcher-does-not-exist-yet\");"
+    },
+    {
+      "file": "apps/flowapps-launcher/src/main.rs",
+      "find": "println!(\"artcraft-launcher {}\", env!(\"CARGO_PKG_VERSION\"));",
+      "replace": "println!(\"flowapps-launcher {}\", env!(\"CARGO_PKG_VERSION\"));"
+    },
+    {
+      "file": "apps/flowapps-launcher/src/main.rs",
+      "find": "n.summary(&title).body(&body).appname(\"ArtCraft Launcher\");",
+      "replace": "n.summary(&title).body(&body).appname(\"FlowApps\");"
+    },
+    {
+      "file": "apps/flowapps-launcher/src/main.rs",
+      "find": "const APP_ID: &str = \"ai.storyteller.artcraft-launcher\";",
+      "replace": "const APP_ID: &str = \"ai.reachneo.flow-launcher\";"
+    },
+    {
+      "file": "apps/flowapps-launcher/src/main.rs",
+      "find": ".with_title(\"ArtCraft Launcher\")",
+      "replace": ".with_title(\"FlowApps\")"
+    },
+    {
+      "file": "apps/flowapps-launcher/src/main.rs",
+      "find": ".set_title(\"ArtCraft Launcher\")",
+      "replace": ".set_title(\"FlowApps\")"
+    },
+    {
+      "file": "apps/flowapps-launcher/src/main.rs",
+      "find": "\"ArtCraft Launcher\",",
+      "replace": "\"FlowApps\","
+    },
+    {
+      "file": "apps/flowapps-launcher/src/settings_file.rs",
+      "find": "/// Where the settings file is. In portable mode it is inside `ArtCraftLauncherData`, so a suite",
+      "replace": "/// Where the settings file is. In portable mode it is inside `FlowAppsLauncherData`, so a suite"
+    },
+    {
+      "file": "apps/flowapps-launcher/src/settings_file.rs",
+      "find": "let dir = std::env::temp_dir().join(format!(\"artcraft-launcher-{name}-{}\", std::process::id()));",
+      "replace": "let dir = std::env::temp_dir().join(format!(\"flowapps-launcher-{name}-{}\", std::process::id()));"
+    },
+    {
+      "file": "apps/flowapps-launcher/src/settings_file.rs",
+      "find": "let root = PathBuf::from(\"Suite\").join(\"ArtCraftLauncherData\");",
+      "replace": "let root = PathBuf::from(\"Suite\").join(\"FlowAppsLauncherData\");"
+    },
+    {
+      "file": "apps/flowapps-launcher/src/tray.rs",
+      "find": "if cfg!(any(target_os = \"macos\", target_os = \"windows\")) { builder } else { builder.with_id(\"artcraft-launcher\").with_title(\"ArtCraft Launcher\") }",
+      "replace": "if cfg!(any(target_os = \"macos\", target_os = \"windows\")) { builder } else { builder.with_id(\"flowapps-launcher\").with_title(\"FlowApps\") }"
+    },
+    {
+      "file": "apps/flowapps-launcher/src/tray.rs",
+      "find": "let icon = builder.with_menu_on_left_click(cfg!(target_os = \"macos\")).with_tooltip(\"ArtCraft Launcher\").build().map_err(|e| e.to_string())?;",
+      "replace": "let icon = builder.with_menu_on_left_click(cfg!(target_os = \"macos\")).with_tooltip(\"FlowApps\").build().map_err(|e| e.to_string())?;"
+    },
+    {
+      "file": "apps/flowapps-launcher/src/tray.rs",
+      "find": "menu.append_items(&[&show, &check, &PredefinedMenuItem::separator(), &website, &github, &discord, &PredefinedMenuItem::separator(), &quit])",
+      "replace": "menu.append_items(&[&show, &check, &PredefinedMenuItem::separator(), &github, &PredefinedMenuItem::separator(), &quit])"
+    },
+    {
+      "file": "apps/flowapps-launcher/src/tray.rs",
+      "find": "i18n::trn(lang, count as u64, \"ArtCraft Launcher · {n} update available\", \"ArtCraft Launcher · {n} updates available\")",
+      "replace": "i18n::trn(lang, count as u64, \"FlowApps · {n} update available\", \"FlowApps · {n} updates available\")"
+    },
+    {
+      "file": "apps/flowapps-launcher/src/tray.rs",
+      "find": "let ids = (show_id.clone(), check_id.clone(), quit_id.clone(), discord_id);",
+      "replace": "let ids = (show_id.clone(), check_id.clone(), quit_id.clone());"
+    },
+    {
+      "file": "apps/flowapps-launcher/src/tray.rs",
+      "find": "let show = MenuItem::new(i18n::t(\"Show ArtCraft Launcher\"), true, None);",
+      "replace": "let show = MenuItem::new(i18n::t(\"Show FlowApps\"), true, None);"
+    },
+    {
+      "file": "apps/flowapps-launcher/src/tray.rs",
+      "find": "include_bytes!(\"../../../docs/brand/artcraft-mark-black-44.png\")",
+      "replace": "include_bytes!(\"../../../assets/app-icons/flowapps-tray-20.png\")"
+    },
+    {
+      "file": "apps/flowapps-launcher/src/tray.rs",
+      "find": "include_bytes!(\"../../../docs/brand/artcraft-mark-64.png\")",
+      "replace": "include_bytes!(\"../../../assets/app-icons/flowapps-tray-16.png\")"
+    },
+    {
+      "file": "apps/flowapps-launcher/src/tray.rs",
+      "find": "assert_eq!(id.as_ref(), \"artcraft-launcher\");",
+      "replace": "assert_eq!(id.as_ref(), \"flowapps-launcher\");"
+    },
+    {
+      "file": "apps/flowapps-launcher/src/tray.rs",
+      "find": "(show, \"Show ArtCraft Launcher\"),",
+      "replace": "(show, \"Show FlowApps\"),"
+    },
+    {
+      "file": "apps/flowapps-launcher/src/tray.rs",
+      "find": "\"ArtCraft Launcher\".to_string()",
+      "replace": "\"FlowApps\".to_string()"
+    },
+    {
+      "file": "apps/flowapps-launcher/tests/arguments.rs",
+      "find": "const VERSION_LINE: &str = concat!(\"artcraft-launcher \", env!(\"CARGO_PKG_VERSION\"), \"\\n\");",
+      "replace": "const VERSION_LINE: &str = concat!(\"flowapps-launcher \", env!(\"CARGO_PKG_VERSION\"), \"\\n\");"
+    },
+    {
+      "file": "apps/flowapps-launcher/tests/arguments.rs",
+      "find": "Command::new(env!(\"CARGO_BIN_EXE_artcraft-launcher\"))",
+      "replace": "Command::new(env!(\"CARGO_BIN_EXE_flowapps-launcher\"))"
+    },
+    {
+      "file": "apps/flowapps-launcher/tests/update_helper.rs",
+      "find": "let mut helper = Command::new(env!(\"CARGO_BIN_EXE_artcraft-launcher\"))",
+      "replace": "let mut helper = Command::new(env!(\"CARGO_BIN_EXE_flowapps-launcher\"))"
+    },
+    {
+      "file": "apps/flowapps-launcher/tests/version_info.rs",
+      "find": "let exe = Path::new(env!(\"CARGO_BIN_EXE_artcraft-launcher\"));",
+      "replace": "let exe = Path::new(env!(\"CARGO_BIN_EXE_flowapps-launcher\"));"
+    },
+    {
+      "file": "assets/social/README.md",
+      "find": "Meta Platforms, Inc., Discord Inc. and LinkedIn Corporation). They are used only to link to ArtCraft's own accounts on those services.",
+      "replace": "Meta Platforms, Inc., Discord Inc. and LinkedIn Corporation). They are used only to link to FlowApps's own accounts on those services."
+    },
+    {
+      "file": "assets/social/README.md",
+      "find": "ArtCraft's website.",
+      "replace": "FlowApps's GitHub page."
+    },
+    {
+      "file": "crates/core/Cargo.toml",
+      "find": "description = \"ArtCraft Launcher core: the Craft App Suite catalog, versions, release parsing and asset choice (pure, wasm-safe)\"",
+      "replace": "description = \"FlowApps core: the FlowApps suite catalog, versions, release parsing and asset choice (pure, wasm-safe)\""
+    },
+    {
+      "file": "crates/core/Cargo.toml",
+      "find": "name = \"artcraft-launcher-core\"",
+      "replace": "name = \"flowapps-launcher-core\""
+    },
+    {
+      "file": "crates/core/src/catalog.rs",
+      "find": "/// The Apple Developer team that signs every official Craft App and ArtCraft Launcher (Learning",
+      "replace": "/// The Apple Developer team that signs every official Craft App and FlowApps (Learning"
+    },
+    {
+      "file": "crates/core/src/catalog.rs",
+      "find": "/// The GitHub account every official Craft App's repository lives under. The release feed can",
+      "replace": "/// The GitHub account every FlowApps repository lives under. The release feed can"
+    },
+    {
+      "file": "crates/core/src/catalog.rs",
+      "find": "self.site.map_or_else(|| format!(\"https://getartcraft.com/apps/{}\", self.id), str::to_string)",
+      "replace": "self.site.map_or_else(|| self.repo_url(), str::to_string)"
+    },
+    {
+      "file": "crates/core/src/catalog.rs",
+      "find": "//! The Craft App Suite: bundled data with a signed hosted startup snapshot.",
+      "replace": "//! The FlowApps suite: bundled data with a signed hosted startup snapshot."
+    },
+    {
+      "file": "crates/core/src/catalog.rs",
+      "find": "pub const LAUNCHER_REPO: &str = \"storytold/craft-launcher\";",
+      "replace": "pub const LAUNCHER_REPO: &str = \"reachneoagent-commits/FlowApps-Launcher\";"
+    },
+    {
+      "file": "crates/core/src/catalog.rs",
+      "find": "pub const WEBSITE_URL: &str = \"https://getartcraft.com\";",
+      "replace": "pub const WEBSITE_URL: &str = \"https://github.com/reachneoagent-commits\";"
+    },
+    {
+      "file": "crates/core/src/catalog.rs",
+      "find": "pub const LAUNCHER_ID: &str = \"artcraft-launcher\";",
+      "replace": "pub const LAUNCHER_ID: &str = \"flowapps-launcher\";"
+    },
+    {
+      "file": "crates/core/src/catalog.rs",
+      "find": "/// ArtCraft's website.",
+      "replace": "/// FlowApps on the web: our GitHub."
+    },
+    {
+      "file": "crates/core/src/details.rs",
+      "find": "pub const SCREENSHOTS_BASE: &str = \"https://raw.githubusercontent.com/storytold/craft-launcher-assets\";",
+      "replace": "pub const SCREENSHOTS_BASE: &str = \"https://raw.githubusercontent.com/reachneoagent-commits/FlowApps-Launcher\";"
+    },
+    {
+      "file": "crates/core/src/details.rs",
+      "find": "Some(\"https://raw.githubusercontent.com/storytold/craft-launcher-assets/v1/photocraft/demo.jpg\")",
+      "replace": "Some(\"https://raw.githubusercontent.com/reachneoagent-commits/FlowApps-Launcher/screenshots-v2/screenshots/mailflow/welcome.jpg\")"
+    },
+    {
+      "file": "crates/core/src/hosted_catalog.rs",
+      "find": "|| r.id == \"artcraft-launcher\"",
+      "replace": "|| r.id == \"flowapps-launcher\""
+    },
+    {
+      "file": "crates/core/src/lib.rs",
+      "find": "//! the Craft App Suite catalog, version handling, GitHub release parsing, choosing the right",
+      "replace": "//! the FlowApps suite catalog, version handling, GitHub release parsing, choosing the right"
+    },
+    {
+      "file": "crates/core/src/lib.rs",
+      "find": "//! ArtCraft Launcher core: everything that is pure data and logic.",
+      "replace": "//! FlowApps core: everything that is pure data and logic."
+    },
+    {
+      "file": "crates/core/src/protocol.rs",
+      "find": "/// Download the newer ArtCraft Launcher, put it in place and restart into it.",
+      "replace": "/// Download the newer FlowApps, put it in place and restart into it."
+    },
+    {
+      "file": "crates/core/src/protocol.rs",
+      "find": "/// The latest ArtCraft Launcher release, when it's newer than this one.",
+      "replace": "/// The latest FlowApps release, when it's newer than this one."
+    },
+    {
+      "file": "crates/core/src/protocol.rs",
+      "find": "Self::ArtCraftApi => \"ArtCraft API\",",
+      "replace": "Self::ReleaseFeed => \"Release feed\","
+    },
+    {
+      "file": "crates/core/src/protocol.rs",
+      "find": "Self::Feed => \"ArtCraft\",",
+      "replace": "Self::Feed => \"Release feed\","
+    },
+    {
+      "file": "crates/core/src/protocol.rs",
+      "find": "ArtCraftApi,",
+      "replace": "ReleaseFeed,"
+    },
+    {
+      "file": "crates/core/src/status.rs",
+      "find": "Self::Launcher => \"ArtCraft Launcher\",",
+      "replace": "Self::Launcher => \"FlowApps\","
+    },
+    {
+      "file": "crates/core/src/version.rs",
+      "find": "let t = t.strip_prefix(\"artcraft-v\").unwrap_or(t);",
+      "replace": "let t = t.strip_prefix(\"artcraft-v\").or_else(|| t.strip_prefix(\"app-v\")).unwrap_or(t);"
+    },
+    {
+      "file": "crates/core/tests/fixtures/hosted-catalog.toml",
+      "find": "# ArtCraft Launcher catalog, served at https://getartcraft.com/launcher-catalog.toml.",
+      "replace": "# FlowApps catalog, served at https://getartcraft.com/launcher-catalog.toml."
+    },
+    {
+      "file": "crates/native/Cargo.toml",
+      "find": "description = \"ArtCraft Launcher desktop backend: release lookups, detecting installed Craft Apps, installing and updating them\"",
+      "replace": "description = \"FlowApps desktop backend: release lookups, detecting installed Craft Apps, installing and updating them\""
+    },
+    {
+      "file": "crates/native/Cargo.toml",
+      "find": "artcraft-launcher-core = { workspace = true }",
+      "replace": "flowapps-launcher-core = { workspace = true }"
+    },
+    {
+      "file": "crates/native/Cargo.toml",
+      "find": "name = \"artcraft-launcher-native\"",
+      "replace": "name = \"flowapps-launcher-native\""
+    },
+    {
+      "file": "crates/native/src/backend.rs",
+      "find": "\"ArtCraft Launcher didn't restart to update: {names} {were} still installing. Answer or close any password prompt, \\",
+      "replace": "\"FlowApps didn't restart to update: {names} {were} still installing. Answer or close any password prompt, \\"
+    },
+    {
+      "file": "crates/native/src/backend.rs",
+      "find": "return (Some(found.map_or(LatestRelease::None, LatestRelease::Found)), Origin::ArtCraftApi, Some(Source::Feed));",
+      "replace": "return (Some(found.map_or(LatestRelease::None, LatestRelease::Found)), Origin::ReleaseFeed, Some(Source::Feed));"
+    },
+    {
+      "file": "crates/native/src/backend.rs",
+      "find": "let result = Err(\"ArtCraft Launcher is restarting to finish its update. Try again once it's back.\".into());",
+      "replace": "let result = Err(\"FlowApps is restarting to finish its update. Try again once it's back.\".into());"
+    },
+    {
+      "file": "crates/native/src/backend.rs",
+      "find": "result: Err(\"this copy of ArtCraft Launcher can't update itself; download the new version instead\".into()),",
+      "replace": "result: Err(\"this copy of FlowApps can't update itself; download the new version instead\".into()),"
+    },
+    {
+      "file": "crates/native/src/backend.rs",
+      "find": "Some(FeedAnswer::Fresh(Some(r))) => Some((LatestRelease::Found(r), Origin::ArtCraftApi)),",
+      "replace": "Some(FeedAnswer::Fresh(Some(r))) => Some((LatestRelease::Found(r), Origin::ReleaseFeed)),"
+    },
+    {
+      "file": "crates/native/src/backend.rs",
+      "find": "Some(FeedAnswer::Fresh(None)) => Some((LatestRelease::None, Origin::ArtCraftApi)),",
+      "replace": "Some(FeedAnswer::Fresh(None)) => Some((LatestRelease::None, Origin::ReleaseFeed)),"
+    },
+    {
+      "file": "crates/native/src/backend.rs",
+      "find": "/// The newer ArtCraft Launcher release, once a check has found one.",
+      "replace": "/// The newer FlowApps release, once a check has found one."
+    },
+    {
+      "file": "crates/native/src/backend.rs",
+      "find": "Paths::under(&std::env::temp_dir().join(\"artcraft-launcher\"))",
+      "replace": "Paths::under(&std::env::temp_dir().join(\"flowapps-launcher\"))"
+    },
+    {
+      "file": "crates/native/src/backend.rs",
+      "find": "(Some(latest), Origin::ArtCraftApi, Some(Source::Feed))",
+      "replace": "(Some(latest), Origin::ReleaseFeed, Some(Source::Feed))"
+    },
+    {
+      "file": "crates/native/src/desktop_entry.rs",
+      "find": "StartupWMClass=photocraft\\nX-ArtCraft-Launcher=true\\n\",",
+      "replace": "StartupWMClass=photocraft\\nX-FlowApps-Launcher=true\\n\","
+    },
+    {
+      "file": "crates/native/src/desktop_entry.rs",
+      "find": "pub const MARKER: &str = \"X-ArtCraft-Launcher=true\";",
+      "replace": "pub const MARKER: &str = \"X-FlowApps-Launcher=true\";"
+    },
+    {
+      "file": "crates/native/src/detect.rs",
+      "find": "let exes: Vec<PathBuf> = [&a, &b].iter().map(|r| r.join(\"ArtCraft\").join(\"DeckCraft\").join(\"deckcraft.exe\")).collect();",
+      "replace": "let exes: Vec<PathBuf> = [&a, &b].iter().map(|r| r.join(\"FlowApps\").join(\"DeckCraft\").join(\"deckcraft.exe\")).collect();"
+    },
+    {
+      "file": "crates/native/src/detect.rs",
+      "find": "[r\"SOFTWARE\\ArtCraft Launcher\".to_string(), format!(r\"SOFTWARE\\{LEARNING_MACHINES}\\ArtCraft Launcher\")]",
+      "replace": "[r\"SOFTWARE\\FlowApps\".to_string(), format!(r\"SOFTWARE\\{LEARNING_MACHINES}\\FlowApps\")]"
+    },
+    {
+      "file": "crates/native/src/detect.rs",
+      "find": "let want: Vec<PathBuf> = roots.iter().map(|root| root.join(\"ArtCraft\").join(\"Launcher\")).collect();",
+      "replace": "let want: Vec<PathBuf> = roots.iter().map(|root| root.join(\"FlowApps\").join(\"Launcher\")).collect();"
+    },
+    {
+      "file": "crates/native/src/detect.rs",
+      "find": "let new = PathBuf::from(r\"C:\\Users\\a\\AppData\\Local\\Programs\\ArtCraft\\DeckCraft\\deckcraft.exe\");",
+      "replace": "let new = PathBuf::from(r\"C:\\Users\\a\\AppData\\Local\\Programs\\FlowApps\\DeckCraft\\deckcraft.exe\");"
+    },
+    {
+      "file": "crates/native/src/detect.rs",
+      "find": "let mut dirs: Vec<PathBuf> = roots.iter().map(|root| root.join(\"ArtCraft\")).collect();",
+      "replace": "let mut dirs: Vec<PathBuf> = roots.iter().map(|root| root.join(\"FlowApps\")).collect();"
+    },
+    {
+      "file": "crates/native/src/detect.rs",
+      "find": "roots.iter().map(|root| root.join(\"ArtCraft\").join(\"Launcher\")).collect()",
+      "replace": "roots.iter().map(|root| root.join(\"FlowApps\").join(\"Launcher\")).collect()"
+    },
+    {
+      "file": "crates/native/src/detect.rs",
+      "find": "let folder = dir.path().join(\"ArtCraft\").join(\"DeckCraft\");",
+      "replace": "let folder = dir.path().join(\"FlowApps\").join(\"DeckCraft\");"
+    },
+    {
+      "file": "crates/native/src/detect.rs",
+      "find": "const PUBLISHER: &str = \"Learning Machines LLC\";",
+      "replace": "const PUBLISHER: &str = \"Reach Neo\";"
+    },
+    {
+      "file": "crates/native/src/http.rs",
+      "find": "/// Live: a real Craft App release asset (`cargo test -p artcraft-launcher-native -- --ignored`).",
+      "replace": "/// Live: a real Craft App release asset (`cargo test -p flowapps-launcher-native -- --ignored`)."
+    },
+    {
+      "file": "crates/native/src/http.rs",
+      "find": "const USER_AGENT: &str = concat!(\"ArtCraftLauncher/\", env!(\"CARGO_PKG_VERSION\"));",
+      "replace": "const USER_AGENT: &str = concat!(\"FlowAppsLauncher/\", env!(\"CARGO_PKG_VERSION\"));"
+    },
+    {
+      "file": "crates/native/src/install.rs",
+      "find": "Some(PathBuf::from(std::env::var_os(\"ProgramFiles(x86)\").or_else(|| std::env::var_os(\"ProgramFiles\"))?).join(\"ArtCraft\"))",
+      "replace": "Some(PathBuf::from(std::env::var_os(\"ProgramFiles(x86)\").or_else(|| std::env::var_os(\"ProgramFiles\"))?).join(\"FlowApps\"))"
+    },
+    {
+      "file": "crates/native/src/install.rs",
+      "find": "Err(\"ArtCraft Launcher has no macOS signing team recorded for this app, so it wasn't installed here\".into())",
+      "replace": "Err(\"FlowApps has no macOS signing team recorded for this app, so it wasn't installed here\".into())"
+    },
+    {
+      "file": "crates/native/src/install.rs",
+      "find": "assert_eq!(default_folder(PackageKind::Msi, Some(Arch::X64), &paths), Some(program_files.join(\"ArtCraft\")));",
+      "replace": "assert_eq!(default_folder(PackageKind::Msi, Some(Arch::X64), &paths), Some(program_files.join(\"FlowApps\")));"
+    },
+    {
+      "file": "crates/native/src/install.rs",
+      "find": "std::os::unix::fs::symlink(victim.path(), system.path().join(\".artcraft-launcher-write-test\")).unwrap();",
+      "replace": "std::os::unix::fs::symlink(victim.path(), system.path().join(\".flowapps-launcher-write-test\")).unwrap();"
+    },
+    {
+      "file": "crates/native/src/install.rs",
+      "find": "//!   `%LOCALAPPDATA%\\Programs\\ArtCraft\\<App>` by default. An update keeps the installed copy's folder",
+      "replace": "//!   `%LOCALAPPDATA%\\Programs\\FlowApps\\<App>` by default. An update keeps the installed copy's folder"
+    },
+    {
+      "file": "crates/native/src/install.rs",
+      "find": "return Err(format!(\"{} already exists and wasn't installed by ArtCraft Launcher\", dest.display()));",
+      "replace": "return Err(format!(\"{} already exists and wasn't installed by FlowApps\", dest.display()));"
+    },
+    {
+      "file": "crates/native/src/install.rs",
+      "find": "assert_eq!(default_folder(PackageKind::Msi, Some(Arch::X86), &paths), Some(x86.join(\"ArtCraft\")));",
+      "replace": "assert_eq!(default_folder(PackageKind::Msi, Some(Arch::X86), &paths), Some(x86.join(\"FlowApps\")));"
+    },
+    {
+      "file": "crates/native/src/install.rs",
+      "find": "let folder = Some(PathBuf::from(r\"C:\\Users\\a\\AppData\\Local\\Programs\\ArtCraft\\DeckCraft\"));",
+      "replace": "let folder = Some(PathBuf::from(r\"C:\\Users\\a\\AppData\\Local\\Programs\\FlowApps\\DeckCraft\"));"
+    },
+    {
+      "file": "crates/native/src/install.rs",
+      "find": "Some(_) => Some(PathBuf::from(std::env::var_os(\"ProgramFiles\")?).join(\"ArtCraft\")),",
+      "replace": "Some(_) => Some(PathBuf::from(std::env::var_os(\"ProgramFiles\")?).join(\"FlowApps\")),"
+    },
+    {
+      "file": "crates/native/src/install.rs",
+      "find": "fn the_default_folder_is_the_artcraft_suite_folder_in_program_files() {",
+      "replace": "fn the_default_folder_is_the_flowapps_suite_folder_in_program_files() {"
+    },
+    {
+      "file": "crates/native/src/install.rs",
+      "find": "/// artcraft-launcher-native -- --ignored a_real_craft_app`.",
+      "replace": "/// flowapps-launcher-native -- --ignored a_real_craft_app`."
+    },
+    {
+      "file": "crates/native/src/install.rs",
+      "find": "\".artcraft-launcher-write-test-{}-{}\",",
+      "replace": "\".flowapps-launcher-write-test-{}-{}\","
+    },
+    {
+      "file": "crates/native/src/install.rs",
+      "find": ".prefix(\".artcraft-launcher-backup-\")",
+      "replace": ".prefix(\".flowapps-launcher-backup-\")"
+    },
+    {
+      "file": "crates/native/src/install.rs",
+      "find": ".prefix(\".artcraft-launcher-\")",
+      "replace": ".prefix(\".flowapps-launcher-\")"
+    },
+    {
+      "file": "crates/native/src/install/msi_session.rs",
+      "find": "let exe = std::env::current_exe().unwrap_or_else(|_| PathBuf::from(\"artcraft-launcher.exe\"));",
+      "replace": "let exe = std::env::current_exe().unwrap_or_else(|_| PathBuf::from(\"flowapps-launcher.exe\"));"
+    },
+    {
+      "file": "crates/native/src/lib.rs",
+      "find": "//! ArtCraft Launcher's desktop backend.",
+      "replace": "//! FlowApps's desktop backend."
+    },
+    {
+      "file": "crates/native/src/login.rs",
+      "find": "\"[Desktop Entry]\\nType=Application\\nName=ArtCraft Launcher\\nComment=Install and update the Craft App Suite\\nExec=\\\"/usr/bin/artcraft-launcher\\\" --hidden\\nIcon=ai.storyteller.artcraft-launcher\\nTerminal=false\\nX-GNOME-Autostart-enabled=true\\n\"",
+      "replace": "\"[Desktop Entry]\\nType=Application\\nName=FlowApps\\nComment=Install and update the FlowApps suite\\nExec=\\\"/usr/bin/flowapps-launcher\\\" --hidden\\nIcon=ai.reachneo.flowapps\\nTerminal=false\\nX-GNOME-Autostart-enabled=true\\n\""
+    },
+    {
+      "file": "crates/native/src/login.rs",
+      "find": "\"[Desktop Entry]\\nType=Application\\nName=ArtCraft Launcher\\nComment=Install and update the Craft App Suite\\nExec={exec} {HIDDEN_FLAG}\\nIcon={ID}\\nTerminal=false\\nX-GNOME-Autostart-enabled=true\\n{extra}\"",
+      "replace": "\"[Desktop Entry]\\nType=Application\\nName=FlowApps\\nComment=Install and update the FlowApps suite\\nExec={exec} {HIDDEN_FLAG}\\nIcon={ID}\\nTerminal=false\\nX-GNOME-Autostart-enabled=true\\n{extra}\""
+    },
+    {
+      "file": "crates/native/src/login.rs",
+      "find": "assert_eq!(autostart_path(Some(ID), env(&vars), home), Some(PathBuf::from(\"/home/u/cfg/autostart/ai.storyteller.artcraft-launcher.desktop\")));",
+      "replace": "assert_eq!(autostart_path(Some(ID), env(&vars), home), Some(PathBuf::from(\"/home/u/cfg/autostart/ai.reachneo.flowapps.desktop\")));"
+    },
+    {
+      "file": "crates/native/src/login.rs",
+      "find": "assert_eq!(flatpak_app(true, Some(\"ai.storyteller.artcraft-launcher.Devel\")), Some(\"ai.storyteller.artcraft-launcher.Devel\"));",
+      "replace": "assert_eq!(flatpak_app(true, Some(\"ai.reachneo.flowapps.Devel\")), Some(\"ai.reachneo.flowapps.Devel\"));"
+    },
+    {
+      "file": "crates/native/src/login.rs",
+      "find": "assert_eq!(host, dirs::config_dir().map(|c| c.join(\"autostart\").join(\"ai.storyteller.artcraft-launcher.desktop\")));",
+      "replace": "assert_eq!(host, dirs::config_dir().map(|c| c.join(\"autostart\").join(\"ai.reachneo.flowapps.desktop\")));"
+    },
+    {
+      "file": "crates/native/src/login.rs",
+      "find": "let host_exec = entry.replace(\"Exec=flatpak run --command=artcraft-launcher\", \"Exec=/usr/bin/artcraft-launcher\");",
+      "replace": "let host_exec = entry.replace(\"Exec=flatpak run --command=flowapps-launcher\", \"Exec=/usr/bin/flowapps-launcher\");"
+    },
+    {
+      "file": "crates/native/src/login.rs",
+      "find": "assert_eq!(flatpak_id(Some(\"ai.storyteller.artcraft-launcher.Devel\")), \"ai.storyteller.artcraft-launcher.Devel\");",
+      "replace": "assert_eq!(flatpak_id(Some(\"ai.reachneo.flowapps.Devel\")), \"ai.reachneo.flowapps.Devel\");"
+    },
+    {
+      "file": "crates/native/src/login.rs",
+      "find": "key.set_value(\"ArtCraft Launcher\", &value).map_err(|e| format!(\"couldn't change the startup list ({e})\"))",
+      "replace": "key.set_value(\"FlowApps\", &value).map_err(|e| format!(\"couldn't change the startup list ({e})\"))"
+    },
+    {
+      "file": "crates/native/src/login.rs",
+      "find": "assert_eq!(exec, \"flatpak run --command=artcraft-launcher ai.storyteller.artcraft-launcher --hidden\");",
+      "replace": "assert_eq!(exec, \"flatpak run --command=flowapps-launcher ai.reachneo.flowapps --hidden\");"
+    },
+    {
+      "file": "crates/native/src/login.rs",
+      "find": "assert!(!is_flatpak_entry(&autostart_entry(Path::new(\"/usr/bin/artcraft-launcher\")).unwrap(), ID));",
+      "replace": "assert!(!is_flatpak_entry(&autostart_entry(Path::new(\"/usr/bin/flowapps-launcher\")).unwrap(), ID));"
+    },
+    {
+      "file": "crates/native/src/login.rs",
+      "find": "return windows_run().and_then(|k| k.get_value::<String, _>(\"ArtCraft Launcher\").ok()).is_some();",
+      "replace": "return windows_run().and_then(|k| k.get_value::<String, _>(\"FlowApps\").ok()).is_some();"
+    },
+    {
+      "file": "crates/native/src/login.rs",
+      "find": "Some(PathBuf::from(\"/home/u/.config/autostart/ai.storyteller.artcraft-launcher.Devel.desktop\"))",
+      "replace": "Some(PathBuf::from(\"/home/u/.config/autostart/ai.reachneo.flowapps.Devel.desktop\"))"
+    },
+    {
+      "file": "crates/native/src/login.rs",
+      "find": "const ENTRY: &str = \"/home/u/.config/autostart/ai.storyteller.artcraft-launcher.desktop\";",
+      "replace": "const ENTRY: &str = \"/home/u/.config/autostart/ai.reachneo.flowapps.desktop\";"
+    },
+    {
+      "file": "crates/native/src/login.rs",
+      "find": "\"Exec=flatpak run --command=artcraft-launcher ai.storyteller.artcraft-launcher --hidden\",",
+      "replace": "\"Exec=flatpak run --command=flowapps-launcher ai.reachneo.flowapps --hidden\","
+    },
+    {
+      "file": "crates/native/src/login.rs",
+      "find": "const SANDBOX_CONFIG: &str = \"/home/u/.var/app/ai.storyteller.artcraft-launcher/config\";",
+      "replace": "const SANDBOX_CONFIG: &str = \"/home/u/.var/app/ai.reachneo.flowapps/config\";"
+    },
+    {
+      "file": "crates/native/src/login.rs",
+      "find": "assert!(entry.contains(\"\\nX-Flatpak=ai.storyteller.artcraft-launcher\\n\"), \"{entry}\");",
+      "replace": "assert!(entry.contains(\"\\nX-Flatpak=ai.reachneo.flowapps\\n\"), \"{entry}\");"
+    },
+    {
+      "file": "crates/native/src/login.rs",
+      "find": "enable_at(&path, None, || Ok(PathBuf::from(\"/usr/bin/artcraft-launcher\"))).unwrap();",
+      "replace": "enable_at(&path, None, || Ok(PathBuf::from(\"/usr/bin/flowapps-launcher\"))).unwrap();"
+    },
+    {
+      "file": "crates/native/src/login.rs",
+      "find": "assert!(!is_flatpak_entry(&entry, \"ai.storyteller.artcraft-launcher.Devel\"));",
+      "replace": "assert!(!is_flatpak_entry(&entry, \"ai.reachneo.flowapps.Devel\"));"
+    },
+    {
+      "file": "crates/native/src/login.rs",
+      "find": "let entry = flatpak_autostart_entry(\"ai.storyteller.artcraft-launcher\");",
+      "replace": "let entry = flatpak_autostart_entry(\"ai.reachneo.flowapps\");"
+    },
+    {
+      "file": "crates/native/src/login.rs",
+      "find": "/// #1204: /app/bin/artcraft-launcher exists only inside the sandbox.",
+      "replace": "/// #1204: /app/bin/flowapps-launcher exists only inside the sandbox."
+    },
+    {
+      "file": "crates/native/src/login.rs",
+      "find": "autostart_entry(Path::new(\"/usr/bin/artcraft-launcher\")).as_deref(),",
+      "replace": "autostart_entry(Path::new(\"/usr/bin/flowapps-launcher\")).as_deref(),"
+    },
+    {
+      "file": "crates/native/src/login.rs",
+      "find": "autostart_entry(Path::new(\"/usr/bin/artcraft-launcher\")).unwrap(),",
+      "replace": "autostart_entry(Path::new(\"/usr/bin/flowapps-launcher\")).unwrap(),"
+    },
+    {
+      "file": "crates/native/src/login.rs",
+      "find": "let devel = \"ai.storyteller.artcraft-launcher.Devel\";",
+      "replace": "let devel = \"ai.reachneo.flowapps.Devel\";"
+    },
+    {
+      "file": "crates/native/src/login.rs",
+      "find": "const ID: &str = \"ai.storyteller.artcraft-launcher\";",
+      "replace": "const ID: &str = \"ai.reachneo.flowapps\";"
+    },
+    {
+      "file": "crates/native/src/login.rs",
+      "find": "const FLATPAK_COMMAND: &str = \"artcraft-launcher\";",
+      "replace": "const FLATPAK_COMMAND: &str = \"flowapps-launcher\";"
+    },
+    {
+      "file": "crates/native/src/login.rs",
+      "find": "match key.delete_value(\"ArtCraft Launcher\") {",
+      "replace": "match key.delete_value(\"FlowApps\") {"
+    },
+    {
+      "file": "crates/native/src/login.rs",
+      "find": "//! \"Start ArtCraft Launcher when I log in\".",
+      "replace": "//! \"Start FlowApps when I log in\"."
+    },
+    {
+      "file": "crates/native/src/paths.rs",
+      "find": "const DIR: &str = if cfg!(any(target_os = \"macos\", target_os = \"windows\")) { \"ArtCraft Launcher\" } else { \"artcraft-launcher\" };",
+      "replace": "const DIR: &str = if cfg!(any(target_os = \"macos\", target_os = \"windows\")) { \"FlowApps\" } else { \"flow-launcher\" };"
+    },
+    {
+      "file": "crates/native/src/paths.rs",
+      "find": "/// The launcher's own log files (`artcraft-launcher.log` and the previous runs').",
+      "replace": "/// The launcher's own log files (`flowapps-launcher.log` and the previous runs')."
+    },
+    {
+      "file": "crates/native/src/paths.rs",
+      "find": "dir.join(\"portable.txt\").is_file().then(|| dir.join(\"ArtCraftLauncherData\"))",
+      "replace": "dir.join(\"portable.txt\").is_file().then(|| dir.join(\"FlowAppsLauncherData\"))"
+    },
+    {
+      "file": "crates/native/src/paths.rs",
+      "find": "/// `ArtCraftLauncherData` next to it (the Windows portable zip ships one).",
+      "replace": "/// `FlowAppsLauncherData` next to it (the Windows portable zip ships one)."
+    },
+    {
+      "file": "crates/native/src/portable.rs",
+      "find": "let zip = archive(dir.path(), \"update.zip\", &[(\"launcher/artcraft-launcher.exe\", b\"new launcher\"), (\"launcher/README.md\", b\"new readme\")]);",
+      "replace": "let zip = archive(dir.path(), \"update.zip\", &[(\"launcher/flowapps-launcher.exe\", b\"new launcher\"), (\"launcher/README.md\", b\"new readme\")]);"
+    },
+    {
+      "file": "crates/native/src/portable.rs",
+      "find": "let error = unpack_over(&zip, &staging, &folder, std::ffi::OsStr::new(\"artcraft-launcher.exe\"), &|_| Ok(())).unwrap_err();",
+      "replace": "let error = unpack_over(&zip, &staging, &folder, std::ffi::OsStr::new(\"flowapps-launcher.exe\"), &|_| Ok(())).unwrap_err();"
+    },
+    {
+      "file": "crates/native/src/portable.rs",
+      "find": "assert_eq!(std::fs::read_to_string(staging.join(\"backup\").join(\"artcraft-launcher.exe\")).unwrap(), \"0.1.0\");",
+      "replace": "assert_eq!(std::fs::read_to_string(staging.join(\"backup\").join(\"flowapps-launcher.exe\")).unwrap(), \"0.1.0\");"
+    },
+    {
+      "file": "crates/native/src/portable.rs",
+      "find": "let error = unpack_over(&zip, &staging, &folder, std::ffi::OsStr::new(\"artcraft-launcher.exe\"), &|file| {",
+      "replace": "let error = unpack_over(&zip, &staging, &folder, std::ffi::OsStr::new(\"flowapps-launcher.exe\"), &|file| {"
+    },
+    {
+      "file": "crates/native/src/portable.rs",
+      "find": "std::fs::write(staging.join(\"backup\").join(\"artcraft-launcher.exe\"), \"0.1.0\").unwrap();",
+      "replace": "std::fs::write(staging.join(\"backup\").join(\"flowapps-launcher.exe\"), \"0.1.0\").unwrap();"
+    },
+    {
+      "file": "crates/native/src/portable.rs",
+      "find": "let zip = archive(dir.path(), \"update.zip\", &[(\"artcraft-launcher.exe\", b\"0.2.0\")]);",
+      "replace": "let zip = archive(dir.path(), \"update.zip\", &[(\"flowapps-launcher.exe\", b\"0.2.0\")]);"
+    },
+    {
+      "file": "crates/native/src/portable.rs",
+      "find": "assert!(!folder.join(\"artcraft-launcher.exe\").exists());",
+      "replace": "assert!(!folder.join(\"flowapps-launcher.exe\").exists());"
+    },
+    {
+      "file": "crates/native/src/portable.rs",
+      "find": "let folder = dir.path().join(\"ArtCraft Launcher\");",
+      "replace": "let folder = dir.path().join(\"FlowApps\");"
+    },
+    {
+      "file": "crates/native/src/portable.rs",
+      "find": "let exe = folder.join(\"artcraft-launcher.exe\");",
+      "replace": "let exe = folder.join(\"flowapps-launcher.exe\");"
+    },
+    {
+      "file": "crates/native/src/process.rs",
+      "find": "assert_eq!(args, [std::ffi::OsString::from(\"--env=CRAFT_VERSIONS_FILE=/home/ana/.local/share/artcraft-launcher/versions with space.json\")]);",
+      "replace": "assert_eq!(args, [std::ffi::OsString::from(\"--env=CRAFT_VERSIONS_FILE=/home/ana/.local/share/flowapps-launcher/versions with space.json\")]);"
+    },
+    {
+      "file": "crates/native/src/process.rs",
+      "find": "let arg = explorer_select_arg(Path::new(\"C:/Users/A B/AppData/Local/ArtCraft Launcher/apps/photocraft.exe\"));",
+      "replace": "let arg = explorer_select_arg(Path::new(\"C:/Users/A B/AppData/Local/FlowApps/apps/photocraft.exe\"));"
+    },
+    {
+      "file": "crates/native/src/process.rs",
+      "find": "assert_eq!(arg.unwrap(), r#\"/select,\"C:\\Users\\A B\\AppData\\Local\\ArtCraft Launcher\\apps\\photocraft.exe\"\"#);",
+      "replace": "assert_eq!(arg.unwrap(), r#\"/select,\"C:\\Users\\A B\\AppData\\Local\\FlowApps\\apps\\photocraft.exe\"\"#);"
+    },
+    {
+      "file": "crates/native/src/process.rs",
+      "find": "let path = std::ffi::OsStr::new(\"/home/ana/.local/share/artcraft-launcher/versions with space.json\");",
+      "replace": "let path = std::ffi::OsStr::new(\"/home/ana/.local/share/flowapps-launcher/versions with space.json\");"
+    },
+    {
+      "file": "crates/native/src/process.rs",
+      "find": "let root = format!(\"/tmp/artcraft-launcher-process-{}\", std::process::id());",
+      "replace": "let root = format!(\"/tmp/flowapps-launcher-process-{}\", std::process::id());"
+    },
+    {
+      "file": "crates/native/src/self_update.rs",
+      "find": "let update_http = craft_update::Http::new(\"ArtCraft-Launcher/SelfUpdate\")?;",
+      "replace": "let update_http = craft_update::Http::new(\"FlowApps/SelfUpdate\")?;"
+    },
+    {
+      "file": "crates/native/src/self_update.rs",
+      "find": "//! ArtCraft Launcher updating itself.",
+      "replace": "//! FlowApps updating itself."
+    },
+    {
+      "file": "crates/native/src/single_instance.rs",
+      "find": "dirs::data_local_dir()?.join(if cfg!(any(target_os = \"macos\", target_os = \"windows\")) { \"ArtCraft Launcher\" } else { \"artcraft-launcher\" });",
+      "replace": "dirs::data_local_dir()?.join(if cfg!(any(target_os = \"macos\", target_os = \"windows\")) { \"FlowApps\" } else { \"flowapps-launcher\" });"
+    },
+    {
+      "file": "crates/native/src/single_instance.rs",
+      "find": "log::warn!(\"whatever holds the launcher's port didn't prove it is ArtCraft Launcher and kept the port; starting anyway\");",
+      "replace": "log::warn!(\"whatever holds the launcher's port didn't prove it is FlowApps and kept the port; starting anyway\");"
+    },
+    {
+      "file": "crates/native/src/single_instance.rs",
+      "find": "log::warn!(\"something on the launcher's port didn't prove it is this account's ArtCraft Launcher; starting anyway\");",
+      "replace": "log::warn!(\"something on the launcher's port didn't prove it is this account's FlowApps; starting anyway\");"
+    },
+    {
+      "file": "crates/native/src/single_instance.rs",
+      "find": "assert_eq!(verdict(b\"artcraft-launcher:running 0.1.0\\n\", &v(\"0.1.2\"), false), Answer::TakeOver { proven: false });",
+      "replace": "assert_eq!(verdict(b\"flowapps-launcher:running 0.1.0\\n\", &v(\"0.1.2\"), false), Answer::TakeOver { proven: false });"
+    },
+    {
+      "file": "crates/native/src/single_instance.rs",
+      "find": "assert_eq!(verdict(b\"artcraft-launcher:running 0.1.0\\n\", &v(\"0.1.2\"), true), Answer::TakeOver { proven: true });",
+      "replace": "assert_eq!(verdict(b\"flowapps-launcher:running 0.1.0\\n\", &v(\"0.1.2\"), true), Answer::TakeOver { proven: true });"
+    },
+    {
+      "file": "crates/native/src/single_instance.rs",
+      "find": "assert_eq!(verdict(b\"artcraft-launcher:running 0.1.2\\n\", &v(\"0.1.2\"), false), Answer::Unrelated);",
+      "replace": "assert_eq!(verdict(b\"flowapps-launcher:running 0.1.2\\n\", &v(\"0.1.2\"), false), Answer::Unrelated);"
+    },
+    {
+      "file": "crates/native/src/single_instance.rs",
+      "find": "assert_eq!(verdict(b\"artcraft-launcher:running 9.9.9\\n\", &v(\"0.1.2\"), false), Answer::Unrelated);",
+      "replace": "assert_eq!(verdict(b\"flowapps-launcher:running 9.9.9\\n\", &v(\"0.1.2\"), false), Answer::Unrelated);"
+    },
+    {
+      "file": "crates/native/src/single_instance.rs",
+      "find": "log::warn!(\"an older ArtCraft Launcher is running and can't be asked to quit; starting anyway\");",
+      "replace": "log::warn!(\"an older FlowApps is running and can't be asked to quit; starting anyway\");"
+    },
+    {
+      "file": "crates/native/src/single_instance.rs",
+      "find": "assert_eq!(verdict(b\"artcraft-launcher:running unknown\\n\", &v(\"0.1.2\"), true), Answer::Defer);",
+      "replace": "assert_eq!(verdict(b\"flowapps-launcher:running unknown\\n\", &v(\"0.1.2\"), true), Answer::Defer);"
+    },
+    {
+      "file": "crates/native/src/single_instance.rs",
+      "find": "assert_eq!(verdict(b\"artcraft-launcher:running 0.1.2\\n\", &v(\"0.1.2\"), true), Answer::Defer);",
+      "replace": "assert_eq!(verdict(b\"flowapps-launcher:running 0.1.2\\n\", &v(\"0.1.2\"), true), Answer::Defer);"
+    },
+    {
+      "file": "crates/native/src/single_instance.rs",
+      "find": "let _ = stream.write_all(b\"artcraft-launcher:challenge fake-nonce forged-proof\\n\");",
+      "replace": "let _ = stream.write_all(b\"flowapps-launcher:challenge fake-nonce forged-proof\\n\");"
+    },
+    {
+      "file": "crates/native/src/single_instance.rs",
+      "find": "let _ = s.write_all(b\"artcraft-launcher:running 0.6.1\\n\");",
+      "replace": "let _ = s.write_all(b\"flowapps-launcher:running 0.6.1\\n\");"
+    },
+    {
+      "file": "crates/native/src/single_instance.rs",
+      "find": "let _ = s.write_all(b\"artcraft-launcher:running 9.9.9\\n\");",
+      "replace": "let _ = s.write_all(b\"flowapps-launcher:running 9.9.9\\n\");"
+    },
+    {
+      "file": "crates/native/src/single_instance.rs",
+      "find": "let _ = s.write_all(b\"artcraft-launcher:running 0.1.0\\n\");",
+      "replace": "let _ = s.write_all(b\"flowapps-launcher:running 0.1.0\\n\");"
+    },
+    {
+      "file": "crates/native/src/single_instance.rs",
+      "find": "const CHALLENGE: &str = \"artcraft-launcher:challenge \";",
+      "replace": "const CHALLENGE: &str = \"flowapps-launcher:challenge \";"
+    },
+    {
+      "file": "crates/native/src/single_instance.rs",
+      "find": "const RUNNING: &str = \"artcraft-launcher:running \";",
+      "replace": "const RUNNING: &str = \"flowapps-launcher:running \";"
+    },
+    {
+      "file": "crates/native/src/single_instance.rs",
+      "find": "const HELLO: &str = \"artcraft-launcher:hello \";",
+      "replace": "const HELLO: &str = \"flowapps-launcher:hello \";"
+    },
+    {
+      "file": "crates/native/src/single_instance.rs",
+      "find": "const SHOW: &[u8] = b\"artcraft-launcher:show\";",
+      "replace": "const SHOW: &[u8] = b\"flowapps-launcher:show\";"
+    },
+    {
+      "file": "crates/native/src/single_instance.rs",
+      "find": "const AUTH: &str = \"artcraft-launcher:auth \";",
+      "replace": "const AUTH: &str = \"flowapps-launcher:auth \";"
+    },
+    {
+      "file": "crates/native/src/single_instance.rs",
+      "find": "hasher.update(b\"artcraft-launcher:auth:v1:\");",
+      "replace": "hasher.update(b\"flowapps-launcher:auth:v1:\");"
+    },
+    {
+      "file": "crates/ui-egui/Cargo.toml",
+      "find": "description = \"ArtCraft Launcher's egui interface, shared by the desktop and web builds\"",
+      "replace": "description = \"FlowApps's egui interface, shared by the desktop and web builds\""
+    },
+    {
+      "file": "crates/ui-egui/Cargo.toml",
+      "find": "artcraft-launcher-core = { workspace = true }",
+      "replace": "flowapps-launcher-core = { workspace = true }"
+    },
+    {
+      "file": "crates/ui-egui/Cargo.toml",
+      "find": "name = \"artcraft-launcher-ui-egui\"",
+      "replace": "name = \"flowapps-launcher-ui-egui\""
+    },
+    {
+      "file": "crates/ui-egui/src/app.rs",
+      "find": "(true, true) => Some(crate::i18n::fmt(tl!(\"{a} and {b}\"), &[(\"a\", Origin::ArtCraftApi.label()), (\"b\", Origin::GitHub.label())])),",
+      "replace": "(true, true) => Some(crate::i18n::fmt(tl!(\"{a} and {b}\"), &[(\"a\", Origin::ReleaseFeed.label()), (\"b\", Origin::GitHub.label())])),"
+    },
+    {
+      "file": "crates/ui-egui/src/app.rs",
+      "find": "/// \"ArtCraft API\", \"GitHub\" or \"ArtCraft API and GitHub\": the services behind the releases on",
+      "replace": "/// \"Release feed\", \"GitHub\" or \"ArtCraft API and GitHub\": the services behind the releases on"
+    },
+    {
+      "file": "crates/ui-egui/src/app.rs",
+      "find": "let body: String = tl!(\"Open ArtCraft Launcher to update.\").to_string();",
+      "replace": "let body: String = tl!(\"Open FlowApps to update.\").to_string();"
+    },
+    {
+      "file": "crates/ui-egui/src/app.rs",
+      "find": "(true, false) => Some(Origin::ArtCraftApi.label().to_string()),",
+      "replace": "(true, false) => Some(Origin::ReleaseFeed.label().to_string()),"
+    },
+    {
+      "file": "crates/ui-egui/src/app.rs",
+      "find": "tl!(\"ArtCraft Launcher is still running\"),",
+      "replace": "tl!(\"FlowApps is still running\"),"
+    },
+    {
+      "file": "crates/ui-egui/src/app.rs",
+      "find": "Some(Origin::ArtCraftApi) => api = true,",
+      "replace": "Some(Origin::ReleaseFeed) => api = true,"
+    },
+    {
+      "file": "crates/ui-egui/src/dialogs.rs",
+      "find": "let title = fmt(tl!(\"ArtCraft Launcher {version} is available.\"), &[(\"version\", &r.version_label())]);",
+      "replace": "let title = fmt(tl!(\"FlowApps {version} is available.\"), &[(\"version\", &r.version_label())]);"
+    },
+    {
+      "file": "crates/ui-egui/src/i18n/mod.rs",
+      "find": "//! UI localisation for ArtCraft Launcher. Strings in code stay English and are the default",
+      "replace": "//! UI localisation for FlowApps. Strings in code stay English and are the default"
+    },
+    {
+      "file": "crates/ui-egui/src/i18n/tests.rs",
+      "find": "for name in [\"ArtCraft Launcher\", \"Craft App Suite\", \"Launcher\"] {",
+      "replace": "for name in [\"FlowApps\", \"FlowApps suite\", \"Launcher\"] {"
+    },
+    {
+      "file": "crates/ui-egui/src/i18n/tests.rs",
+      "find": "include_str!(\"../../../../apps/artcraft-launcher/src/tray.rs\"),",
+      "replace": "include_str!(\"../../../../apps/flowapps-launcher/src/tray.rs\"),"
+    },
+    {
+      "file": "crates/ui-egui/src/icons.rs",
+      "find": "/// The ArtCraft \"A\" mark in blue, as supplied: the launcher's app icon and getartcraft.com's favicon.",
+      "replace": "/// The FlowApps symbol, used in dialog headers."
+    },
+    {
+      "file": "crates/ui-egui/src/icons.rs",
+      "find": "/// The ArtCraft wordmark's width / height (its SVG view box: 1038.05 × 108).",
+      "replace": "/// The FlowApps symbol mark's width / height (its SVG view box: 63.4 × 42.91)."
+    },
+    {
+      "file": "crates/ui-egui/src/icons.rs",
+      "find": "egui::include_image!(\"../../../docs/brand/artcraft-mark.svg\")",
+      "replace": "egui::include_image!(\"../../../assets/flowapps-logo-only.svg\")"
+    },
+    {
+      "file": "crates/ui-egui/src/icons.rs",
+      "find": "pub const ARTCRAFT_LOGO_ASPECT: f32 = 1038.05 / 108.0;",
+      "replace": "pub const FLOWAPPS_LOGO_ASPECT: f32 = 63.4 / 42.91;"
+    },
+    {
+      "file": "crates/ui-egui/src/lib.rs",
+      "find": "//! ArtCraft Launcher's interface: the Craft App Suite as a grid of cards or a table, with",
+      "replace": "//! FlowApps's interface: the FlowApps suite as a grid of cards or a table, with"
+    },
+    {
+      "file": "crates/ui-egui/src/settings_dialog.rs",
+      "find": "if self.caps.manage_apps && widgets::button(ui, tl!(\"Quit ArtCraft Launcher\"), Kind::Secondary, 0.0).clicked() {",
+      "replace": "if self.caps.manage_apps && widgets::button(ui, tl!(\"Quit FlowApps\"), Kind::Secondary, 0.0).clicked() {"
+    },
+    {
+      "file": "crates/ui-egui/src/settings_dialog.rs",
+      "find": "ui.label(RichText::new(tl!(\"Questions, ideas and news from the ArtCraft team\")).color(t.muted));",
+      "replace": "ui.label(RichText::new(tl!(\"Questions, ideas and news from the FlowApps team\")).color(t.muted));"
+    },
+    {
+      "file": "crates/ui-egui/src/settings_dialog.rs",
+      "find": "let quit_width = widgets::button_width(ui, tl!(\"Quit ArtCraft Launcher\"), 0.0);",
+      "replace": "let quit_width = widgets::button_width(ui, tl!(\"Quit FlowApps\"), 0.0);"
+    },
+    {
+      "file": "crates/ui-egui/src/settings_dialog.rs",
+      "find": "&& ui.checkbox(&mut on, tl!(\"Start ArtCraft Launcher when I log in\")).changed()",
+      "replace": "&& ui.checkbox(&mut on, tl!(\"Start FlowApps when I log in\")).changed()"
+    },
+    {
+      "file": "crates/ui-egui/src/settings_dialog.rs",
+      "find": "&format!(\"ArtCraft Launcher {}\", env!(\"CARGO_PKG_VERSION\")),",
+      "replace": "&format!(\"FlowApps {}\", env!(\"CARGO_PKG_VERSION\")),"
+    },
+    {
+      "file": "crates/ui-egui/src/versions.rs",
+      "find": ".then(|| crate::fmt(tl!(\"ArtCraft Launcher can't install version {version} over this copy.\"), &[(\"version\", tag)]))",
+      "replace": ".then(|| crate::fmt(tl!(\"FlowApps can't install version {version} over this copy.\"), &[(\"version\", tag)]))"
+    },
+    {
+      "file": "crates/ui-egui/src/views.rs",
+      "find": "egui::Image::new(crate::icons::artcraft_logo(t.dark)).alt_text(tl!(\"ArtCraft\")).paint_at(ui, Rect::from_center_size(cell.center(), logo));",
+      "replace": "egui::Image::new(crate::icons::flowapps_logo(t.dark)).alt_text(tl!(\"FlowApps\")).paint_at(ui, Rect::from_center_size(cell.center(), logo));"
+    },
+    {
+      "file": "crates/ui-egui/src/views.rs",
+      "find": "Some(fmt(tl!(\"{latest} is out, but ArtCraft Launcher can't install it over this copy.\"), &[(\"latest\", &newer?)]))",
+      "replace": "Some(fmt(tl!(\"{latest} is out, but FlowApps can't install it over this copy.\"), &[(\"latest\", &newer?)]))"
+    },
+    {
+      "file": "crates/ui-egui/src/views.rs",
+      "find": "RichText::new(fmt(tl!(\"ArtCraft Launcher {version} is available.\"), &[(\"version\", &r.version_label())]))",
+      "replace": "RichText::new(fmt(tl!(\"FlowApps {version} is available.\"), &[(\"version\", &r.version_label())]))"
+    },
+    {
+      "file": "crates/ui-egui/src/views.rs",
+      "find": "/// A banner over the toolbar when a newer ArtCraft Launcher release is known: either the",
+      "replace": "/// A banner over the toolbar when a newer FlowApps release is known: either the"
+    },
+    {
+      "file": "crates/ui-egui/src/views.rs",
+      "find": "// Every link is an icon, reading Website, GitHub, Discord, then the social accounts.",
+      "replace": "use flowapps_launcher_core::catalog::{GITHUB_URL, SOCIAL};"
+    },
+    {
+      "file": "crates/ui-egui/src/views.rs",
+      "find": "use flowapps_launcher_core::catalog::{GITHUB_URL, SOCIAL, WEBSITE_URL};",
+      "replace": "// Every link is an icon: GitHub, then the social accounts."
+    },
+    {
+      "file": "crates/ui-egui/src/views.rs",
+      "find": "let logo = vec2(14.0 * crate::icons::ARTCRAFT_LOGO_ASPECT, 14.0);",
+      "replace": "let logo = vec2(14.0 * crate::icons::FLOWAPPS_LOGO_ASPECT, 14.0);"
+    },
+    {
+      "file": "crates/ui-egui/src/views.rs",
+      "find": "// The ArtCraft wordmark exactly as supplied, in its own cell.",
+      "replace": "// The FlowApps wordmark exactly as supplied, in its own cell."
+    },
+    {
+      "file": "crates/ui-egui/src/views.rs",
+      "find": "tip: fmt(tl!(\"ArtCraft on {name}\"), &[(\"name\", name)]),",
+      "replace": "tip: fmt(tl!(\"FlowApps on {name}\"), &[(\"name\", name)]),"
+    },
+    {
+      "file": "crates/ui-egui/src/views.rs",
+      "find": "name: \"ArtCraft Launcher v0.4.1\".into(),",
+      "replace": "name: \"FlowApps v0.4.1\".into(),"
+    },
+    {
+      "file": "crates/ui-egui/src/widgets.rs",
+      "find": ".map(|(name, url)| IconLink { name, label: (*name).to_string(), tip: crate::i18n::fmt(tl!(\"ArtCraft on {name}\"), &[(\"name\", name)]), url })",
+      "replace": ".map(|(name, url)| IconLink { name, label: (*name).to_string(), tip: crate::i18n::fmt(tl!(\"FlowApps on {name}\"), &[(\"name\", name)]), url })"
+    },
+    {
+      "file": "crates/ui-egui/tests/chinese.rs",
+      "find": "ev.push(Event::Latest { app: \"soundcraft\".into(), latest: LatestRelease::None, from: Origin::ArtCraftApi });",
+      "replace": "ev.push(Event::Latest { app: \"soundcraft\".into(), latest: LatestRelease::None, from: Origin::ReleaseFeed });"
+    },
+    {
+      "file": "crates/ui-egui/tests/chinese.rs",
+      "find": "from: Origin::ArtCraftApi,",
+      "replace": "from: Origin::ReleaseFeed,"
+    },
+    {
+      "file": "crates/ui-egui/tests/french.rs",
+      "find": "ev.push(Event::Latest { app: app.id.into(), latest, from: Origin::ArtCraftApi });",
+      "replace": "ev.push(Event::Latest { app: app.id.into(), latest, from: Origin::ReleaseFeed });"
+    },
+    {
+      "file": "crates/ui-egui/tests/french.rs",
+      "find": "h.get_by_label(\"Craft App Suite\");",
+      "replace": "h.get_by_label(\"FlowApps suite\");"
+    },
+    {
+      "file": "crates/ui-egui/tests/georgian.rs",
+      "find": "ev.push(Event::Latest { app: \"soundcraft\".into(), latest: LatestRelease::None, from: Origin::ArtCraftApi });",
+      "replace": "ev.push(Event::Latest { app: \"soundcraft\".into(), latest: LatestRelease::None, from: Origin::ReleaseFeed });"
+    },
+    {
+      "file": "crates/ui-egui/tests/georgian.rs",
+      "find": "from: Origin::ArtCraftApi,",
+      "replace": "from: Origin::ReleaseFeed,"
+    },
+    {
+      "file": "crates/ui-egui/tests/german.rs",
+      "find": "ev.push(Event::Latest { app: \"soundcraft\".into(), latest: LatestRelease::None, from: Origin::ArtCraftApi });",
+      "replace": "ev.push(Event::Latest { app: \"soundcraft\".into(), latest: LatestRelease::None, from: Origin::ReleaseFeed });"
+    },
+    {
+      "file": "crates/ui-egui/tests/german.rs",
+      "find": "assert!(!rect.intersects(text.rect()), \"{width}: Craft App Suite overlaps {label} {rect:?}\");",
+      "replace": "assert!(!rect.intersects(text.rect()), \"{width}: FlowApps suite overlaps {label} {rect:?}\");"
+    },
+    {
+      "file": "crates/ui-egui/tests/german.rs",
+      "find": "if let Some(text) = web.query_by_label(\"Craft App Suite\") {",
+      "replace": "if let Some(text) = web.query_by_label(\"FlowApps suite\") {"
+    },
+    {
+      "file": "crates/ui-egui/tests/german.rs",
+      "find": "from: Origin::ArtCraftApi,",
+      "replace": "from: Origin::ReleaseFeed,"
+    },
+    {
+      "file": "crates/ui-egui/tests/hungarian.rs",
+      "find": "ev.push(Event::Latest { app: app.id.into(), latest, from: Origin::ArtCraftApi });",
+      "replace": "ev.push(Event::Latest { app: app.id.into(), latest, from: Origin::ReleaseFeed });"
+    },
+    {
+      "file": "crates/ui-egui/tests/hungarian.rs",
+      "find": "let quit = h.get_by_label(\"Kilépés az ArtCraft Launcherből\").rect();",
+      "replace": "let quit = h.get_by_label(\"Kilépés az FlowAppsből\").rect();"
+    },
+    {
+      "file": "crates/ui-egui/tests/hungarian.rs",
+      "find": "h.get_by_label(\"Craft App Suite\");",
+      "replace": "h.get_by_label(\"FlowApps suite\");"
+    },
+    {
+      "file": "crates/ui-egui/tests/japanese.rs",
+      "find": "ev.push(Event::Latest { app: \"soundcraft\".into(), latest: LatestRelease::None, from: Origin::ArtCraftApi });",
+      "replace": "ev.push(Event::Latest { app: \"soundcraft\".into(), latest: LatestRelease::None, from: Origin::ReleaseFeed });"
+    },
+    {
+      "file": "crates/ui-egui/tests/japanese.rs",
+      "find": "from: Origin::ArtCraftApi,",
+      "replace": "from: Origin::ReleaseFeed,"
+    },
+    {
+      "file": "crates/ui-egui/tests/polish.rs",
+      "find": "ev.push(Event::Latest { app: app.id.into(), latest, from: Origin::ArtCraftApi });",
+      "replace": "ev.push(Event::Latest { app: app.id.into(), latest, from: Origin::ReleaseFeed });"
+    },
+    {
+      "file": "crates/ui-egui/tests/polish.rs",
+      "find": "h.get_by_label(\"Craft App Suite\");",
+      "replace": "h.get_by_label(\"FlowApps suite\");"
+    },
+    {
+      "file": "crates/ui-egui/tests/portuguese.rs",
+      "find": "ev.push(Event::Latest { app: app.id.into(), latest, from: Origin::ArtCraftApi });",
+      "replace": "ev.push(Event::Latest { app: app.id.into(), latest, from: Origin::ReleaseFeed });"
+    },
+    {
+      "file": "crates/ui-egui/tests/portuguese.rs",
+      "find": "h.get_by_label(\"Craft App Suite\");",
+      "replace": "h.get_by_label(\"FlowApps suite\");"
+    },
+    {
+      "file": "crates/ui-egui/tests/russian.rs",
+      "find": "ev.push(Event::Latest { app: app.id.into(), latest, from: Origin::ArtCraftApi });",
+      "replace": "ev.push(Event::Latest { app: app.id.into(), latest, from: Origin::ReleaseFeed });"
+    },
+    {
+      "file": "crates/ui-egui/tests/russian.rs",
+      "find": "h.get_by_label(\"Craft App Suite\");",
+      "replace": "h.get_by_label(\"FlowApps suite\");"
+    },
+    {
+      "file": "crates/ui-egui/tests/spanish.rs",
+      "find": "ev.push(Event::Latest { app: app.id.into(), latest, from: Origin::ArtCraftApi });",
+      "replace": "ev.push(Event::Latest { app: app.id.into(), latest, from: Origin::ReleaseFeed });"
+    },
+    {
+      "file": "crates/ui-egui/tests/spanish.rs",
+      "find": "h.get_by_label(\"Craft App Suite\");",
+      "replace": "h.get_by_label(\"FlowApps suite\");"
+    },
+    {
+      "file": "crates/ui-egui/tests/traditional_chinese.rs",
+      "find": "ev.push(Event::Latest { app: \"soundcraft\".into(), latest: LatestRelease::None, from: Origin::ArtCraftApi });",
+      "replace": "ev.push(Event::Latest { app: \"soundcraft\".into(), latest: LatestRelease::None, from: Origin::ReleaseFeed });"
+    },
+    {
+      "file": "crates/ui-egui/tests/traditional_chinese.rs",
+      "find": "from: Origin::ArtCraftApi,",
+      "replace": "from: Origin::ReleaseFeed,"
+    },
+    {
+      "file": "crates/ui-egui/tests/ui.rs",
+      "find": "let mut ev = vec![Event::Latest { app: \"photocraft\".into(), latest: LatestRelease::Found(tarball), from: Origin::ArtCraftApi }];",
+      "replace": "let mut ev = vec![Event::Latest { app: \"photocraft\".into(), latest: LatestRelease::Found(tarball), from: Origin::ReleaseFeed }];"
+    },
+    {
+      "file": "crates/ui-egui/tests/ui.rs",
+      "find": ".push(Event::Progress { app: \"artcraft-launcher\".into(), phase: JobPhase::Downloading { done: 5 << 20, total: 10 << 20 } });",
+      "replace": ".push(Event::Progress { app: \"flowapps-launcher\".into(), phase: JobPhase::Downloading { done: 5 << 20, total: 10 << 20 } });"
+    },
+    {
+      "file": "crates/ui-egui/tests/ui.rs",
+      "find": "let on_windows = release_with(\"artcraft-launcher\", \"0.9.0\", &[(\"windows-x64.msi\", 120), (\"windows-x64-portable.zip\", 90)]);",
+      "replace": "let on_windows = release_with(\"flowapps-launcher\", \"0.9.0\", &[(\"windows-x64.msi\", 120), (\"windows-x64-portable.zip\", 90)]);"
+    },
+    {
+      "file": "crates/ui-egui/tests/ui.rs",
+      "find": "let on_linux = release_with(\"artcraft-launcher\", \"0.9.0\", &[(\"linux-x86_64.AppImage\", 150), (\"linux-x86_64.deb\", 100)]);",
+      "replace": "let on_linux = release_with(\"flowapps-launcher\", \"0.9.0\", &[(\"linux-x86_64.AppImage\", 150), (\"linux-x86_64.deb\", 100)]);"
+    },
+    {
+      "file": "crates/ui-egui/tests/ui.rs",
+      "find": "ev.push(Event::Latest { app: \"soundcraft\".into(), latest: LatestRelease::None, from: Origin::ArtCraftApi });",
+      "replace": "ev.push(Event::Latest { app: \"soundcraft\".into(), latest: LatestRelease::None, from: Origin::ReleaseFeed });"
+    },
+    {
+      "file": "crates/ui-egui/tests/ui.rs",
+      "find": "Event::Latest { app: \"photocraft\".into(), latest: LatestRelease::Found(r), from: Origin::ArtCraftApi },",
+      "replace": "Event::Latest { app: \"photocraft\".into(), latest: LatestRelease::Found(r), from: Origin::ReleaseFeed },"
+    },
+    {
+      "file": "crates/ui-egui/tests/ui.rs",
+      "find": "const OUT_OF_REACH_TIP: &str = \"0.5.0 is out, but ArtCraft Launcher can't install it over this copy.\";",
+      "replace": "const OUT_OF_REACH_TIP: &str = \"0.5.0 is out, but FlowApps can't install it over this copy.\";"
+    },
+    {
+      "file": "crates/ui-egui/tests/ui.rs",
+      "find": "assert!(!rect.intersects(text.rect()), \"{bar:?} {width}: Craft App Suite overlaps {label} {rect:?}\");",
+      "replace": "assert!(!rect.intersects(text.rect()), \"{bar:?} {width}: FlowApps suite overlaps {label} {rect:?}\");"
+    },
+    {
+      "file": "crates/ui-egui/tests/ui.rs",
+      "find": "h.get_by_role_and_label(egui::accesskit::Role::Label, \"ArtCraft Launcher 0.2.0 is available.\");",
+      "replace": "h.get_by_role_and_label(egui::accesskit::Role::Label, \"FlowApps 0.2.0 is available.\");"
+    },
+    {
+      "file": "crates/ui-egui/tests/ui.rs",
+      "find": "ev.push(Event::Progress { app: \"artcraft-launcher\".into(), phase: JobPhase::Waiting });",
+      "replace": "ev.push(Event::Progress { app: \"flowapps-launcher\".into(), phase: JobPhase::Waiting });"
+    },
+    {
+      "file": "crates/ui-egui/tests/ui.rs",
+      "find": "assert_eq!(*sent.borrow(), [Command::Cancel { app: \"artcraft-launcher\".into() }]);",
+      "replace": "assert_eq!(*sent.borrow(), [Command::Cancel { app: \"flowapps-launcher\".into() }]);"
+    },
+    {
+      "file": "crates/ui-egui/tests/ui.rs",
+      "find": "events.push(Event::LauncherUpdate(release(\"artcraft-launcher\", \"0.2.0\", NOW)));",
+      "replace": "events.push(Event::LauncherUpdate(release(\"flowapps-launcher\", \"0.2.0\", NOW)));"
+    },
+    {
+      "file": "crates/ui-egui/tests/ui.rs",
+      "find": "h.query_all_by_label_contains(\"ArtCraft Launcher 0.2.0 is available\").count(),",
+      "replace": "h.query_all_by_label_contains(\"FlowApps 0.2.0 is available\").count(),"
+    },
+    {
+      "file": "crates/ui-egui/tests/ui.rs",
+      "find": "ev.push(Event::LauncherUpdate(release(\"artcraft-launcher\", \"0.2.0\", NOW)));",
+      "replace": "ev.push(Event::LauncherUpdate(release(\"flowapps-launcher\", \"0.2.0\", NOW)));"
+    },
+    {
+      "file": "crates/ui-egui/tests/ui.rs",
+      "find": "let mut launcher_release = release(\"artcraft-launcher\", \"0.2.0\", NOW);",
+      "replace": "let mut launcher_release = release(\"flowapps-launcher\", \"0.2.0\", NOW);"
+    },
+    {
+      "file": "crates/ui-egui/tests/ui.rs",
+      "find": "let mut r = release(\"artcraft-launcher\", &format!(\"0.{v}.0\"), NOW);",
+      "replace": "let mut r = release(\"flowapps-launcher\", &format!(\"0.{v}.0\"), NOW);"
+    },
+    {
+      "file": "crates/ui-egui/tests/ui.rs",
+      "find": "assert_eq!(host.0[0].0, \"ArtCraft Launcher is still running\");",
+      "replace": "assert_eq!(host.0[0].0, \"FlowApps is still running\");"
+    },
+    {
+      "file": "crates/ui-egui/tests/ui.rs",
+      "find": "if let Some(text) = h.query_by_label(\"Craft App Suite\") {",
+      "replace": "if let Some(text) = h.query_by_label(\"FlowApps suite\") {"
+    },
+    {
+      "file": "crates/ui-egui/tests/ui.rs",
+      "find": "let mut r = release(\"artcraft-launcher\", \"0.9.0\", NOW);",
+      "replace": "let mut r = release(\"flowapps-launcher\", \"0.9.0\", NOW);"
+    },
+    {
+      "file": "crates/ui-egui/tests/ui.rs",
+      "find": "ev.push(finished(\"artcraft-launcher\", CANCELLED));",
+      "replace": "ev.push(finished(\"flowapps-launcher\", CANCELLED));"
+    },
+    {
+      "file": "crates/ui-egui/tests/ui.rs",
+      "find": "h.get_by_label(\"Craft App Suite\");",
+      "replace": "h.get_by_label(\"FlowApps suite\");"
+    },
+    {
+      "file": "crates/ui-egui/tests/ui.rs",
+      "find": "from: Origin::ArtCraftApi,",
+      "replace": "from: Origin::ReleaseFeed,"
+    },
+    {
+      "file": "flake.nix",
+      "find": "program = \"${self.packages.${system}.default}/bin/artcraft-launcher\";",
+      "replace": "program = \"${self.packages.${system}.default}/bin/flowapps-launcher\";"
+    },
+    {
+      "file": "flake.nix",
+      "find": "description = \"Experimental Nix flake for ArtCraft Launcher\";",
+      "replace": "description = \"Experimental Nix flake for FlowApps\";"
+    },
+    {
+      "file": "flake.nix",
+      "find": "pname = \"artcraft-launcher\";",
+      "replace": "pname = \"flowapps-launcher\";"
+    },
+    {
+      "file": "packaging/freebsd/package.sh",
+      "find": "#   tar -xzf artcraft-launcher-<version>-freebsd-x86_64.tar.gz --strip-components 1 -C /usr/local",
+      "replace": "#   tar -xzf flowapps-launcher-<version>-freebsd-x86_64.tar.gz --strip-components 1 -C /usr/local"
+    },
+    {
+      "file": "packaging/freebsd/package.sh",
+      "find": "#       artcraft-launcher-<version>-freebsd-x86_64/{bin, share/applications, share/icons,",
+      "replace": "#       flowapps-launcher-<version>-freebsd-x86_64/{bin, share/applications, share/icons,"
+    },
+    {
+      "file": "packaging/freebsd/package.sh",
+      "find": "#   $DIST/artcraft-launcher-<version>-freebsd-x86_64.tar.gz   a /usr/local-style tree:",
+      "replace": "#   $DIST/flowapps-launcher-<version>-freebsd-x86_64.tar.gz   a /usr/local-style tree:"
+    },
+    {
+      "file": "packaging/freebsd/package.sh",
+      "find": "echo \"==> ArtCraft Launcher $VERSION for FreeBSD $ARCH\"",
+      "replace": "echo \"==> FlowApps $VERSION for FreeBSD $ARCH\""
+    },
+    {
+      "file": "packaging/freebsd/package.sh",
+      "find": "#       share/metainfo, share/doc/artcraft-launcher}",
+      "replace": "#       share/metainfo, share/doc/flowapps-launcher}"
+    },
+    {
+      "file": "packaging/freebsd/package.sh",
+      "find": "# Build and package ArtCraft Launcher for FreeBSD:",
+      "replace": "# Build and package FlowApps for FreeBSD:"
+    },
+    {
+      "file": "packaging/freebsd/package.sh",
+      "find": "APP_ID=ai.storyteller.artcraft-launcher",
+      "replace": "APP_ID=ai.reachneo.flowapps"
+    },
+    {
+      "file": "packaging/freebsd/package.sh",
+      "find": "PKG=artcraft-launcher",
+      "replace": "PKG=flowapps-launcher"
+    },
+    {
+      "file": "packaging/linux/AppRun",
+      "find": "old_body=\"$(printf '%s\\n' \"$expected_body\" | sed 's/^StartupWMClass=.*/StartupWMClass=artcraft-launcher/')\"",
+      "replace": "old_body=\"$(printf '%s\\n' \"$expected_body\" | sed 's/^StartupWMClass=.*/StartupWMClass=flowapps-launcher/')\""
+    },
+    {
+      "file": "packaging/linux/AppRun",
+      "find": "existing_body=\"$(sed -e '/^Exec=/d' -e '/^X-ArtCraft-Launcher-Generated-Exec=/d' \"$1\")\" || return 1",
+      "replace": "existing_body=\"$(sed -e '/^Exec=/d' -e '/^X-FlowApps-Launcher-Generated-Exec=/d' \"$1\")\" || return 1"
+    },
+    {
+      "file": "packaging/linux/AppRun",
+      "find": "# ArtCraft Launcher AppImage entry point (packaging/linux/AppRun; installed by package.sh).",
+      "replace": "# FlowApps AppImage entry point (packaging/linux/AppRun; installed by package.sh)."
+    },
+    {
+      "file": "packaging/linux/AppRun",
+      "find": "generated_exec=\"$(sed -n 's/^X-ArtCraft-Launcher-Generated-Exec=//p' \"$1\")\" || return 1",
+      "replace": "generated_exec=\"$(sed -n 's/^X-FlowApps-Launcher-Generated-Exec=//p' \"$1\")\" || return 1"
+    },
+    {
+      "file": "packaging/linux/AppRun",
+      "find": "# app_id (ai.storyteller.artcraft-launcher) and looking up an installed .desktop file.",
+      "replace": "# app_id (ai.reachneo.flowapps) and looking up an installed .desktop file."
+    },
+    {
+      "file": "packaging/linux/AppRun",
+      "find": "printf '%s\\n' \"X-ArtCraft-Launcher-Generated-Exec=\\\"$appimage\\\"\" >>\"$tmp\"; then",
+      "replace": "printf '%s\\n' \"X-FlowApps-Launcher-Generated-Exec=\\\"$appimage\\\"\" >>\"$tmp\"; then"
+    },
+    {
+      "file": "packaging/linux/AppRun",
+      "find": "[ \"$(grep -c '^X-ArtCraft-Launcher-Generated-Exec=' \"$1\")\" = 1 ] || return 1",
+      "replace": "[ \"$(grep -c '^X-FlowApps-Launcher-Generated-Exec=' \"$1\")\" = 1 ] || return 1"
+    },
+    {
+      "file": "packaging/linux/AppRun",
+      "find": "exec \"$APPDIR/usr/bin/artcraft-launcher\" \"$@\"",
+      "replace": "exec \"$APPDIR/usr/bin/flowapps-launcher\" \"$@\""
+    },
+    {
+      "file": "packaging/linux/AppRun",
+      "find": "DESK_ID=ai.storyteller.artcraft-launcher",
+      "replace": "DESK_ID=ai.reachneo.flowapps"
+    },
+    {
+      "file": "packaging/linux/ai.reachneo.flowapps.metainfo.xml.in",
+      "find": "ArtCraft Launcher lists every app in the Craft App Suite (PhotoCraft, LightCraft, FilmCraft,",
+      "replace": "FlowApps lists every app in the FlowApps suite (PhotoCraft, LightCraft, FilmCraft,"
+    },
+    {
+      "file": "packaging/linux/ai.reachneo.flowapps.metainfo.xml.in",
+      "find": "<launchable type=\"desktop-id\">ai.storyteller.artcraft-launcher.desktop</launchable>",
+      "replace": "<launchable type=\"desktop-id\">ai.reachneo.flowapps.desktop</launchable>"
+    },
+    {
+      "file": "packaging/linux/ai.reachneo.flowapps.metainfo.xml.in",
+      "find": "<summary>Install, update and launch the Craft App Suite</summary>",
+      "replace": "<summary>Install, update and launch the FlowApps suite</summary>"
+    },
+    {
+      "file": "packaging/linux/ai.reachneo.flowapps.metainfo.xml.in",
+      "find": "<icon type=\"stock\">ai.storyteller.artcraft-launcher</icon>",
+      "replace": "<icon type=\"stock\">ai.reachneo.flowapps</icon>"
+    },
+    {
+      "file": "packaging/linux/ai.reachneo.flowapps.metainfo.xml.in",
+      "find": "<id>ai.storyteller.artcraft-launcher</id>",
+      "replace": "<id>ai.reachneo.flowapps</id>"
+    },
+    {
+      "file": "packaging/linux/ai.reachneo.flowapps.metainfo.xml.in",
+      "find": "<binary>artcraft-launcher</binary>",
+      "replace": "<binary>flowapps-launcher</binary>"
+    },
+    {
+      "file": "packaging/linux/ai.reachneo.flowapps.metainfo.xml.in",
+      "find": "<name>ArtCraft Launcher</name>",
+      "replace": "<name>FlowApps</name>"
+    },
+    {
+      "file": "packaging/linux/apprun-test.sh",
+      "find": "printf '[Desktop Entry]\\nName=ArtCraft Launcher\\nExec=\"/usr/bin/appimaged\" wrap \"%s\" %%F\\nStartupWMClass=%s\\nActions=Trash;\\n\\n[Desktop Action Trash]\\nName=Move to Trash\\nExec=gio trash \"%s\"\\n' \"$real\" \"$APP_ID\" \"$real\" >\"$apps/appimagekit_0123abcd.desktop\"",
+      "replace": "printf '[Desktop Entry]\\nName=FlowApps\\nExec=\"/usr/bin/appimaged\" wrap \"%s\" %%F\\nStartupWMClass=%s\\nActions=Trash;\\n\\n[Desktop Action Trash]\\nName=Move to Trash\\nExec=gio trash \"%s\"\\n' \"$real\" \"$APP_ID\" \"$real\" >\"$apps/appimagekit_0123abcd.desktop\""
+    },
+    {
+      "file": "packaging/linux/apprun-test.sh",
+      "find": "printf \"[Desktop Entry]\\nName=ArtCraft Launcher\\nStartupWMClass=%s\\nExec=env DESKTOPINTEGRATION=1 '%s'\" \"$APP_ID\" \"$(readlink -f \"$spaced\")\" >\"$apps/flowapps_launcher.desktop\"",
+      "replace": "printf \"[Desktop Entry]\\nName=FlowApps\\nStartupWMClass=%s\\nExec=env DESKTOPINTEGRATION=1 '%s'\" \"$APP_ID\" \"$(readlink -f \"$spaced\")\" >\"$apps/flowapps_launcher.desktop\""
+    },
+    {
+      "file": "packaging/linux/apprun-test.sh",
+      "find": "grep -Fxq \"X-ArtCraft-Launcher-Generated-Exec=\\\"$(readlink -f \"$APPIMAGE\")\\\"\" \"$TMP/generated-entry\" || fail \"generated executable marker missing or stale\"",
+      "replace": "grep -Fxq \"X-FlowApps-Launcher-Generated-Exec=\\\"$(readlink -f \"$APPIMAGE\")\\\"\" \"$TMP/generated-entry\" || fail \"generated executable marker missing or stale\""
+    },
+    {
+      "file": "packaging/linux/apprun-test.sh",
+      "find": "printf '[Desktop Entry]\\nExec=\"/usr/bin/appimaged\" wrap \"%s\" %%F\\nStartupWMClass=artcraft-launcher\\n' \"$real\" >\"$apps/appimagekit_0123abcd.desktop\"",
+      "replace": "printf '[Desktop Entry]\\nExec=\"/usr/bin/appimaged\" wrap \"%s\" %%F\\nStartupWMClass=flowapps-launcher\\n' \"$real\" >\"$apps/appimagekit_0123abcd.desktop\""
+    },
+    {
+      "file": "packaging/linux/apprun-test.sh",
+      "find": "sed -e '/^X-ArtCraft-Launcher-Generated-Exec=/d' -e \"s|^Exec=.*|Exec=\\\"$legacy\\\"|\" \"$TMP/generated-entry\" >\"$DESKTOP\"",
+      "replace": "sed -e '/^X-FlowApps-Launcher-Generated-Exec=/d' -e \"s|^Exec=.*|Exec=\\\"$legacy\\\"|\" \"$TMP/generated-entry\" >\"$DESKTOP\""
+    },
+    {
+      "file": "packaging/linux/apprun-test.sh",
+      "find": "sed 's/^StartupWMClass=.*/StartupWMClass=artcraft-launcher/' \"$TMP/generated-entry\" >\"$DESKTOP\"",
+      "replace": "sed 's/^StartupWMClass=.*/StartupWMClass=flowapps-launcher/' \"$TMP/generated-entry\" >\"$DESKTOP\""
+    },
+    {
+      "file": "packaging/linux/apprun-test.sh",
+      "find": "APPIMAGE=\"$TMP/artcraft-launcher test.AppImage\" # spaces on purpose: Exec must stay quoted",
+      "replace": "APPIMAGE=\"$TMP/flowapps-launcher test.AppImage\" # spaces on purpose: Exec must stay quoted"
+    },
+    {
+      "file": "packaging/linux/apprun-test.sh",
+      "find": "printf '#!/bin/sh\\necho \"stub: $*\"\\n' >\"$APPDIR/usr/bin/artcraft-launcher\"",
+      "replace": "printf '#!/bin/sh\\necho \"stub: $*\"\\n' >\"$APPDIR/usr/bin/flowapps-launcher\""
+    },
+    {
+      "file": "packaging/linux/apprun-test.sh",
+      "find": "for key in Exec X-ArtCraft-Launcher-Generated-Exec; do",
+      "replace": "for key in Exec X-FlowApps-Launcher-Generated-Exec; do"
+    },
+    {
+      "file": "packaging/linux/apprun-test.sh",
+      "find": "chmod +x \"$APPDIR/usr/bin/artcraft-launcher\"",
+      "replace": "chmod +x \"$APPDIR/usr/bin/flowapps-launcher\""
+    },
+    {
+      "file": "packaging/linux/apprun-test.sh",
+      "find": "APP_ID=ai.storyteller.artcraft-launcher",
+      "replace": "APP_ID=ai.reachneo.flowapps"
+    },
+    {
+      "file": "packaging/linux/apprun-test.sh",
+      "find": "APPDIR=\"$TMP/ArtCraftLauncher.AppDir\"",
+      "replace": "APPDIR=\"$TMP/FlowAppsLauncher.AppDir\""
+    },
+    {
+      "file": "packaging/linux/flatpak-bundle.sh",
+      "find": "flatpak run --command=sh \"$APP_ID\" -c 'test -x /app/bin/artcraft-launcher && ls /app/share/applications /app/share/metainfo /app/share/icons/hicolor/scalable/apps'",
+      "replace": "flatpak run --command=sh \"$APP_ID\" -c 'test -x /app/bin/flowapps-launcher && ls /app/share/applications /app/share/metainfo /app/share/icons/hicolor/scalable/apps'"
+    },
+    {
+      "file": "packaging/linux/flatpak-bundle.sh",
+      "find": "# TARBALL defaults to $DIST/artcraft-launcher-<version>-linux-<arch>.tar.gz from package.sh. The bundle",
+      "replace": "# TARBALL defaults to $DIST/flowapps-launcher-<version>-linux-<arch>.tar.gz from package.sh. The bundle"
+    },
+    {
+      "file": "packaging/linux/flatpak-bundle.sh",
+      "find": "echo \"==> ArtCraft Launcher $VERSION Flatpak bundle for $ARCH from $(basename \"$TARBALL\")\"",
+      "replace": "echo \"==> FlowApps $VERSION Flatpak bundle for $ARCH from $(basename \"$TARBALL\")\""
+    },
+    {
+      "file": "packaging/linux/flatpak-bundle.sh",
+      "find": "# Manifest: packaging/linux/flatpak/ai.storyteller.artcraft-launcher.bundle.yml.",
+      "replace": "# Manifest: packaging/linux/flatpak/ai.reachneo.flowapps.bundle.yml."
+    },
+    {
+      "file": "packaging/linux/flatpak-bundle.sh",
+      "find": "# Repackage an ArtCraft Launcher Linux tarball as a single-file Flatpak bundle:",
+      "replace": "# Repackage an FlowApps Linux tarball as a single-file Flatpak bundle:"
+    },
+    {
+      "file": "packaging/linux/flatpak-bundle.sh",
+      "find": "#   $DIST/artcraft-launcher-<version>-linux-<arch>.flatpak",
+      "replace": "#   $DIST/flowapps-launcher-<version>-linux-<arch>.flatpak"
+    },
+    {
+      "file": "packaging/linux/flatpak-bundle.sh",
+      "find": "APP_ID=ai.storyteller.artcraft-launcher",
+      "replace": "APP_ID=ai.reachneo.flowapps"
+    },
+    {
+      "file": "packaging/linux/flatpak-bundle.sh",
+      "find": "PKG=artcraft-launcher",
+      "replace": "PKG=flowapps-launcher"
+    },
+    {
+      "file": "packaging/linux/flatpak-oci.sh",
+      "find": "# Build ArtCraft Launcher as an OCI container layout and push it to GitHub Container Registry (GHCR)",
+      "replace": "# Build FlowApps as an OCI container layout and push it to GitHub Container Registry (GHCR)"
+    },
+    {
+      "file": "packaging/linux/flatpak-oci.sh",
+      "find": "#   REGISTRY       Target registry image (default: ghcr.io/storytold/artcraft-launcher)",
+      "replace": "#   REGISTRY       Target registry image (default: ghcr.io/storytold/flowapps-launcher)"
+    },
+    {
+      "file": "packaging/linux/flatpak-oci.sh",
+      "find": "REGISTRY=\"${REGISTRY:-ghcr.io/storytold/artcraft-launcher}\"",
+      "replace": "REGISTRY=\"${REGISTRY:-ghcr.io/storytold/flowapps-launcher}\""
+    },
+    {
+      "file": "packaging/linux/flatpak-oci.sh",
+      "find": "BASENAME=\"artcraft-launcher-$VERSION-linux-$ARCH\"",
+      "replace": "BASENAME=\"flowapps-launcher-$VERSION-linux-$ARCH\""
+    },
+    {
+      "file": "packaging/linux/flatpak/ai.reachneo.flowapps.bundle.yml",
+      "find": "- install -Dm644 share/metainfo/ai.storyteller.artcraft-launcher.metainfo.xml /app/share/metainfo/ai.storyteller.artcraft-launcher.metainfo.xml",
+      "replace": "- install -Dm644 share/metainfo/ai.reachneo.flowapps.metainfo.xml /app/share/metainfo/ai.reachneo.flowapps.metainfo.xml"
+    },
+    {
+      "file": "packaging/linux/flatpak/ai.reachneo.flowapps.bundle.yml",
+      "find": "- mkdir -p /app/share/icons /app/share/doc && cp -R share/icons/hicolor /app/share/icons/ && cp -R share/doc/artcraft-launcher /app/share/doc/",
+      "replace": "- mkdir -p /app/share/icons /app/share/doc && cp -R share/icons/hicolor /app/share/icons/ && cp -R share/doc/flowapps-launcher /app/share/doc/"
+    },
+    {
+      "file": "packaging/linux/flatpak/ai.reachneo.flowapps.bundle.yml",
+      "find": "- install -Dm644 share/applications/ai.storyteller.artcraft-launcher.desktop /app/share/applications/ai.storyteller.artcraft-launcher.desktop",
+      "replace": "- install -Dm644 share/applications/ai.reachneo.flowapps.desktop /app/share/applications/ai.reachneo.flowapps.desktop"
+    },
+    {
+      "file": "packaging/linux/flatpak/ai.reachneo.flowapps.bundle.yml",
+      "find": "# (artcraft-launcher-<version>-linux-<arch>.flatpak). Build it with packaging/linux/flatpak-bundle.sh.",
+      "replace": "# (flowapps-launcher-<version>-linux-<arch>.flatpak). Build it with packaging/linux/flatpak-bundle.sh."
+    },
+    {
+      "file": "packaging/linux/flatpak/ai.reachneo.flowapps.bundle.yml",
+      "find": "# It repackages the release's own Linux tarball (artcraft-launcher-<version>-linux-<arch>.tar.gz,",
+      "replace": "# It repackages the release's own Linux tarball (flowapps-launcher-<version>-linux-<arch>.tar.gz,"
+    },
+    {
+      "file": "packaging/linux/flatpak/ai.reachneo.flowapps.bundle.yml",
+      "find": "# ai.storyteller.artcraft-launcher.yml (same directory) is the from-source manifest for Flathub.",
+      "replace": "# ai.reachneo.flowapps.yml (same directory) is the from-source manifest for Flathub."
+    },
+    {
+      "file": "packaging/linux/flatpak/ai.reachneo.flowapps.bundle.yml",
+      "find": "# folder (~/.var/app/ai.storyteller.artcraft-launcher/data/artcraft-launcher/apps/<app>) and",
+      "replace": "# folder (~/.var/app/ai.reachneo.flowapps/data/flowapps-launcher/apps/<app>) and"
+    },
+    {
+      "file": "packaging/linux/flatpak/ai.reachneo.flowapps.bundle.yml",
+      "find": "- install -Dm755 bin/artcraft-launcher /app/bin/artcraft-launcher",
+      "replace": "- install -Dm755 bin/flowapps-launcher /app/bin/flowapps-launcher"
+    },
+    {
+      "file": "packaging/linux/flatpak/ai.reachneo.flowapps.bundle.yml",
+      "find": "id: ai.storyteller.artcraft-launcher",
+      "replace": "id: ai.reachneo.flowapps"
+    },
+    {
+      "file": "packaging/linux/flatpak/ai.reachneo.flowapps.bundle.yml",
+      "find": "command: artcraft-launcher",
+      "replace": "command: flowapps-launcher"
+    },
+    {
+      "file": "packaging/linux/flatpak/ai.reachneo.flowapps.bundle.yml",
+      "find": "- name: artcraft-launcher",
+      "replace": "- name: flowapps-launcher"
+    },
+    {
+      "file": "packaging/linux/flatpak/ai.reachneo.flowapps.yml",
+      "find": "- install -Dm644 packaging/linux/ai.storyteller.artcraft-launcher.desktop /app/share/applications/ai.storyteller.artcraft-launcher.desktop",
+      "replace": "- install -Dm644 packaging/linux/ai.reachneo.flowapps.desktop /app/share/applications/ai.reachneo.flowapps.desktop"
+    },
+    {
+      "file": "packaging/linux/flatpak/ai.reachneo.flowapps.yml",
+      "find": "packaging/linux/ai.storyteller.artcraft-launcher.metainfo.xml.in > /app/share/metainfo/ai.storyteller.artcraft-launcher.metainfo.xml",
+      "replace": "packaging/linux/ai.reachneo.flowapps.metainfo.xml.in > /app/share/metainfo/ai.reachneo.flowapps.metainfo.xml"
+    },
+    {
+      "file": "packaging/linux/flatpak/ai.reachneo.flowapps.yml",
+      "find": "#   flatpak-builder --user --install --force-clean build-flatpak packaging/linux/flatpak/ai.storyteller.artcraft-launcher.yml",
+      "replace": "#   flatpak-builder --user --install --force-clean build-flatpak packaging/linux/flatpak/ai.reachneo.flowapps.yml"
+    },
+    {
+      "file": "packaging/linux/flatpak/ai.reachneo.flowapps.yml",
+      "find": "# ai.storyteller.artcraft-launcher.bundle.yml, which repackages the prebuilt release binary.",
+      "replace": "# ai.reachneo.flowapps.bundle.yml, which repackages the prebuilt release binary."
+    },
+    {
+      "file": "packaging/linux/flatpak/ai.reachneo.flowapps.yml",
+      "find": "# folder (~/.var/app/ai.storyteller.artcraft-launcher/data/artcraft-launcher/apps/<app>) and",
+      "replace": "# folder (~/.var/app/ai.reachneo.flowapps/data/flowapps-launcher/apps/<app>) and"
+    },
+    {
+      "file": "packaging/linux/flatpak/ai.reachneo.flowapps.yml",
+      "find": "- install -Dm755 target/release/artcraft-launcher /app/bin/artcraft-launcher",
+      "replace": "- install -Dm755 target/release/flowapps-launcher /app/bin/flowapps-launcher"
+    },
+    {
+      "file": "packaging/linux/flatpak/ai.reachneo.flowapps.yml",
+      "find": "# Flatpak manifest for ArtCraft Launcher, ready for a Flathub submission.",
+      "replace": "# Flatpak manifest for FlowApps, ready for a Flathub submission."
+    },
+    {
+      "file": "packaging/linux/flatpak/ai.reachneo.flowapps.yml",
+      "find": "- cargo --offline build --release --locked -p artcraft-launcher",
+      "replace": "- cargo --offline build --release --locked -p flowapps-launcher"
+    },
+    {
+      "file": "packaging/linux/flatpak/ai.reachneo.flowapps.yml",
+      "find": "- install -Dm644 NOTICE /app/share/doc/artcraft-launcher/NOTICE",
+      "replace": "- install -Dm644 NOTICE /app/share/doc/flowapps-launcher/NOTICE"
+    },
+    {
+      "file": "packaging/linux/flatpak/ai.reachneo.flowapps.yml",
+      "find": "#   flatpak run ai.storyteller.artcraft-launcher",
+      "replace": "#   flatpak run ai.reachneo.flowapps"
+    },
+    {
+      "file": "packaging/linux/flatpak/ai.reachneo.flowapps.yml",
+      "find": "CARGO_HOME: /run/build/artcraft-launcher/cargo",
+      "replace": "CARGO_HOME: /run/build/flowapps-launcher/cargo"
+    },
+    {
+      "file": "packaging/linux/flatpak/ai.reachneo.flowapps.yml",
+      "find": "id: ai.storyteller.artcraft-launcher",
+      "replace": "id: ai.reachneo.flowapps"
+    },
+    {
+      "file": "packaging/linux/flatpak/ai.reachneo.flowapps.yml",
+      "find": "command: artcraft-launcher",
+      "replace": "command: flowapps-launcher"
+    },
+    {
+      "file": "packaging/linux/flatpak/ai.reachneo.flowapps.yml",
+      "find": "- name: artcraft-launcher",
+      "replace": "- name: flowapps-launcher"
+    },
+    {
+      "file": "packaging/linux/nfpm.yaml",
+      "find": "ArtCraft Launcher lists PhotoCraft, LightCraft, FilmCraft, DesignCraft,",
+      "replace": "FlowApps lists PhotoCraft, LightCraft, FilmCraft, DesignCraft,"
+    },
+    {
+      "file": "packaging/linux/nfpm.yaml",
+      "find": "Install, update and launch the Craft App Suite.",
+      "replace": "Install, update and launch the FlowApps suite."
+    },
+    {
+      "file": "packaging/linux/nfpm.yaml",
+      "find": "- src: ${STAGE}/usr/bin/artcraft-launcher",
+      "replace": "- src: ${STAGE}/usr/bin/flowapps-launcher"
+    },
+    {
+      "file": "packaging/linux/nfpm.yaml",
+      "find": "dst: /usr/bin/artcraft-launcher",
+      "replace": "dst: /usr/bin/flowapps-launcher"
+    },
+    {
+      "file": "packaging/linux/nfpm.yaml",
+      "find": "name: artcraft-launcher",
+      "replace": "name: flowapps-launcher"
+    },
+    {
+      "file": "packaging/linux/package.sh",
+      "find": "export FLOWAPPS_LAUNCHER_MAINTAINER=\"${FLOWAPPS_LAUNCHER_MAINTAINER:-ArtCraft Launcher maintainers <craft-launcher@storyteller.ai>}\"",
+      "replace": "export FLOWAPPS_LAUNCHER_MAINTAINER=\"${FLOWAPPS_LAUNCHER_MAINTAINER:-FlowApps maintainers <craft-launcher@storyteller.ai>}\""
+    },
+    {
+      "file": "packaging/linux/package.sh",
+      "find": "#   $DIST/artcraft-launcher-<version>-linux-<arch>.AppImage  any distro with glibc >= the build host's",
+      "replace": "#   $DIST/flowapps-launcher-<version>-linux-<arch>.AppImage  any distro with glibc >= the build host's"
+    },
+    {
+      "file": "packaging/linux/package.sh",
+      "find": "#   $DIST/artcraft-launcher-<version>-linux-<arch>.AppImage.zsync  delta updates (needs zsyncmake)",
+      "replace": "#   $DIST/flowapps-launcher-<version>-linux-<arch>.AppImage.zsync  delta updates (needs zsyncmake)"
+    },
+    {
+      "file": "packaging/linux/package.sh",
+      "find": "#   $DIST/artcraft-launcher-<version>-linux-<arch>.tar.gz    plain FHS-style tree (bin/, share/)",
+      "replace": "#   $DIST/flowapps-launcher-<version>-linux-<arch>.tar.gz    plain FHS-style tree (bin/, share/)"
+    },
+    {
+      "file": "packaging/linux/package.sh",
+      "find": "#   $DIST/artcraft-launcher-<version>-linux-<arch>.deb       Debian, Ubuntu, Mint, Pop!_OS, ...",
+      "replace": "#   $DIST/flowapps-launcher-<version>-linux-<arch>.deb       Debian, Ubuntu, Mint, Pop!_OS, ..."
+    },
+    {
+      "file": "packaging/linux/package.sh",
+      "find": "#   $DIST/artcraft-launcher-<version>-linux-<arch>.rpm       Fedora, openSUSE, RHEL, ...",
+      "replace": "#   $DIST/flowapps-launcher-<version>-linux-<arch>.rpm       Fedora, openSUSE, RHEL, ..."
+    },
+    {
+      "file": "packaging/linux/package.sh",
+      "find": "# Build and package ArtCraft Launcher for Linux (<arch> is x86_64, aarch64 or riscv64):",
+      "replace": "# Build and package FlowApps for Linux (<arch> is x86_64, aarch64 or riscv64):"
+    },
+    {
+      "file": "packaging/linux/package.sh",
+      "find": "# The repo is craft-launcher while the files are artcraft-launcher-*.",
+      "replace": "# The repo is craft-launcher while the files are flowapps-launcher-*."
+    },
+    {
+      "file": "packaging/linux/package.sh",
+      "find": "echo \"==> ArtCraft Launcher $VERSION for Linux $ARCH ($FORMATS)\"",
+      "replace": "echo \"==> FlowApps $VERSION for Linux $ARCH ($FORMATS)\""
+    },
+    {
+      "file": "packaging/linux/package.sh",
+      "find": "APP_ID=ai.storyteller.artcraft-launcher",
+      "replace": "APP_ID=ai.reachneo.flowapps"
+    },
+    {
+      "file": "packaging/linux/package.sh",
+      "find": "APPDIR=\"$WORK/ArtCraftLauncher.AppDir\"",
+      "replace": "APPDIR=\"$WORK/FlowAppsLauncher.AppDir\""
+    },
+    {
+      "file": "packaging/linux/package.sh",
+      "find": "PKG=artcraft-launcher",
+      "replace": "PKG=flowapps-launcher"
+    },
+    {
+      "file": "packaging/linux/test-package-metadata.sh",
+      "find": "printf '#!/bin/sh\\necho \"ArtCraft Launcher packaging fixture\"\\n' >\"$work/target/$target/release/artcraft-launcher\"",
+      "replace": "printf '#!/bin/sh\\necho \"FlowApps packaging fixture\"\\n' >\"$work/target/$target/release/flowapps-launcher\""
+    },
+    {
+      "file": "packaging/linux/test-package-metadata.sh",
+      "find": "rpm_requires=\"$(rpm -qp --requires \"$work/dist/artcraft-launcher-0.0.0-linux-$arch.rpm\")\"",
+      "replace": "rpm_requires=\"$(rpm -qp --requires \"$work/dist/flowapps-launcher-0.0.0-linux-$arch.rpm\")\""
+    },
+    {
+      "file": "packaging/linux/test-package-metadata.sh",
+      "find": "chmod +x \"$work/target/$target/release/artcraft-launcher\"",
+      "replace": "chmod +x \"$work/target/$target/release/flowapps-launcher\""
+    },
+    {
+      "file": "packaging/linux/test-package-metadata.sh",
+      "find": "deb=\"$work/dist/artcraft-launcher-0.0.0-linux-$arch.deb\"",
+      "replace": "deb=\"$work/dist/flowapps-launcher-0.0.0-linux-$arch.deb\""
+    },
+    {
+      "file": "packaging/macos/Info.plist.in",
+      "find": "<string>Copyright © 2026 ArtCraft Team and the ArtCraft Launcher contributors. MIT OR Apache-2.0.</string>",
+      "replace": "<string>Copyright © 2026 ArtCraft Team and the FlowApps contributors. MIT OR Apache-2.0.</string>"
+    },
+    {
+      "file": "packaging/macos/Info.plist.in",
+      "find": "ArtCraft Launcher opens no documents, so there are no document or UT types. It is a normal",
+      "replace": "FlowApps opens no documents, so there are no document or UT types. It is a normal"
+    },
+    {
+      "file": "packaging/macos/Info.plist.in",
+      "find": "<string>ai.storyteller.artcraft-launcher</string>",
+      "replace": "<string>ai.reachneo.flowapps</string>"
+    },
+    {
+      "file": "packaging/macos/Info.plist.in",
+      "find": "<key>ArtCraftLauncherBuildCommit</key>",
+      "replace": "<key>FlowAppsLauncherBuildCommit</key>"
+    },
+    {
+      "file": "packaging/macos/Info.plist.in",
+      "find": "<string>ArtCraft Launcher</string>",
+      "replace": "<string>FlowApps</string>"
+    },
+    {
+      "file": "packaging/macos/Info.plist.in",
+      "find": "<key>ArtCraftLauncherVersion</key>",
+      "replace": "<key>FlowAppsLauncherVersion</key>"
+    },
+    {
+      "file": "packaging/macos/dmg/README.md",
+      "find": "| `dmg-layout.DS_Store` | Finder's view settings for the volume: window size, icon size 128, ArtCraft Launcher.app at (326, 205), `Applications` at (574, 205), and the background. Goes to `.DS_Store` in the image; named so it isn't mistaken for (or ignored like) a Finder-generated `.DS_Store`. |",
+      "replace": "| `dmg-layout.DS_Store` | Finder's view settings for the volume: window size, icon size 128, FlowApps.app at (326, 205), `Applications` at (574, 205), and the background. Goes to `.DS_Store` in the image; named so it isn't mistaken for (or ignored like) a Finder-generated `.DS_Store`. |"
+    },
+    {
+      "file": "packaging/macos/dmg/README.md",
+      "find": "background. The DMG file name (`artcraft-launcher-<version>-macos-<arch>.dmg`) still carries the",
+      "replace": "background. The DMG file name (`flowapps-launcher-<version>-macos-<arch>.dmg`) still carries the"
+    },
+    {
+      "file": "packaging/macos/dmg/README.md",
+      "find": "The mounted volume is called `ArtCraft Launcher`, not `ArtCraft Launcher <version>`. The layout",
+      "replace": "The mounted volume is called `FlowApps`, not `FlowApps <version>`. The layout"
+    },
+    {
+      "file": "packaging/macos/dmg/background.svg",
+      "find": "<g clip-path=\"url(#panel)\"><rect width=\"232\" height=\"400\" fill=\"#4e7bfb\"/><image href=\"../../../docs/brand/artcraft-mark-black.svg\" x=\"31\" y=\"115\" width=\"170\" height=\"170\"/></g>",
+      "replace": "<rect width=\"232\" height=\"400\" fill=\"#0b0b0c\"/>"
+    },
+    {
+      "file": "packaging/macos/dmg/generate.py",
+      "find": "ICONS = {\"ArtCraft Launcher.app\": (326, 205), \"Applications\": (574, 205)}",
+      "replace": "ICONS = {\"FlowApps.app\": (326, 205), \"Applications\": (574, 205)}"
+    },
+    {
+      "file": "packaging/macos/dmg/generate.py",
+      "find": "VOLUME = \"ArtCraft Launcher\"",
+      "replace": "VOLUME = \"FlowApps\""
+    },
+    {
+      "file": "packaging/macos/entitlements.plist",
+      "find": "<!-- Hardened-runtime entitlements for ArtCraft Launcher. Deliberately empty: the app is pure Rust,",
+      "replace": "<!-- Hardened-runtime entitlements for FlowApps. Deliberately empty: the app is pure Rust,"
+    },
+    {
+      "file": "packaging/macos/import-cert.sh",
+      "find": "WORK=\"$(mktemp -d \"$TMP/artcraft-launcher-signing.XXXXXXXX\")\"",
+      "replace": "WORK=\"$(mktemp -d \"$TMP/flowapps-launcher-signing.XXXXXXXX\")\""
+    },
+    {
+      "file": "packaging/macos/import-cert.sh",
+      "find": "KEYCHAIN=\"$WORK/artcraft-launcher-signing.keychain-db\"",
+      "replace": "KEYCHAIN=\"$WORK/flowapps-launcher-signing.keychain-db\""
+    },
+    {
+      "file": "packaging/macos/import-cert.sh",
+      "find": "CERT=\"$WORK/artcraft-launcher-signing.p12\"",
+      "replace": "CERT=\"$WORK/flowapps-launcher-signing.p12\""
+    },
+    {
+      "file": "packaging/macos/package.sh",
+      "find": "#   $DIST/artcraft-launcher-<version>-macos-<arch>.dmg   ArtCraft Launcher.app on a drag-to-Applications DMG",
+      "replace": "#   $DIST/flowapps-launcher-<version>-macos-<arch>.dmg   FlowApps.app on a drag-to-Applications DMG"
+    },
+    {
+      "file": "packaging/macos/package.sh",
+      "find": "# ---- ArtCraft Launcher.app ---------------------------------------------------------------------",
+      "replace": "# ---- FlowApps.app ---------------------------------------------------------------------"
+    },
+    {
+      "file": "packaging/macos/package.sh",
+      "find": "APP_NAME=\"ArtCraft Launcher\"   # display name: bundle, executable, icon, DMG volume",
+      "replace": "APP_NAME=\"FlowApps\"   # display name: bundle, executable, icon, DMG volume"
+    },
+    {
+      "file": "packaging/macos/package.sh",
+      "find": "PKG=artcraft-launcher          # cargo package and binary",
+      "replace": "PKG=flowapps-launcher          # cargo package and binary"
+    },
+    {
+      "file": "packaging/macos/verify.sh",
+      "find": "#   $DIST/artcraft-launcher-<version>-macos-<arch>.dmg   signed, notarized, ticket stapled; the",
+      "replace": "#   $DIST/flowapps-launcher-<version>-macos-<arch>.dmg   signed, notarized, ticket stapled; the"
+    },
+    {
+      "file": "packaging/macos/verify.sh",
+      "find": "APP_NAME=\"ArtCraft Launcher\"",
+      "replace": "APP_NAME=\"FlowApps\""
+    },
+    {
+      "file": "packaging/macos/verify.sh",
+      "find": "PKG=artcraft-launcher",
+      "replace": "PKG=flowapps-launcher"
+    },
+    {
+      "file": "packaging/web/README.md",
+      "find": "| `artcraft-launcher-web-<hash>_bg.wasm` | The app (egui, built with the `wasm-release` Cargo profile) |",
+      "replace": "| `flowapps-launcher-web-<hash>_bg.wasm` | The app (egui, built with the `wasm-release` Cargo profile) |"
+    },
+    {
+      "file": "packaging/web/README.md",
+      "find": "All URLs in `index.html` are relative (`public_url = \"./\"` in `apps/artcraft-launcher-web/Trunk.toml`),",
+      "replace": "All URLs in `index.html` are relative (`public_url = \"./\"` in `apps/flowapps-launcher-web/Trunk.toml`),"
+    },
+    {
+      "file": "packaging/web/README.md",
+      "find": "`artcraft-launcher-web-<version>.zip` (from the GitHub release, or `packaging/web/package.sh`)",
+      "replace": "`flowapps-launcher-web-<version>.zip` (from the GitHub release, or `packaging/web/package.sh`)"
+    },
+    {
+      "file": "packaging/web/README.md",
+      "find": "In the browser the launcher can't install anything: it shows the Craft App Suite catalog, the",
+      "replace": "In the browser the launcher can't install anything: it shows the FlowApps suite catalog, the"
+    },
+    {
+      "file": "packaging/web/README.md",
+      "find": "| `artcraft-launcher-web-<hash>.js` | wasm-bindgen glue (generated, ES module) |",
+      "replace": "| `flowapps-launcher-web-<hash>.js` | wasm-bindgen glue (generated, ES module) |"
+    },
+    {
+      "file": "packaging/web/README.md",
+      "find": "holds a static site in `artcraft-launcher-web-<version>/`:",
+      "replace": "holds a static site in `flowapps-launcher-web-<version>/`:"
+    },
+    {
+      "file": "packaging/web/README.md",
+      "find": "# Hosting ArtCraft Launcher for the web",
+      "replace": "# Hosting FlowApps for the web"
+    },
+    {
+      "file": "packaging/web/README.md",
+      "find": "title=\"ArtCraft Launcher\"",
+      "replace": "title=\"FlowApps\""
+    },
+    {
+      "file": "packaging/web/package.sh",
+      "find": "# target. The zip holds a self-contained static site in artcraft-launcher-web-<version>/ that works",
+      "replace": "# target. The zip holds a self-contained static site in flowapps-launcher-web-<version>/ that works"
+    },
+    {
+      "file": "packaging/web/package.sh",
+      "find": "(cd \"$ROOT/apps/artcraft-launcher-web\" && trunk build --release --cargo-profile wasm-release)",
+      "replace": "(cd \"$ROOT/apps/flowapps-launcher-web\" && trunk build --release --cargo-profile wasm-release)"
+    },
+    {
+      "file": "packaging/web/package.sh",
+      "find": "# Build the browser version and zip it:  $DIST/artcraft-launcher-web-<version>.zip",
+      "replace": "# Build the browser version and zip it:  $DIST/flowapps-launcher-web-<version>.zip"
+    },
+    {
+      "file": "packaging/web/package.sh",
+      "find": "NAME=\"artcraft-launcher-web-$VERSION\"",
+      "replace": "NAME=\"flowapps-launcher-web-$VERSION\""
+    },
+    {
+      "file": "packaging/windows/check-icons.ps1",
+      "find": "Check MSI icon references without building or installing ArtCraft Launcher.",
+      "replace": "Check MSI icon references without building or installing FlowApps."
+    },
+    {
+      "file": "packaging/windows/check-icons.ps1",
+      "find": "[string] $WxsPath = (Join-Path $PSScriptRoot 'artcraft-launcher.wxs')",
+      "replace": "[string] $WxsPath = (Join-Path $PSScriptRoot 'flowapps-launcher.wxs')"
+    },
+    {
+      "file": "packaging/windows/check-icons.ps1",
+      "find": "$AppId = 'ai.storyteller.artcraft-launcher'",
+      "replace": "$AppId = 'ai.reachneo.flowapps'"
+    },
+    {
+      "file": "packaging/windows/check-install-policy.ps1",
+      "find": "Write-Output 'PASS ArtCraft Launcher: per-user scope, suite folder, remembered/custom paths and existing registration. No installation performed.'",
+      "replace": "Write-Output 'PASS FlowApps: per-user scope, suite folder, remembered/custom paths and existing registration. No installation performed.'"
+    },
+    {
+      "file": "packaging/windows/check-install-policy.ps1",
+      "find": "$directories['CraftSuiteFolder'][1] -ne 'ArtCraft') { throw 'Expected the app under the ArtCraft suite folder.' }",
+      "replace": "$directories['CraftSuiteFolder'][1] -ne 'FlowApps') { throw 'Expected the app under the FlowApps suite folder.' }"
+    },
+    {
+      "file": "packaging/windows/check-install-policy.ps1",
+      "find": "if ($dirs['INSTALLFOLDER'][0] -ne 'CraftSuiteFolder' -or $dirs['CraftSuiteFolder'][1] -ne 'ArtCraft' -or",
+      "replace": "if ($dirs['INSTALLFOLDER'][0] -ne 'CraftSuiteFolder' -or $dirs['CraftSuiteFolder'][1] -ne 'FlowApps' -or"
+    },
+    {
+      "file": "packaging/windows/check-install-policy.ps1",
+      "find": "throw 'Launcher new-install folder must be under the per-user ArtCraft suite root.'",
+      "replace": "throw 'Launcher new-install folder must be under the per-user FlowApps suite root.'"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.en-us.wxl",
+      "find": "<String Id=\"WelcomeDlgDescription\" Value=\"ArtCraft Launcher installs, updates and opens the Craft App Suite: PhotoCraft, VectorCraft, FilmCraft and the rest of the open-source ArtCraft apps.&#13;&#10;&#13;&#10;It installs for you only, so no administrator rights are needed. Click Next to continue.\" />",
+      "replace": "<String Id=\"WelcomeDlgDescription\" Value=\"FlowApps installs, updates and opens the FlowApps suite: Gramflow, Voxflow and Mailflow.&#13;&#10;&#13;&#10;It installs for you only, so no administrator rights are needed. Click Next to continue.\" />"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.en-us.wxl",
+      "find": "<String Id=\"ArtCraftInstallDirNote\" Value=\"ArtCraft Launcher installs for you only, without administrator rights, so pick a folder you can write to (not Program Files). Updates install into the same folder.\" />",
+      "replace": "<String Id=\"ArtCraftInstallDirNote\" Value=\"FlowApps installs for you only, without administrator rights, so pick a folder you can write to (not Program Files). Updates install into the same folder.\" />"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.en-us.wxl",
+      "find": "<String Id=\"VerifyReadyDlgInstallTitle\" Value=\"{\\WixUI_Font_Title}Ready to install [ProductName] [ArtCraftLauncherVersion]\" />",
+      "replace": "<String Id=\"VerifyReadyDlgInstallTitle\" Value=\"{\\WixUI_Font_Title}Ready to install [ProductName] [FlowAppsLauncherVersion]\" />"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.en-us.wxl",
+      "find": "<String Id=\"ExitDialogTitle\" Value=\"{\\WixUI_Font_Bigger}Completed the [ProductName] [ArtCraftLauncherVersion] Setup Wizard\" />",
+      "replace": "<String Id=\"ExitDialogTitle\" Value=\"{\\WixUI_Font_Bigger}Completed the [ProductName] [FlowAppsLauncherVersion] Setup Wizard\" />"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.en-us.wxl",
+      "find": "<String Id=\"WelcomeDlgTitle\" Value=\"{\\WixUI_Font_Bigger}Welcome to [ProductName] [ArtCraftLauncherVersion]\" />",
+      "replace": "<String Id=\"WelcomeDlgTitle\" Value=\"{\\WixUI_Font_Bigger}Welcome to [ProductName] [FlowAppsLauncherVersion]\" />"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.en-us.wxl",
+      "find": "([ArtCraftLauncherVersion] is the full version, pre-release tag included, set in",
+      "replace": "([FlowAppsLauncherVersion] is the full version, pre-release tag included, set in"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.en-us.wxl",
+      "find": "artcraft-launcher.wxs) and say what the launcher is for.",
+      "replace": "flowapps-launcher.wxs) and say what the launcher is for."
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "<Property Id=\"WIXUI_EXITDIALOGOPTIONALTEXT\" Value=\"ArtCraft Launcher $(var.DisplayVersion) is installed. Start it any time from the Start menu to install and update the Craft App Suite.\" />",
+      "replace": "<Property Id=\"WIXUI_EXITDIALOGOPTIONALTEXT\" Value=\"FlowApps $(var.DisplayVersion) is installed. Start it any time from the Start menu to install and update the FlowApps suite.\" />"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "<RegistryValue Root=\"HKCU\" Key=\"Software\\Learning Machines LLC\\ArtCraft Launcher\" Name=\"DesktopShortcutChoice\" Value=\"[DESKTOPSHORTCUTCHOICE]\" Type=\"string\" />",
+      "replace": "<RegistryValue Root=\"HKCU\" Key=\"Software\\Learning Machines LLC\\FlowApps\" Name=\"DesktopShortcutChoice\" Value=\"[DESKTOPSHORTCUTCHOICE]\" Type=\"string\" />"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "<RegistrySearch Id=\"PreviousDesktopShortcut\" Root=\"HKCU\" Key=\"Software\\Learning Machines LLC\\ArtCraft Launcher\" Name=\"DesktopShortcutChoice\" Type=\"raw\" />",
+      "replace": "<RegistrySearch Id=\"PreviousDesktopShortcut\" Root=\"HKCU\" Key=\"Software\\Learning Machines LLC\\FlowApps\" Name=\"DesktopShortcutChoice\" Type=\"raw\" />"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "<RegistryValue Root=\"HKCU\" Key=\"Software\\Learning Machines LLC\\ArtCraft Launcher\" Name=\"InstallDir\" Value=\"[INSTALLFOLDER]\" Type=\"string\" KeyPath=\"yes\" />",
+      "replace": "<RegistryValue Root=\"HKCU\" Key=\"Software\\Learning Machines LLC\\FlowApps\" Name=\"InstallDir\" Value=\"[INSTALLFOLDER]\" Type=\"string\" KeyPath=\"yes\" />"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "<RegistryValue Root=\"HKCU\" Key=\"Software\\Microsoft\\Windows\\CurrentVersion\\App Paths\\artcraft-launcher.exe\" Value=\"[#ArtCraftLauncherExe]\" Type=\"string\" />",
+      "replace": "<RegistryValue Root=\"HKCU\" Key=\"Software\\Microsoft\\Windows\\CurrentVersion\\App Paths\\flowapps-launcher.exe\" Value=\"[#FlowAppsLauncherExe]\" Type=\"string\" />"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "<RegistryValue Root=\"HKCU\" Key=\"Software\\Learning Machines LLC\\ArtCraft Launcher\" Name=\"StartMenuShortcut\" Value=\"1\" Type=\"integer\" KeyPath=\"yes\" />",
+      "replace": "<RegistryValue Root=\"HKCU\" Key=\"Software\\Learning Machines LLC\\FlowApps\" Name=\"StartMenuShortcut\" Value=\"1\" Type=\"integer\" KeyPath=\"yes\" />"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "<CustomAction Id=\"LaunchArtCraftLauncher\" BinaryRef=\"Wix4UtilCA_$(sys.BUILDARCHSHORT)\" DllEntry=\"WixShellExec\" Impersonate=\"yes\" Return=\"ignore\" />",
+      "replace": "<CustomAction Id=\"LaunchFlowAppsLauncher\" BinaryRef=\"Wix4UtilCA_$(sys.BUILDARCHSHORT)\" DllEntry=\"WixShellExec\" Impersonate=\"yes\" Return=\"ignore\" />"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "<RegistryValue Root=\"HKCU\" Key=\"Software\\Learning Machines LLC\\ArtCraft Launcher\" Name=\"DesktopShortcut\" Value=\"1\" Type=\"integer\" KeyPath=\"yes\" />",
+      "replace": "<RegistryValue Root=\"HKCU\" Key=\"Software\\Learning Machines LLC\\FlowApps\" Name=\"DesktopShortcut\" Value=\"1\" Type=\"integer\" KeyPath=\"yes\" />"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "<RegistrySearch Id=\"PreviousInstallFolder\" Root=\"HKCU\" Key=\"Software\\Learning Machines LLC\\ArtCraft Launcher\" Name=\"InstallDir\" Type=\"raw\" />",
+      "replace": "<RegistrySearch Id=\"PreviousInstallFolder\" Root=\"HKCU\" Key=\"Software\\Learning Machines LLC\\FlowApps\" Name=\"InstallDir\" Type=\"raw\" />"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "<SummaryInformation Description=\"ArtCraft Launcher: install and update the Craft App Suite\" Manufacturer=\"Learning Machines LLC\" />",
+      "replace": "<SummaryInformation Description=\"FlowApps: install and update the FlowApps suite\" Manufacturer=\"Reach Neo\" />"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "<Component Id=\"ArtCraftLauncherDesktopShortcut\" Directory=\"DesktopFolder\" Guid=\"CF06DCF3-BE5A-4A2B-B3BF-F553CC6E5D60\"",
+      "replace": "<Component Id=\"FlowAppsLauncherDesktopShortcut\" Directory=\"DesktopFolder\" Guid=\"CF06DCF3-BE5A-4A2B-B3BF-F553CC6E5D60\""
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "<Component Id=\"ArtCraftLauncherShortcut\" Directory=\"ProgramMenuFolder\" Guid=\"870F3DFA-BC0F-497F-85D5-A361B04826AF\">",
+      "replace": "<Component Id=\"FlowAppsLauncherShortcut\" Directory=\"ProgramMenuFolder\" Guid=\"870F3DFA-BC0F-497F-85D5-A361B04826AF\">"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "<Component Id=\"ArtCraftLauncherApp\" Directory=\"INSTALLFOLDER\" Guid=\"55DCC431-EBEF-4C11-BABB-6D78CE0ECF4E\">",
+      "replace": "<Component Id=\"FlowAppsLauncherApp\" Directory=\"INSTALLFOLDER\" Guid=\"55DCC431-EBEF-4C11-BABB-6D78CE0ECF4E\">"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "wix build artcraft-launcher.wxs -arch x64 -ext WixToolset.UI.wixext -ext WixToolset.Util.wixext",
+      "replace": "wix build flowapps-launcher.wxs -arch x64 -ext WixToolset.UI.wixext -ext WixToolset.Util.wixext"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "<Property Id=\"ARPURLUPDATEINFO\" Value=\"https://github.com/storytold/craft-launcher/releases\" />",
+      "replace": "<Property Id=\"ARPURLUPDATEINFO\" Value=\"https://github.com/reachneoagent-commits/FlowApps-Launcher/releases\" />"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "carries the AppUserModelID ai.storyteller.artcraft-launcher, which Windows needs to show toast",
+      "replace": "carries the AppUserModelID ai.reachneo.flowapps, which Windows needs to show toast"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "-culture en-US -loc artcraft-launcher.en-us.wxl -d Version=1.2.3 -d DisplayVersion=1.2.3-rc.1",
+      "replace": "-culture en-US -loc flowapps-launcher.en-us.wxl -d Version=1.2.3 -d DisplayVersion=1.2.3-rc.1"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "<Publish Dialog=\"ExitDialog\" Control=\"Finish\" Event=\"DoAction\" Value=\"LaunchArtCraftLauncher\"",
+      "replace": "<Publish Dialog=\"ExitDialog\" Control=\"Finish\" Event=\"DoAction\" Value=\"LaunchFlowAppsLauncher\""
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "<!-- Our own art, drawn by package.ps1 from the ArtCraft mark and the Craft apps' icons. -->",
+      "replace": "<!-- Our own art, drawn by package.ps1 from the FlowApps mark and the app icons. -->"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "<File Id=\"ArtCraftLauncherExe\" Source=\"$(var.BinDir)\\artcraft-launcher.exe\" KeyPath=\"no\" />",
+      "replace": "<File Id=\"FlowAppsLauncherExe\" Source=\"$(var.BinDir)\\flowapps-launcher.exe\" KeyPath=\"no\" />"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "with a ticked \"Launch ArtCraft Launcher\" box. There is no licence page (the code is MIT OR",
+      "replace": "with a ticked \"Launch FlowApps\" box. There is no licence page (the code is MIT OR"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "<ShortcutProperty Key=\"System.AppUserModel.ID\" Value=\"ai.storyteller.artcraft-launcher\" />",
+      "replace": "<ShortcutProperty Key=\"System.AppUserModel.ID\" Value=\"ai.reachneo.flowapps\" />"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "ArtCraft Launcher MSI (WiX Toolset v5: `dotnet tool install -g wix`, plus the UI and Util",
+      "replace": "FlowApps MSI (WiX Toolset v5: `dotnet tool install -g wix`, plus the UI and Util"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "<Property Id=\"WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT\" Value=\"Launch ArtCraft Launcher\" />",
+      "replace": "<Property Id=\"WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT\" Value=\"Launch FlowApps\" />"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "DowngradeErrorMessage=\"A newer version of ArtCraft Launcher is already installed.\" />",
+      "replace": "DowngradeErrorMessage=\"A newer version of FlowApps is already installed.\" />"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "<File Id=\"ArtCraftLauncherNotice\" Source=\"$(var.BinDir)\\NOTICE\" KeyPath=\"no\" />",
+      "replace": "<File Id=\"FlowAppsLauncherNotice\" Source=\"$(var.BinDir)\\NOTICE\" KeyPath=\"no\" />"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "<Property Id=\"ArtCraftLauncherVersion\" Value=\"$(var.DisplayVersion)\" />",
+      "replace": "<Property Id=\"FlowAppsLauncherVersion\" Value=\"$(var.DisplayVersion)\" />"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "<Property Id=\"ARPURLINFOABOUT\" Value=\"https://getartcraft.com/apps\" />",
+      "replace": "<Property Id=\"ARPURLINFOABOUT\" Value=\"https://github.com/reachneoagent-commits\" />"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "ArtCraftLauncherApp below; every version since 0.1.0 records it). -->",
+      "replace": "FlowAppsLauncherApp below; every version since 0.1.0 records it). -->"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "<Icon Id=\"ArtCraftLauncherIcon.exe\" SourceFile=\"$(var.IconPath)\" />",
+      "replace": "<Icon Id=\"FlowAppsLauncherIcon.exe\" SourceFile=\"$(var.IconPath)\" />"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "<Property Id=\"WixShellExecTarget\" Value=\"[#ArtCraftLauncherExe]\" />",
+      "replace": "<Property Id=\"WixShellExecTarget\" Value=\"[#FlowAppsLauncherExe]\" />"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "<Property Id=\"ARPPRODUCTICON\" Value=\"ArtCraftLauncherIcon.exe\" />",
+      "replace": "<Property Id=\"ARPPRODUCTICON\" Value=\"FlowAppsLauncherIcon.exe\" />"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "<Property Id=\"ARPHELPLINK\" Value=\"https://discord.gg/artcraft\" />",
+      "replace": "<Property Id=\"ARPHELPLINK\" Value=\"https://github.com/reachneoagent-commits/FlowApps-Launcher/issues\" />"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "Target=\"[#ArtCraftLauncherExe]\" WorkingDirectory=\"INSTALLFOLDER\">",
+      "replace": "Target=\"[#FlowAppsLauncherExe]\" WorkingDirectory=\"INSTALLFOLDER\">"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "<Shortcut Id=\"StartMenuShortcut\" Name=\"ArtCraft Launcher\"",
+      "replace": "<Shortcut Id=\"StartMenuShortcut\" Name=\"FlowApps\""
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "<Feature Id=\"Main\" Title=\"ArtCraft Launcher\" Level=\"1\">",
+      "replace": "<Feature Id=\"Main\" Title=\"FlowApps\" Level=\"1\">"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "<Shortcut Id=\"DesktopShortcut\" Name=\"ArtCraft Launcher\"",
+      "replace": "<Shortcut Id=\"DesktopShortcut\" Name=\"FlowApps\""
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "Description=\"Install and update the Craft App Suite\"",
+      "replace": "Description=\"Install and update the FlowApps suite\""
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "<Directory Id=\"CraftSuiteFolder\" Name=\"ArtCraft\">",
+      "replace": "<Directory Id=\"CraftSuiteFolder\" Name=\"FlowApps\">"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "<ComponentGroupRef Id=\"ArtCraftLauncherFiles\" />",
+      "replace": "<ComponentGroupRef Id=\"FlowAppsLauncherFiles\" />"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "pages through artcraft-launcher.en-us.wxl. -->",
+      "replace": "pages through flowapps-launcher.en-us.wxl. -->"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "<ComponentGroup Id=\"ArtCraftLauncherFiles\">",
+      "replace": "<ComponentGroup Id=\"FlowAppsLauncherFiles\">"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "Manufacturer=\"Learning Machines LLC\"",
+      "replace": "Manufacturer=\"Reach Neo\""
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "<!-- Win+R \"artcraft-launcher\". -->",
+      "replace": "<!-- Win+R \"flowapps-launcher\". -->"
+    },
+    {
+      "file": "packaging/windows/flowapps-launcher.wxs",
+      "find": "Name=\"ArtCraft Launcher\"",
+      "replace": "Name=\"FlowApps\""
+    },
+    {
+      "file": "packaging/windows/install-policy.json",
+      "find": "\"Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\App Paths\\\\artcraft-launcher.exe\",",
+      "replace": "\"Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\App Paths\\\\flowapps-launcher.exe\","
+    },
+    {
+      "file": "packaging/windows/install-policy.json",
+      "find": "\"Software\\\\Learning Machines LLC\\\\ArtCraft Launcher\",",
+      "replace": "\"Software\\\\Learning Machines LLC\\\\FlowApps\","
+    },
+    {
+      "file": "packaging/windows/install-policy.json",
+      "find": "\"icon\": \"assets/app-icon/artcraft-launcher.ico\",",
+      "replace": "\"icon\": \"assets/app-icon/flowapps-launcher.ico\","
+    },
+    {
+      "file": "packaging/windows/install-policy.json",
+      "find": "\"artcraft-launcher.en-us.wxl\"",
+      "replace": "\"flowapps-launcher.en-us.wxl\""
+    },
+    {
+      "file": "packaging/windows/install-policy.json",
+      "find": "\"name\": \"ArtCraft Launcher\",",
+      "replace": "\"name\": \"FlowApps\","
+    },
+    {
+      "file": "packaging/windows/install-policy.json",
+      "find": "\"id\": \"artcraft-launcher\",",
+      "replace": "\"id\": \"flowapps-launcher\","
+    },
+    {
+      "file": "packaging/windows/install-policy.json",
+      "find": "\"[#ArtCraftLauncherExe]\"",
+      "replace": "\"[#FlowAppsLauncherExe]\""
+    },
+    {
+      "file": "packaging/windows/install-policy.json",
+      "find": "\"artcraft-launcher.wxs\"",
+      "replace": "\"flowapps-launcher.wxs\""
+    },
+    {
+      "file": "packaging/windows/install-policy.json",
+      "find": "\"artcraft-launcher.exe\"",
+      "replace": "\"flowapps-launcher.exe\""
+    },
+    {
+      "file": "packaging/windows/package.ps1",
+      "find": "artcraft-launcher-<version>-windows-<arch>.msi            per-user installer with a setup wizard (WiX v5)",
+      "replace": "flowapps-launcher-<version>-windows-<arch>.msi            per-user installer with a setup wizard (WiX v5)"
+    },
+    {
+      "file": "packaging/windows/package.ps1",
+      "find": "# portable.txt beside artcraft-launcher.exe switches on portable mode: settings and the download",
+      "replace": "# portable.txt beside flowapps-launcher.exe switches on portable mode: settings and the download"
+    },
+    {
+      "file": "packaging/windows/package.ps1",
+      "find": "artcraft-launcher-<version>-windows-<arch>-portable.zip   artcraft-launcher.exe + portable.txt",
+      "replace": "flowapps-launcher-<version>-windows-<arch>-portable.zip   flowapps-launcher.exe + portable.txt"
+    },
+    {
+      "file": "packaging/windows/package.ps1",
+      "find": "# cache go to ArtCraftLauncherData\\ next to the exe instead of %APPDATA%.",
+      "replace": "# cache go to FlowAppsData\\ next to the exe instead of %APPDATA%."
+    },
+    {
+      "file": "packaging/windows/package.ps1",
+      "find": "$Pkg = 'artcraft-launcher'          # cargo package and binary",
+      "replace": "$Pkg = 'flowapps-launcher'          # cargo package and binary"
+    },
+    {
+      "file": "packaging/windows/package.ps1",
+      "find": "Build, sign and package ArtCraft Launcher for Windows.",
+      "replace": "Build, sign and package FlowApps for Windows."
+    },
+    {
+      "file": "packaging/windows/package.ps1",
+      "find": "$AppName = 'ArtCraft Launcher'      # display name",
+      "replace": "$AppName = 'FlowApps'      # display name"
+    },
+    {
+      "file": "packaging/windows/portable.txt",
+      "find": "If ArtCraftLauncherData can't be written (for example on a read-only drive), ArtCraft Launcher says",
+      "replace": "If FlowAppsLauncherData can't be written (for example on a read-only drive), FlowApps says"
+    },
+    {
+      "file": "packaging/windows/portable.txt",
+      "find": "Delete this file to use the normal per-user settings folder (%APPDATA%\\ArtCraft Launcher) instead.",
+      "replace": "Delete this file to use the normal per-user settings folder (%APPDATA%\\FlowApps) instead."
+    },
+    {
+      "file": "packaging/windows/portable.txt",
+      "find": "download cache and its record of installed apps in the ArtCraftLauncherData folder beside it, and",
+      "replace": "download cache and its record of installed apps in the FlowAppsLauncherData folder beside it, and"
+    },
+    {
+      "file": "packaging/windows/portable.txt",
+      "find": "writes nothing to %APPDATA%. Copy the whole folder to move ArtCraft Launcher with its settings.",
+      "replace": "writes nothing to %APPDATA%. Copy the whole folder to move FlowApps with its settings."
+    },
+    {
+      "file": "packaging/windows/portable.txt",
+      "find": "While this file sits next to artcraft-launcher.exe, ArtCraft Launcher keeps its settings, its",
+      "replace": "While this file sits next to flowapps-launcher.exe, FlowApps keeps its settings, its"
+    },
+    {
+      "file": "packaging/windows/portable.txt",
+      "find": "so and uses %APPDATA%\\ArtCraft Launcher instead.",
+      "replace": "so and uses %APPDATA%\\FlowApps instead."
+    },
+    {
+      "file": "packaging/windows/portable.txt",
+      "find": "ArtCraft Launcher portable mode",
+      "replace": "FlowApps portable mode"
+    },
+    {
+      "file": "packaging/windows/sign.ps1",
+      "find": "$common = @('sign', '/v', '/fd', 'SHA256', '/td', 'SHA256', '/d', 'ArtCraft Launcher', '/du', 'https://github.com/storytold/craft-launcher')",
+      "replace": "$common = @('sign', '/v', '/fd', 'SHA256', '/td', 'SHA256', '/d', 'FlowApps', '/du', 'https://github.com/storytold/craft-launcher')"
+    },
+    {
+      "file": "packaging/windows/sign.ps1",
+      "find": "$tmp = Join-Path ([IO.Path]::GetTempPath()) \"artcraft-launcher-sign-$([IO.Path]::GetRandomFileName())\"",
+      "replace": "$tmp = Join-Path ([IO.Path]::GetTempPath()) \"flowapps-launcher-sign-$([IO.Path]::GetRandomFileName())\""
+    },
+    {
+      "file": "packaging/windows/sign.ps1",
+      "find": "pwsh packaging/windows/sign.ps1 dist/artcraft-launcher.exe dist/artcraft-launcher.msi",
+      "replace": "pwsh packaging/windows/sign.ps1 dist/flowapps-launcher.exe dist/flowapps-launcher.msi"
+    },
+    {
+      "file": "xtask/src/icns.rs",
+      "find": "let path = crate::root().join(\"assets/app-icon/artcraft-launcher.icns\");",
+      "replace": "let path = crate::root().join(\"assets/app-icon/flowapps-launcher.icns\");"
+    },
+    {
+      "file": "xtask/src/ico.rs",
+      "find": "let path = crate::root().join(\"assets/app-icon/artcraft-launcher.ico\");",
+      "replace": "let path = crate::root().join(\"assets/app-icon/flowapps-launcher.ico\");"
+    },
+    {
+      "file": "xtask/src/local.rs",
+      "find": "then: FLOWAPPS_LAUNCHER_DOWNLOAD_BASE=http://127.0.0.1:8787/ cargo run -p artcraft-launcher --features local-mirror",
+      "replace": "then: FLOWAPPS_LAUNCHER_DOWNLOAD_BASE=http://127.0.0.1:8787/ cargo run -p flowapps-launcher --features local-mirror"
+    },
+    {
+      "file": "xtask/src/local.rs",
+      "find": "println!(\"launch:  FLOWAPPS_LAUNCHER_DOWNLOAD_BASE={base} cargo run -p artcraft-launcher --features local-mirror\");",
+      "replace": "println!(\"launch:  FLOWAPPS_LAUNCHER_DOWNLOAD_BASE={base} cargo run -p flowapps-launcher --features local-mirror\");"
+    },
+    {
+      "file": "xtask/src/main.rs",
+      "find": "const WASM_PACKAGES: &[&str] = &[\"artcraft-launcher-core\", \"artcraft-launcher-web\"];",
+      "replace": "const WASM_PACKAGES: &[&str] = &[\"flowapps-launcher-core\", \"flowapps-launcher-web\"];"
+    }
+  ],
+  "prepend": [
+    {
+      "file": "CLAUDE.md",
+      "marker": "<!-- FlowApps Launcher (rebrand/apply.py) -->",
+      "lines": [
+        "<!-- FlowApps Launcher (rebrand/apply.py) -->",
+        "# FlowApps Launcher",
+        "",
+        "This repository is the **FlowApps Launcher**, a fork of ArtCraft Launcher. Read `docs/UPSTREAM.md` first. In short:",
+        "",
+        "- Never hand-edit a file that came from upstream to change branding, ids, links or icons: add the",
+        "  change to `rebrand/brand.json` and run `python3 rebrand/apply.py`, so it survives the next upstream merge.",
+        "- FlowApps features (the catalog, Settings, self-update, release-candidate channel) are ordinary",
+        "  commits: in a merge conflict keep both sides by hand, never blanket \"take theirs\".",
+        "- Crates are `flowapps_launcher*`, environment variables `FLOWAPPS_LAUNCHER_*` (the \"tokens\" in brand.json).",
+        ""
+      ]
+    }
+  ],
+  "append": [
+    {
+      "file": ".gitignore",
+      "marker": "# Brand sources are kept outside the repo",
+      "lines": [
+        "",
+        "# Brand sources are kept outside the repo",
+        "/brand/",
+        "# Local/generated files (repo audit)",
+        ".DS_Store"
+      ]
+    },
+    {
+      "file": ".gitattributes",
+      "marker": "# FlowApps Launcher (rebrand/apply.py)",
+      "lines": [
+        "",
+        "# FlowApps Launcher (rebrand/apply.py): files we replace whole keep our version in a merge.",
+        "# Needs `git config merge.ours.driver true` once per clone (docs/UPSTREAM.md).",
+        "README.md merge=ours",
+        "NOTICE merge=ours",
+        "AGENTS.md merge=ours",
+        "ATTRIBUTION.md merge=ours",
+        "crates/core/catalog.toml merge=ours",
+        "assets/app-icon/** merge=ours",
+        "assets/app-icons/** merge=ours"
+      ]
+    }
+  ]
+}
