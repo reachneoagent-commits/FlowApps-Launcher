@@ -70,8 +70,8 @@ pub const REPOS: &[Repo] = &[
     Repo {
         name: "Gramflow",
         repo: "reachneoagent-commits/gramflow",
-        check: None,
-        prepare: None,
+        check: Some("upstream-watch.yml"),
+        prepare: Some("upstream-merge.yml"),
         release: Some(Release::Workflow("gramflow-release.yml")),
     },
     Repo { name: "Voxflow", repo: "reachneoagent-commits/voxflow", check: CHECK, prepare: PREPARE, release: Some(Release::Workflow("release.yml")) },
@@ -81,7 +81,7 @@ pub const REPOS: &[Repo] = &[
         name: "Writeflow",
         repo: "reachneoagent-commits/writeflow",
         check: CHECK,
-        prepare: None,
+        prepare: PREPARE,
         release: Some(Release::WorkflowWithVersion { file: "release-app.yml", input: "version" }),
     },
     Repo {
@@ -94,7 +94,8 @@ pub const REPOS: &[Repo] = &[
     Repo {
         name: "Irisflow",
         repo: "reachneoagent-commits/irisflow",
-        check: None,
+        // Not a fork: the check reports newer LiveKit releases; updates come as Dependabot PRs.
+        check: CHECK,
         prepare: None,
         release: Some(Release::WorkflowWithVersion { file: "release-app.yml", input: "version" }),
     },

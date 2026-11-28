@@ -240,8 +240,8 @@ mod tests {
 
     /// Every catalog entry must have a distinct lookup key.
     #[test]
-    fn suite_has_eight_apps_with_unique_ids() {
-        assert_eq!(SUITE.len(), 8);
+    fn suite_has_twelve_apps_with_unique_ids() {
+        assert_eq!(SUITE.len(), 12);
         let mut ids: Vec<_> = SUITE.iter().map(|a| a.id).collect();
         ids.sort_unstable();
         ids.dedup();
